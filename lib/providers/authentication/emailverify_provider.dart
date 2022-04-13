@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:huong_nghiep/screens/signin_screen.dart';
+
+import '../../screens/authentication/signin_screen.dart';
 
 class EmailVerifyProvider extends ChangeNotifier {
   bool _isLoading = false;
@@ -13,10 +16,10 @@ class EmailVerifyProvider extends ChangeNotifier {
   bool _currentState = false;
   get currentState => _currentState;
   get isLoading => _isLoading;
-  String title = "Just one more step";
+  String title = "Chỉ một bước nữa";
   String description =
-      "We have sent a verification link to this email. Please check your email and confirm";
-  String buttonContent = "Go to Login";
+      "Chúng tôi đã gửi một liên kết xác minh đến email này. Vui lòng kiểm tra email của bạn và xác nhận";
+  String buttonContent = "Đi đến đăng nhập";
   void setIsLoading(value) {
     _isLoading = value;
     notifyListeners();
@@ -30,7 +33,7 @@ class EmailVerifyProvider extends ChangeNotifier {
     // } else {
     //   Get.to(const SignInScreen());
     // }
-    // Get.to(SignInScreen());
+    Get.to(SignInScreen());
   }
 
   Future<String> sendEmailVerification() async {
@@ -38,7 +41,7 @@ class EmailVerifyProvider extends ChangeNotifier {
       setIsLoading(true);
       await _user.sendEmailVerification();
       setIsLoading(false);
-      Get.snackbar("Email sent", "An email has been sent to ${_user.email}");
+      Get.snackbar("Gửi Email", "Một email vừa được gửi tới ${_user.email}");
       return "success";
     }
     return "failed";

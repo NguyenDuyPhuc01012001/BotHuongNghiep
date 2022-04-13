@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:huong_nghiep/models/practice.dart';
 
 enum CustomInputFieldType { text, password }
-enum PracticeType { listening, reading, test }
+
 const double defaultPadding = 4.0;
-// horizontal spacing
 
 const Widget horizontalSpaceTiny = SizedBox(width: 5.0);
 const Widget horizontalSpaceSmall = SizedBox(width: 10.0);

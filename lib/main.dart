@@ -1,13 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/firebase_options.dart';
-import 'package:huong_nghiep/providers/email_verify_provider.dart';
-import 'package:huong_nghiep/providers/resetpassword_provider.dart';
-import 'package:huong_nghiep/providers/signin_provider.dart';
-import 'package:huong_nghiep/providers/signup_provider.dart';
-import 'package:huong_nghiep/screens/home_screen.dart';
+import 'package:huong_nghiep/providers/authentication/emailverify_provider.dart';
+import 'package:huong_nghiep/providers/authentication/signin_provider.dart';
+import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
+import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:huong_nghiep/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,30 +24,19 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<SignInProvider>(
             create: (context) => SignInProvider()),
-        ChangeNotifierProvider<ResetPasswordProvider>(
-            create: (context) => ResetPasswordProvider()),
         ChangeNotifierProvider<SignUpProvider>(
             create: (context) => SignUpProvider()),
         ChangeNotifierProvider<EmailVerifyProvider>(
             create: (context) => EmailVerifyProvider())
       ],
       child: GetMaterialApp(
-          title: 'Flutter Demo',
+          title: 'Tư vấn hướng nghiệp',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: HomeScreen(),
+          home: SignInScreen(),
           routes: <String, WidgetBuilder>{
             // '/signin': (BuildContext context) => SignInScreen(),
           }),

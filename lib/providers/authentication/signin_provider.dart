@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/resources/auth_methods.dart';
-import 'package:huong_nghiep/screens/home_screen.dart';
+import 'package:huong_nghiep/screens/home/home_screen.dart';
+
+import '../../resources/auth_methods.dart';
 
 class SignInProvider extends ChangeNotifier {
   bool _isValid = true;
@@ -14,7 +15,7 @@ class SignInProvider extends ChangeNotifier {
       {required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
       _isValid = false;
-      _errorMessage = "Please fill up all the field";
+      _errorMessage = "Vui lòng nhập đầy đủ thông tin";
       notifyListeners();
       return _errorMessage;
     }
@@ -29,6 +30,7 @@ class SignInProvider extends ChangeNotifier {
       Get.to(const HomeScreen());
     } else {
       _isValid = false;
+      notifyListeners();
     }
 
     _isLoading = false;
