@@ -30,6 +30,7 @@ class SignInProvider extends ChangeNotifier {
       Get.to(const HomeScreen());
     } else {
       _isValid = false;
+      notifyListeners();
     }
 
     _isLoading = false;

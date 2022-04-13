@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huong_nghiep/screens/chatbot_screen.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
@@ -39,17 +40,24 @@ class _HomeScreenState extends State<HomeScreen> {
         style: kBottomNavigationItemStyle,
       ),
     ),
-    const Center(
-      child: Text(
-        'Index 4: Cài đặt',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
+    // const Center(
+    //   child: Text(
+    //     'Index 4: Cài đặt',
+    //     style: kBottomNavigationItemStyle,
+    //   ),
+    // ),
+    ChatbotScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_currentIndex),
+      // floatingActionButton: FloatingActionButton(
+      //     // When the button is pressed,
+      //     // give focus to the text field using myFocusNode.
+      //     onPressed: () => ChatbotScreen(),
+      //     tooltip: 'Focus Second Text Field',
+      //     child: const Icon(Icons.edit)),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onItemTapped,

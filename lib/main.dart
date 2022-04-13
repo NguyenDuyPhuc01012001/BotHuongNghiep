@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           ),
           home: SignInScreen(),
           routes: <String, WidgetBuilder>{
-            '/signin': (BuildContext context) => SignInScreen(),
+            // '/signin': (BuildContext context) => SignInScreen(),
           }),
     );
   }

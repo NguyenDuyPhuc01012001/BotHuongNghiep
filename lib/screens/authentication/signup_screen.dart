@@ -33,8 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _confirmPasswordVisible = false;
   }
 
-  final TextEditingController _firstName = TextEditingController();
-  final TextEditingController _lastName = TextEditingController();
+  final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
@@ -42,70 +41,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _isProcessing = false;
   var _isClose = false;
 
-  Future signUp() async {
-    final isValid = formKey.currentState!.validate();
-    if (!isValid) return;
-
-    // setState(() {
-    //   _isProcessing = true;
-    // });
-    // User? user = await FireAuth.registerUsingEmailPassword(
-    //   name: _firstName.text + " " + _lastName.text,
-    //   email: _email.text,
-    //   password: _pass.text,
-    // );
-
-    // setState(() {
-    //   _isProcessing = false;
-    // });
-
-    // if (user != null) {
-    //   showAlertDialog(context);
-    //   Navigator.pop(context);
-    //   print("Done");
-    // }
-  }
-
   bool _isValid = true;
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () {
-      showAlertDialog(BuildContext context) {
-        // set up the button
-        // Widget okButton = TextButton(
-        //   child: Text("OK"),
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        // );
-
-        // // set up the AlertDialog
-        // AlertDialog alert = AlertDialog(
-        //   title: Text("Verify"),
-        //   content: Text("We had sent you a verification. Please check your email."),
-        //   actions: [
-        //     okButton,
-        //   ],
-        // );
-
-        // // show the dialog
-        // showDialog(
-        //   context: context,
-        //   builder: (BuildContext context) {
-        //     return alert;
-        //   },
-        // );
-        // AwesomeDialog(
-        //   context: context,
-        //   dialogType: DialogType.INFO,
-        //   animType: AnimType.BOTTOMSLIDE,
-        //   title: 'Dialog Title',
-        //   desc: 'Dialog description here.............',
-        //   btnCancelOnPress: () {},
-        //   btnOkOnPress: () {},
-        // ).show();
-      }
-    });
     final signUpProvider = Provider.of<SignUpProvider>(context);
     Size screenSize = MediaQuery.of(context).size;
     return Form(
@@ -125,63 +63,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
-                    controller: _firstName,
-                    decoration: const InputDecoration(
-                      labelText: 'Họ của bạn',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Không được để trống họ";
-                      } else {
-                        return null;
-                      }
-                    },
-                  )),
-              // verticalSpaceSmall,
-              SizedBox(
-                  height: screenSize.height * 0.1,
-                  child: TextFormField(
-                    controller: _lastName,
+                    controller: _name,
                     decoration: const InputDecoration(
                       labelText: 'Tên của bạn',
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Không được để trống tên";
-                      } else {
-                        return null;
-                      }
+                      if (value!.isEmpty) return "Không được để trống tên";
+                      return null;
                     },
                   )),
-              // verticalSpaceSmall,
-              // Container(
-              //     height: screenSize.height * 0.1,
-              //     child: TextFormField(
-              //       keyboardType: TextInputType.number,
-              //       inputFormatters: <TextInputFormatter>[
-              //         FilteringTextInputFormatter.digitsOnly
-              //       ], // Only n
-              //       decoration: InputDecoration(
-              //         labelText: 'Mobile Number',
-              //         border: OutlineInputBorder(),
-              //       ),
-              //       validator: (value) {
-              //         if (value!.isEmpty) {
-              //           return "Mobile Number is required.";
-              //         }
-              //         if (value.length != 10) {
-              //           return "Mobile Number must have 10 characters.";
-              //         }
-              //         return null;
-              //       },
-              //     )),
-              // verticalSpaceSmall,
               SizedBox(
                   height: screenSize.height * 0.1,
                   child: TextFormField(
-                    keyboardType: TextInputType.number,
                     controller: _email,
                     decoration: const InputDecoration(
                       labelText: 'Địa chỉ email',
@@ -297,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onPress: () async {
                       if (formKey.currentState!.validate()) {
                         await signUpProvider.signUp(
-                          name: _firstName.text + " " + _lastName.text,
+                          name: _name.text,
                           email: _email.text,
                           password: _pass.text,
                         );
