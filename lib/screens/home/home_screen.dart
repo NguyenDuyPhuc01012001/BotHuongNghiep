@@ -1,5 +1,11 @@
+// ignore_for_file: prefer_final_fields, prefer_const_constructors
+
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:huong_nghiep/screens/chatbot_screen.dart';
+import 'package:huong_nghiep/widgets/home/menu_widget.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
@@ -13,6 +19,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
+  //State class
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   ///Thay widget cua minh vao day
   static final List<Widget> _widgetOptions = <Widget>[
@@ -39,67 +48,44 @@ class _HomeScreenState extends State<HomeScreen> {
         'Index 3: Giải đáp',
         style: kBottomNavigationItemStyle,
       ),
-    ),
-    // const Center(
-    //   child: Text(
-    //     'Index 4: Cài đặt',
-    //     style: kBottomNavigationItemStyle,
-    //   ),
-    // ),
-    ChatbotScreen(),
+    )
   ];
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    var themeValue = MediaQuery.of(context).platformBrightness;
     return Scaffold(
-      body: _widgetOptions.elementAt(_currentIndex),
-      // floatingActionButton: FloatingActionButton(
-      //     // When the button is pressed,
-      //     // give focus to the text field using myFocusNode.
-      //     onPressed: () => ChatbotScreen(),
-      //     tooltip: 'Focus Second Text Field',
-      //     child: const Icon(Icons.edit)),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.games,
-                color:
-                    _currentIndex == 0 ? kPrimaryColor : kUnselectedIconColor,
-              ),
-              label: "Trắc nghiệm"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.school,
-                color:
-                    _currentIndex == 1 ? kPrimaryColor : kUnselectedIconColor,
-              ),
-              label: "Trường Nghề"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.newspaper,
-                color:
-                    _currentIndex == 2 ? kPrimaryColor : kUnselectedIconColor,
-              ),
-              label: "Tin tức"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.question_answer,
-                color:
-                    _currentIndex == 3 ? kPrimaryColor : kUnselectedIconColor,
-              ),
-              label: "Giải đáp"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.settings,
-                color:
-                    _currentIndex == 4 ? kPrimaryColor : kUnselectedIconColor,
-              ),
-              label: "Cài đặt")
-        ],
-        fixedColor: kPrimaryColor,
+      appBar: AppBar(
+        backgroundColor: themeValue == Brightness.dark
+            ? const Color(0xff3C3A3A)
+            : const Color(0xffBFBFBF),
+        leading: MenuWidget(),
+        centerTitle: true,
+        title: Text(
+          'Trang chủ',
+          style: TextStyle(
+              color:
+                  themeValue == Brightness.dark ? Colors.white : Colors.black),
+        ),
       ),
+      body: _widgetOptions.elementAt(_currentIndex),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.to(ChatbotScreen()),
+        child: const Icon(Icons.chat_bubble_outline),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+          height: screenSize.height * 0.08,
+          key: _bottomNavigationKey,
+          color: kPrimaryColor,
+          backgroundColor: kcWhiteColor,
+          items: const <Widget>[
+            Icon(Icons.games, color: kcWhiteColor),
+            Icon(Icons.school, color: kcWhiteColor),
+            Icon(Icons.newspaper, color: kcWhiteColor),
+            Icon(Icons.question_answer, color: kcWhiteColor)
+          ],
+          onTap: _onItemTapped,
+          letIndexChange: _isCurrentPage),
     );
   }
 
@@ -107,5 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _currentIndex = value;
     });
+  }
+
+  bool _isCurrentPage(int value) {
+    return _currentIndex != value;
   }
 }

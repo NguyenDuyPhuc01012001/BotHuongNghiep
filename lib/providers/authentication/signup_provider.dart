@@ -33,7 +33,7 @@ class SignUpProvider extends ChangeNotifier {
 
     if (_errorMessage == "Success") {
       _isValid = true;
-      Get.to(EmailVerifyScreen());
+      Get.off(EmailVerifyScreen());
     } else {
       _isValid = false;
       notifyListeners();

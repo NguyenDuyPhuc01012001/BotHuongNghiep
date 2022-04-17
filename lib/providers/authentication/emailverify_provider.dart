@@ -33,7 +33,7 @@ class EmailVerifyProvider extends ChangeNotifier {
     // } else {
     //   Get.to(const SignInScreen());
     // }
-    Get.to(SignInScreen());
+    Get.off(SignInScreen());
   }
 
   Future<String> sendEmailVerification() async {

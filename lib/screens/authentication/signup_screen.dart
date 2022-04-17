@@ -105,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _pass,
                   decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: "Password",
+                      labelText: "Mật khẩu",
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
