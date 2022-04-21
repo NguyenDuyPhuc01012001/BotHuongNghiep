@@ -3,18 +3,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/menu/setting_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/home/home_provider.dart';
 
 class NavBarDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final homeProvider = Provider.of<HomeProvider>(context);
+    homeProvider.getCurrentUser();
     return Drawer(
       child: ListView(
         // Remove padding
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com'),
-            accountEmail: Text('example@gmail.com'),
+            accountName: Text(homeProvider.userName),
+            accountEmail: Text(homeProvider.userEmail),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(

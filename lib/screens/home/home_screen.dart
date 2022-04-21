@@ -3,11 +3,15 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/providers/home/home_provider.dart';
+import 'package:huong_nghiep/resources/auth_methods.dart';
+import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 
 import 'package:huong_nghiep/screens/chatbot_screen.dart';
 import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
@@ -24,8 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //State class
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  final GlobalKey<ScaffoldState> _scaffoldState =
-      new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<HomeProvider>(context, listen: false).getCurrentUser();
+    });
+  }
 
   ///Thay widget cua minh vao day
   static final List<Widget> _widgetOptions = <Widget>[
@@ -48,6 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     var themeValue = MediaQuery.of(context).platformBrightness;
+
+    final homeProvider = Provider.of<HomeProvider>(context);
+
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
@@ -65,6 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
               color:
                   themeValue == Brightness.dark ? Colors.white : Colors.black),
         ),
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  {AuthMethods().signOut(), Get.offAll(SignInScreen())},
+              icon: Icon(Icons.logout_outlined))
+        ],
       ),
       drawer: NavBarDrawer(),
       body: _widgetOptions.elementAt(_currentIndex),

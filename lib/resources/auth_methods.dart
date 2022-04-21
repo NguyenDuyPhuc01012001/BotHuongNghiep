@@ -1,11 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
-import "package:http/http.dart" as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import '../model/user.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -56,6 +54,15 @@ class AuthMethods {
       if (email.isNotEmpty && password.isNotEmpty) {
         UserCredential userCredential = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
+
+        FirebaseAuth.instance.authStateChanges().listen((User? user) {
+          if (user == null) {
+            print('User is not login');
+          } else {
+            print('User is signed in!');
+          }
+        });
+
         print(userCredential.user!.email);
       }
     } on FirebaseAuthException catch (e) {
@@ -71,5 +78,16 @@ class AuthMethods {
       }
     }
     return result;
+  }
+
+  Future<UserApp> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snap =
+        await _firestore.collection("users").doc(currentUser.uid).get();
+    return UserApp.fromSnap(snap);
+  }
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }
