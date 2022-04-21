@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:huong_nghiep/screens/chatbot_screen.dart';
-import 'package:huong_nghiep/widgets/home/menu_widget.dart';
+import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
+import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
+import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
@@ -22,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //State class
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldState =
+      new GlobalKey<ScaffoldState>();
 
   ///Thay widget cua minh vao day
   static final List<Widget> _widgetOptions = <Widget>[
@@ -31,21 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
         style: kBottomNavigationItemStyle,
       ),
     ),
+    JobsWidget(),
+    NewsWidget(),
     const Center(
       child: Text(
-        'Index 1: Trường Nghề',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
-    const Center(
-      child: Text(
-        'Index 2: Tin tức',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
-    const Center(
-      child: Text(
-        'Index 3: Giải đáp',
+        'Index 4: Giải đáp',
         style: kBottomNavigationItemStyle,
       ),
     )
@@ -55,11 +49,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Size screenSize = MediaQuery.of(context).size;
     var themeValue = MediaQuery.of(context).platformBrightness;
     return Scaffold(
+      key: _scaffoldState,
       appBar: AppBar(
         backgroundColor: themeValue == Brightness.dark
             ? const Color(0xff3C3A3A)
             : const Color(0xffBFBFBF),
-        leading: MenuWidget(),
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () => _scaffoldState.currentState!.openDrawer(),
+        ),
         centerTitle: true,
         title: Text(
           'Trang chủ',
@@ -68,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   themeValue == Brightness.dark ? Colors.white : Colors.black),
         ),
       ),
+      drawer: NavBarDrawer(),
       body: _widgetOptions.elementAt(_currentIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(ChatbotScreen()),
@@ -80,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: kcWhiteColor,
           items: const <Widget>[
             Icon(Icons.games, color: kcWhiteColor),
-            Icon(Icons.school, color: kcWhiteColor),
+            Icon(Icons.work, color: kcWhiteColor),
             Icon(Icons.newspaper, color: kcWhiteColor),
             Icon(Icons.question_answer, color: kcWhiteColor)
           ],

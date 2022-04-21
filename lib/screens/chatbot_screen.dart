@@ -115,7 +115,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     });
 
     DetectIntentResponse response = await dialogFlowtter.detectIntent(
-      queryInput: QueryInput(text: TextInput(text: text)),
+      queryInput: QueryInput(text: TextInput(text: text, languageCode: "vi")),
     );
 
     if (response.message == null) return;
@@ -201,7 +201,7 @@ class _MessageContainer extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Text(
               message.text?.text?[0] ?? '',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),

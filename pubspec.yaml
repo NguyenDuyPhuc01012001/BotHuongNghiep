@@ -46,6 +46,8 @@ dependencies:
   shared_preferences: ^2.0.13
   curved_navigation_bar: ^1.0.3
   flutter_zoom_drawer: ^3.0.1
+  cached_network_image: ^3.2.0
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +85,9 @@ flutter:
         - asset: assets/fonts/Roboto-Regular.ttf
         - asset: assets/fonts/Roboto-Bold.ttf
           weight: 700
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

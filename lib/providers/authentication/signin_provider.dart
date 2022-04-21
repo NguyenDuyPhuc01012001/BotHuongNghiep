@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/home_screen.dart';
-import 'package:huong_nghiep/screens/menu/drawer_screen.dart';
 
 import '../../resources/auth_methods.dart';
 
@@ -28,7 +27,7 @@ class SignInProvider extends ChangeNotifier {
         await AuthMethods().loginUser(email: email, password: password);
     if (_errorMessage == "Login success") {
       _isValid = true;
-      Get.offAll(const DrawerScreen());
+      Get.offAll(const HomeScreen());
     } else {
       _isValid = false;
       notifyListeners();
