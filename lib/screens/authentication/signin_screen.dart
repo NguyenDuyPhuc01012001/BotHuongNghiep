@@ -32,7 +32,7 @@ class SignInScreen extends StatelessWidget {
               return const LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black])
+                      colors: [Colors.transparent, Colors.black54])
                   .createShader(
                       Rect.fromLTRB(0, -140, rect.width, rect.height * 0.8));
             },
@@ -40,7 +40,7 @@ class SignInScreen extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: ExactAssetImage("assets/images/background.jpg"),
+                      image: ExactAssetImage("assets/images/backgroundv2.jpg"),
                       fit: BoxFit.fill)),
             ),
           ),
@@ -62,7 +62,7 @@ class SignInScreen extends StatelessWidget {
                             width: 100,
                           ),
                           const Text(
-                            "CAAD",
+                            "X-JOB",
                             style: TextStyle(color: Colors.white, fontSize: 80),
                           )
                         ],

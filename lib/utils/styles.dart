@@ -27,3 +27,12 @@ const TextStyle ktsMediumLabelInputText = TextStyle(
 
 const TextStyle kBottomNavigationItemStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+TextStyle kItemText = TextStyle(
+    fontSize: h5, fontWeight: FontWeight.w600, color: Colors.grey[700]);
+
+const kTitle =
+    TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
+
+const kDescription =
+    TextStyle(color: Colors.white, fontSize: h3, fontWeight: FontWeight.normal);
