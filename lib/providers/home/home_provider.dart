@@ -17,6 +17,16 @@ class HomeProvider extends ChangeNotifier {
     });
   }
 
+  void updateUserEmail(String email) {
+    userEmail = email;
+    notifyListeners();
+  }
+
+  void updateUserName(String name) {
+    userName = name;
+    notifyListeners();
+  }
+
   void signOut() {
     AuthMethods().signOut();
     Get.offAll(SignInScreen());
