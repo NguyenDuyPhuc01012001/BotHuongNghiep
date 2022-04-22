@@ -24,7 +24,7 @@ class NavBarDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           GestureDetector(
-            onTap: () => Get.to(AccountScreen),
+            onTap: () => Get.to(AccountScreen()),
             child: UserAccountsDrawerHeader(
               accountName: Text(homeProvider.userName),
               accountEmail: Text(homeProvider.userEmail),
@@ -50,22 +50,22 @@ class NavBarDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.favorite),
             title: Text('Favorites'),
-            onTap: () => Get.to(FavoriteScreen),
+            onTap: () => Get.to(FavoriteScreen()),
           ),
           ListTile(
             leading: Icon(Icons.account_box_outlined),
             title: Text('Quản lý tài khoản'),
-            onTap: () => Get.to(AdminManageScreen),
+            onTap: () => Get.to(AdminManageScreen()),
           ),
           ListTile(
             leading: Icon(Icons.info_outline),
             title: Text('Quản lý thông tin'),
-            onTap: () => Get.to(JobManageScreen),
+            onTap: () => Get.to(JobManageScreen()),
           ),
           ListTile(
             leading: Icon(Icons.question_answer_outlined),
             title: Text('Trả lời câu hỏi'),
-            onTap: () => Get.to(QuestionSolutionScreen),
+            onTap: () => Get.to(QuestionSolutionScreen()),
             trailing: ClipOval(
               child: Container(
                 color: Colors.red,
@@ -87,12 +87,12 @@ class NavBarDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Cài đặt'),
-            onTap: () => Get.to(SettingScreen),
+            onTap: () => Get.to(SettingScreen()),
           ),
           ListTile(
             leading: Icon(Icons.description),
             title: Text('Chính sách ứng dụng'),
-            onTap: () => Get.to(PoliceScreen),
+            onTap: () => Get.to(PoliceScreen()),
           ),
           Divider(),
           ListTile(
