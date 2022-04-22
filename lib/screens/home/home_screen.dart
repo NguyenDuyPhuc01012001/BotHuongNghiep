@@ -4,17 +4,16 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
-import 'package:huong_nghiep/resources/auth_methods.dart';
-import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 
-import 'package:huong_nghiep/screens/chatbot_screen.dart';
+import 'package:huong_nghiep/screens/chatbot/chatbot_screen.dart';
 import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
+import 'package:huong_nghiep/widgets/home/quiz/quiz_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/colors.dart';
-import '../../utils/styles.dart';
+import '../../widgets/home/answer/answers_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -41,20 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   ///Thay widget cua minh vao day
   static final List<Widget> _widgetOptions = <Widget>[
-    const Center(
-      child: Text(
-        'Index 0: Trắc nghiệm',
-        style: kBottomNavigationItemStyle,
-      ),
-    ),
+    QuizWidget(),
     JobsWidget(),
     NewsWidget(),
-    const Center(
-      child: Text(
-        'Index 4: Giải đáp',
-        style: kBottomNavigationItemStyle,
-      ),
-    )
+    QuestionAnswerWidget(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -82,8 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () =>
-                  {AuthMethods().signOut(), Get.offAll(SignInScreen())},
+              onPressed: () => homeProvider.signOut(),
               icon: Icon(Icons.logout_outlined))
         ],
       ),

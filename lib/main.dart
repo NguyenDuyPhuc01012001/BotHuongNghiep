@@ -10,17 +10,24 @@ import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 import 'package:huong_nghiep/screens/home/home_screen.dart';
+import 'package:huong_nghiep/screens/onboarding/on_boarding_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:huong_nghiep/firebase_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final pref = await SharedPreferences.getInstance();
+  final showHome = pref.getBool('showHome') ?? false;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(MyApp(showHome: showHome));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.showHome}) : super(key: key);
+
+  final bool showHome;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -42,9 +49,11 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: FirebaseAuth.instance.currentUser == null
-              ? SignInScreen()
-              : HomeScreen(),
+          home: showHome
+              ? FirebaseAuth.instance.currentUser == null
+                  ? SignInScreen()
+                  : HomeScreen()
+              : OnBoardingScreen(),
           routes: <String, WidgetBuilder>{
             // '/signin': (BuildContext context) => SignInScreen(),
           }),
