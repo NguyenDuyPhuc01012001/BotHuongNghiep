@@ -9,8 +9,8 @@ import 'package:huong_nghiep/providers/authentication/signin_provider.dart';
 import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
-import 'package:huong_nghiep/screens/home/home_screen.dart';
-import 'package:huong_nghiep/screens/onboarding/on_boarding_screen.dart';
+import 'package:huong_nghiep/screens/other/on_boarding_screen.dart';
+import 'package:huong_nghiep/screens/other/slashing_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:huong_nghiep/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           home: showHome
               ? FirebaseAuth.instance.currentUser == null
                   ? SignInScreen()
-                  : HomeScreen()
+                  : SplashingScreen()
               : OnBoardingScreen(),
           routes: <String, WidgetBuilder>{
             // '/signin': (BuildContext context) => SignInScreen(),
