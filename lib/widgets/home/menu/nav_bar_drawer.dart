@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/screens/menu/point_screen.dart';
 import 'package:huong_nghiep/screens/menu/profile_screen.dart';
 import 'package:huong_nghiep/screens/menu/admin_manage_screen.dart';
 import 'package:huong_nghiep/screens/menu/favorite_screen.dart';
@@ -51,6 +52,11 @@ class NavBarDrawer extends StatelessWidget {
             leading: Icon(Icons.favorite),
             title: Text('Favorites'),
             onTap: () => Get.to(FavoriteScreen()),
+          ),
+          ListTile(
+            leading: Icon(Icons.check_box_outlined),
+            title: Text('Favorites'),
+            onTap: () => Get.to(PointScreen()),
           ),
           ListTile(
             leading: Icon(Icons.account_box_outlined),

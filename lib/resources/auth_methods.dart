@@ -28,6 +28,8 @@ class AuthMethods {
         'name': name,
         'uid': userCredential.user!.uid,
         'email': email,
+        'isAdmin': false,
+        'image': ''
       });
       user = userCredential.user;
       await user!.updateDisplayName(name);
