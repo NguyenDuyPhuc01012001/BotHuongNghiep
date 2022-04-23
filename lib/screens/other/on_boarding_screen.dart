@@ -98,7 +98,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           prefs.setBool('showHome', true);
           Get.offAll(SignInScreen());
         },
-        onSkipButtonPressed: () => Get.offAll(SignInScreen()),
+        onSkipButtonPressed: () async {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('showHome', true);
+          Get.offAll(SignInScreen());
+        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/screens/home/home_screen.dart';
 import 'package:huong_nghiep/screens/other/slashing_screen.dart';
 
@@ -28,6 +29,8 @@ class SignInProvider extends ChangeNotifier {
         await AuthMethods().loginUser(email: email, password: password);
     if (_errorMessage == "Login success") {
       _isValid = true;
+      final HomeProvider homeProvider = HomeProvider();
+      homeProvider.getCurrentUser();
       Get.offAll(const SplashingScreen());
     } else {
       _isValid = false;
