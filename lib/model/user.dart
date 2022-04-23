@@ -1,19 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 
-class UserApp {
-  late final String? _email;
-  late final String? _name;
-  late final String? _uid;
-  late final String? _image;
-  bool? _isAdmin = false;
+class UserData {
+  late String _email;
+  late String _name;
+  late String _uid;
+  late String _image;
+  bool _isAdmin = false;
 
-  UserApp(
-      {String? email,
-      String? name,
-      String? uid,
-      String? image,
-      bool? isAdmin}) {
+  UserData(
+      {required String email,
+      required String name,
+      required String uid,
+      required String image,
+      required bool isAdmin}) {
     _email = email;
     _name = name;
     _uid = uid;
@@ -21,11 +20,11 @@ class UserApp {
     _isAdmin = isAdmin;
   }
 
-  String? get email => _email;
-  String? get name => _name;
-  String? get uid => _uid;
-  String? get image => _image;
-  bool? get isAdmin => _isAdmin;
+  String get email => _email;
+  String get name => _name;
+  String get uid => _uid;
+  String get image => _image;
+  bool get isAdmin => _isAdmin;
 
   setName(String name) {
     _name = name;
@@ -47,10 +46,10 @@ class UserApp {
         'isAdmin': _isAdmin
       };
 
-  static UserApp fromSnap(DocumentSnapshot snap) {
+  static UserData fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
-    return UserApp(
+    return UserData(
         email: snapshot['email'],
         name: snapshot['name'],
         uid: snapshot['uid'],

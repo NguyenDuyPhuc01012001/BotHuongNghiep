@@ -3,14 +3,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:huong_nghiep/model/storage.dart';
 import 'package:huong_nghiep/model/user.dart';
+import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-
-import '../../../model/user_data.dart';
+import 'package:provider/provider.dart';
 
 class EditImageWidget extends StatefulWidget {
   const EditImageWidget({Key? key}) : super(key: key);
@@ -20,9 +21,12 @@ class EditImageWidget extends StatefulWidget {
 }
 
 class _EditImageWidgetState extends State<EditImageWidget> {
-  final user = UserData.myUser;
+  final storage = Storage();
+
   @override
   Widget build(BuildContext context) {
+    final homeProvider = Provider.of<HomeProvider>(context);
+    var filePath = '';
     return Scaffold(
       appBar: AppBarProfileWidget(context),
       body: Column(
@@ -54,9 +58,23 @@ class _EditImageWidgetState extends State<EditImageWidget> {
                       final imageFile = File('${location.path}/$name');
                       final newImage =
                           await File(image.path).copy(imageFile.path);
-                      setState(() => user.setImage(newImage.path));
+                      homeProvider.setImage(newImage.path);
+                      filePath = newImage.path;
+                      print(filePath);
                     },
-                    child: Image.network(user.image!),
+                    child: homeProvider.user.image == ''
+                        ? Image.network(
+                            'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                          )
+                        : Image.file(
+                            File(homeProvider.user.image),
+                            fit: BoxFit.cover,
+                            width: 200,
+                            height: 200,
+                          ),
                   ))),
           Padding(
               padding: EdgeInsets.only(top: 40),
@@ -66,11 +84,15 @@ class _EditImageWidgetState extends State<EditImageWidget> {
                     width: 330,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Update',
-                        style: TextStyle(fontSize: 15),
-                      ),
+                      onPressed: homeProvider.updateImageToStorage,
+                      child: homeProvider.isLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              'Update',
+                              style: TextStyle(fontSize: 15),
+                            ),
                     ),
                   )))
         ],

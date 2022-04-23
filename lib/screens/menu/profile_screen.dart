@@ -2,11 +2,8 @@
 
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/user.dart';
-import 'package:huong_nghiep/model/user_data.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:huong_nghiep/widgets/home/profile/display_image_widget.dart';
@@ -50,9 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 imagePath: image,
                 onPressed: () {},
               )),
-          buildUserInfoDisplay(homeProvider.userName, 'Tên', EditNameWidget()),
+          buildUserInfoDisplay(homeProvider.user.name, 'Tên', EditNameWidget()),
           buildUserInfoDisplay(
-              homeProvider.userEmail, 'Email', EditEmailWidget()),
+              homeProvider.user.email, 'Email', EditEmailWidget()),
         ],
       ),
     );

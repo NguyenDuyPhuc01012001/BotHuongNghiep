@@ -7,7 +7,6 @@ import 'package:string_validator/string_validator.dart';
 import 'package:huong_nghiep/model/user.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 
-import '../../../model/user_data.dart';
 import '../../../providers/home/home_provider.dart';
 
 class EditNameWidget extends StatefulWidget {
@@ -60,7 +59,7 @@ class _EditNameWidgetState extends State<EditNameWidget> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Hãy nhập tên của bạn';
-                              } else if (!isAlpha(value)) {
+                              } else if (isNumeric(value)) {
                                 return 'Tên chỉ được phép ký tự';
                               }
                               return null;
@@ -78,8 +77,7 @@ class _EditNameWidgetState extends State<EditNameWidget> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate() &&
-                            isAlpha(nameController.text)) {
+                        if (_formKey.currentState!.validate()) {
                           homeProvider.updateUserName(nameController.text);
                           Get.back();
                         }

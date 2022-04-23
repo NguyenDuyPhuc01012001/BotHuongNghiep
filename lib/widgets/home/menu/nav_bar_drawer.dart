@@ -27,8 +27,8 @@ class NavBarDrawer extends StatelessWidget {
           GestureDetector(
             onTap: () => Get.to(ProfileScreen()),
             child: UserAccountsDrawerHeader(
-              accountName: Text(homeProvider.userName),
-              accountEmail: Text(homeProvider.userEmail),
+              accountName: Text(homeProvider.user.name),
+              accountEmail: Text(homeProvider.user.email),
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
                   child: Image.network(

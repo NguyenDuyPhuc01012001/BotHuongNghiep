@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/user.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/user_data.dart';
 import '../../../providers/home/home_provider.dart';
 
 class EditEmailWidget extends StatefulWidget {
