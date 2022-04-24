@@ -13,12 +13,12 @@ import 'package:huong_nghiep/screens/menu/setting_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/home/home_provider.dart';
+import '../../../resources/auth_methods.dart';
 
 class NavBarDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomeProvider>(context);
-    homeProvider.getCurrentUser();
     return Drawer(
       child: ListView(
         // Remove padding
@@ -32,7 +32,7 @@ class NavBarDrawer extends StatelessWidget {
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
                   child: Image.network(
-                    'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
+                    homeProvider.user.image,
                     fit: BoxFit.cover,
                     width: 90,
                     height: 90,

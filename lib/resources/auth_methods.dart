@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:huong_nghiep/resources/firebase_handle.dart';
 
 import '../model/user.dart';
 
@@ -29,7 +30,7 @@ class AuthMethods {
         'uid': userCredential.user!.uid,
         'email': email,
         'isAdmin': false,
-        'image': ''
+        'image': await FirebaseHandler.getDefaultImage()
       });
       user = userCredential.user;
       await user!.updateDisplayName(name);
@@ -64,8 +65,6 @@ class AuthMethods {
             print('User is signed in!');
           }
         });
-
-        print(userCredential.user!.email);
       }
     } on FirebaseAuthException catch (e) {
       print("error return " + e.code);
@@ -84,12 +83,14 @@ class AuthMethods {
 
   Future<UserData> getUserDetails() async {
     User currentUser = _auth.currentUser!;
+    print('Auth Medthod + ' + currentUser.email!);
     DocumentSnapshot snap =
         await _firestore.collection("users").doc(currentUser.uid).get();
+    print(snap);
     return UserData.fromSnap(snap);
   }
 
-  void signOut() async {
-    await FirebaseAuth.instance.signOut();
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }

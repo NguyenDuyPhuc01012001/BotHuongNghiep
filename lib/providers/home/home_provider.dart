@@ -1,20 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/storage.dart';
 import 'package:huong_nghiep/model/user.dart';
 import 'package:huong_nghiep/resources/auth_methods.dart';
+import 'package:huong_nghiep/resources/firebase_handle.dart';
 
 import '../../screens/authentication/signin_screen.dart';
 
 class HomeProvider extends ChangeNotifier {
-  Future<UserData> currentUser = AuthMethods().getUserDetails();
-
-  late final UserData user;
+  late UserData user;
   bool isLoading = false;
 
-  void getCurrentUser() async {
-    currentUser.then((data) {
+  Future<void> getCurrentUser() async {
+    await AuthMethods().getUserDetails().then((data) {
       user = UserData(
           email: data.email,
           name: data.name,
@@ -29,32 +28,34 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateUserName(String name) {
+  void updateUserName(String name) async {
     user.setName(name);
+    await FirebaseHandler.updateNameFirestore(name, user.uid);
     notifyListeners();
   }
 
-  void signOut() {
-    AuthMethods().signOut();
+  void signOut() async {
+    await AuthMethods().signOut();
     Get.offAll(SignInScreen());
   }
 
   setImage(String path) {
     user.setImage(path);
-    print('set: ' + user.image);
     notifyListeners();
   }
 
-  updateImageToStorage() {
-    final storage = Storage();
-    print(user.image);
-
+  updateImageToStorage(String filePath) async {
     isLoading = true;
     notifyListeners();
 
-    storage
-        .uploadFile(user.image, user.uid)
-        .then((value) => {isLoading = false, Get.back()});
-    notifyListeners();
+    await FirebaseHandler.uploadFile(filePath, user.uid).then((value) async {
+      isLoading = false;
+      Get.back();
+      UserData userAfter = await FirebaseHandler.getUser(user.uid);
+      user.setImage(userAfter.image);
+      print('Image Update: ' + user.image);
+      print('Get back');
+      notifyListeners();
+    });
   }
 }

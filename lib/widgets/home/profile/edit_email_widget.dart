@@ -72,7 +72,10 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                         onPressed: () {
                           // Validate returns true if the form is valid, or false otherwise.
                           if (_formKey.currentState!.validate() &&
-                              EmailValidator.validate(emailController.text)) {
+                              EmailValidator.validate(emailController.text) &&
+                              emailController.text
+                                      .compareTo(homeProvider.user.email) !=
+                                  0) {
                             homeProvider.updateUserEmail(emailController.text);
                             Get.back();
                           }
