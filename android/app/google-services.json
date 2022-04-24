@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "161385731577",
+    "project_id": "huong-nghiep",
+    "storage_bucket": "huong-nghiep.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161385731577:android:a3f1cbc62a42cee7dd5928",
+        "android_client_info": {
+          "package_name": "com.example.huong_nghiep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161385731577-dr9nenbgo3m4iq9v72ua74t5l8po175i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8ejG7Hm327HEfqRdLPzh5dke3Vc_TOLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161385731577-dr9nenbgo3m4iq9v72ua74t5l8po175i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "161385731577-ugoegbmp47386rmhena4pfoieqi0r020.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.huongNghiep"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

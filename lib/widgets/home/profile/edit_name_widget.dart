@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
-import 'package:huong_nghiep/model/user.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 
-import '../../../model/user_data.dart';
 import '../../../providers/home/home_provider.dart';
 
 class EditNameWidget extends StatefulWidget {
@@ -56,11 +54,10 @@ class _EditNameWidgetState extends State<EditNameWidget> {
                           height: 100,
                           width: 320,
                           child: TextFormField(
-                            // Handles Form Validation for First Name
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Hãy nhập tên của bạn';
-                              } else if (!isAlpha(value)) {
+                              } else if (isNumeric(value)) {
                                 return 'Tên chỉ được phép ký tự';
                               }
                               return null;
@@ -79,7 +76,9 @@ class _EditNameWidgetState extends State<EditNameWidget> {
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate() &&
-                            isAlpha(nameController.text)) {
+                            nameController.text
+                                    .compareTo(homeProvider.user.name) !=
+                                0) {
                           homeProvider.updateUserName(nameController.text);
                           Get.back();
                         }

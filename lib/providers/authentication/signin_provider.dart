@@ -29,8 +29,6 @@ class SignInProvider extends ChangeNotifier {
         await AuthMethods().loginUser(email: email, password: password);
     if (_errorMessage == "Login success") {
       _isValid = true;
-      final HomeProvider homeProvider = HomeProvider();
-      homeProvider.getCurrentUser();
       Get.offAll(const SplashingScreen());
     } else {
       _isValid = false;

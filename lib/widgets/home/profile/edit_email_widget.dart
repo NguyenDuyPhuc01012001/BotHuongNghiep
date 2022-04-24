@@ -3,11 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/user.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/user_data.dart';
 import '../../../providers/home/home_provider.dart';
 
 class EditEmailWidget extends StatefulWidget {
@@ -74,7 +72,10 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                         onPressed: () {
                           // Validate returns true if the form is valid, or false otherwise.
                           if (_formKey.currentState!.validate() &&
-                              EmailValidator.validate(emailController.text)) {
+                              EmailValidator.validate(emailController.text) &&
+                              emailController.text
+                                      .compareTo(homeProvider.user.email) !=
+                                  0) {
                             homeProvider.updateUserEmail(emailController.text);
                             Get.back();
                           }

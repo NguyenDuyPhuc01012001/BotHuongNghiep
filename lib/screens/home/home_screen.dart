@@ -12,6 +12,7 @@ import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
 import 'package:huong_nghiep/widgets/home/quiz/quiz_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../resources/auth_methods.dart';
 import '../../utils/colors.dart';
 import '../../widgets/home/answer/answers_widget.dart';
 
@@ -32,10 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<HomeProvider>(context, listen: false).getCurrentUser();
-    });
   }
 
   ///Thay widget cua minh vao day
@@ -51,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var themeValue = MediaQuery.of(context).platformBrightness;
 
     final homeProvider = Provider.of<HomeProvider>(context);
+    homeProvider.getCurrentUser();
 
     return Scaffold(
       key: _scaffoldState,

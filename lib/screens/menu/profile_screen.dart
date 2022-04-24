@@ -2,11 +2,8 @@
 
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/user.dart';
-import 'package:huong_nghiep/model/user_data.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:huong_nghiep/widgets/home/profile/display_image_widget.dart';
@@ -26,7 +23,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomeProvider>(context);
-    final image = "assets/images/default_avatar.jpg";
     return Scaffold(
       appBar: AppBarProfileWidget(context),
       body: Column(
@@ -47,12 +43,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Get.to(EditImageWidget());
               },
               child: DisplayImageWidget(
-                imagePath: image,
+                imagePath: homeProvider.user.image,
                 onPressed: () {},
               )),
-          buildUserInfoDisplay(homeProvider.userName, 'Tên', EditNameWidget()),
+          buildUserInfoDisplay(homeProvider.user.name, 'Tên', EditNameWidget()),
           buildUserInfoDisplay(
-              homeProvider.userEmail, 'Email', EditEmailWidget()),
+              homeProvider.user.email, 'Email', EditEmailWidget()),
         ],
       ),
     );
@@ -96,10 +92,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               getValue!,
                               style: TextStyle(fontSize: 16, height: 1.4),
                             ))),
-                    Icon(
-                      Icons.keyboard_arrow_right,
-                      color: Colors.grey,
-                      size: 40.0,
+                    IconButton(
+                      onPressed: () {
+                        Get.to(editPage);
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.grey,
+                        size: 40.0,
+                      ),
                     )
                   ]))
             ],
