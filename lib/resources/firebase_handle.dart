@@ -73,4 +73,25 @@ class FirebaseHandler {
     print(urlString);
     return urlString;
   }
+
+  static Future<void> deleteNews(id) {
+    return newsFR
+        .doc(id)
+        .delete()
+        .then((value) => print('News Deleted'))
+        .catchError((error) => print('Failed to Delete news: $error'));
+  }
+
+  static getNewsData() async {
+    List newsList = [];
+    await newsFR.get().then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        Map val = doc.data() as Map<String, dynamic>;
+        val['id'] = doc.id;
+        newsList.add(val);
+      }
+    });
+    print('News: ' + newsList.toString());
+    return newsList;
+  }
 }

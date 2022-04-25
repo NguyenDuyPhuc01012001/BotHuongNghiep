@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
+import 'package:huong_nghiep/resources/firebase_reference.dart';
 
 import '../model/user.dart';
 
@@ -24,14 +25,20 @@ class AuthMethods {
         password: password,
       );
 
-      //add user to database
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+      //add user include favorite to database
+      await userFR.doc(userCredential.user!.uid).set({
         'name': name,
         'uid': userCredential.user!.uid,
         'email': email,
         'isAdmin': false,
         'image': await FirebaseHandler.getDefaultImage()
       });
+
+      await userFR
+          .doc(userCredential.user!.uid)
+          .collection('favorite')
+          .add({'favoriteID': '', 'favoriteType': ''});
+
       user = userCredential.user;
       await user!.updateDisplayName(name);
       await user.reload();

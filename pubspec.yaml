@@ -53,6 +53,8 @@ dependencies:
   image_picker: ^0.8.5
   string_validator: ^0.3.0
   email_validator: ^2.0.1
+  intl: ^0.17.0
+  firestore_search: ^0.1.9
 
 dev_dependencies:
   flutter_test:
