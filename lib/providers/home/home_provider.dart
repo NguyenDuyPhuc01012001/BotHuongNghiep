@@ -12,16 +12,15 @@ class HomeProvider extends ChangeNotifier {
   late UserData user;
   bool isLoading = false;
 
-  Future<void> getCurrentUser() async {
-    await AuthMethods().getUserDetails().then((data) {
-      user = UserData(
-          email: data.email,
-          name: data.name,
-          uid: data.uid,
-          image: data.image,
-          isAdmin: data.isAdmin);
-    });
-  }
+  Future<void> getCurrentUser() async =>
+      await AuthMethods().getUserDetails().then((data) {
+        user = UserData(
+            email: data.email,
+            name: data.name,
+            uid: data.uid,
+            image: data.image,
+            isAdmin: data.isAdmin);
+      });
 
   void updateUserEmail(String email) {
     user.setEmail(email);

@@ -32,7 +32,7 @@ TextStyle kItemText = TextStyle(
     fontSize: h5, fontWeight: FontWeight.w600, color: Colors.grey[700]);
 
 const kTitle =
-    TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
+    TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500);
 
 const kDescription =
-    TextStyle(color: Colors.white, fontSize: h3, fontWeight: FontWeight.normal);
+    TextStyle(color: Colors.black, fontSize: h3, fontWeight: FontWeight.normal);

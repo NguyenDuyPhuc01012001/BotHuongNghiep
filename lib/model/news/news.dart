@@ -1,30 +1,50 @@
-class News {
-  late String _title;
-  late String _image;
-  late String _source;
-  late String _sourceImage;
-  late String _time;
-  late String _description;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huong_nghiep/resources/support_function.dart';
 
-  String get title => _title;
-  String get image => _image;
-  String get source => _source;
-  String get sourceImage => _sourceImage;
-  String get time => _time;
-  String get description => _description;
+class News {
+  late String? id;
+  late String? title;
+  late String? image;
+  late String? source;
+  late String? sourceImage;
+  late String? time;
+  late String? description;
 
   News(
-      {required String title,
-      required String image,
-      required String source,
-      required String sourceImage,
-      required String time,
-      required String description}) {
-    _title = title;
-    _image = image;
-    _source = source;
-    _sourceImage = sourceImage;
-    _time = time;
-    _description = description;
+      {this.id,
+      this.title,
+      this.image,
+      this.source,
+      this.sourceImage,
+      this.time,
+      this.description});
+
+  static List<News> dataListFromSnapshot(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs.map((snapshot) {
+      final Map<String, dynamic> dataMap =
+          snapshot.data() as Map<String, dynamic>;
+
+      return News(
+          id: snapshot.id,
+          title: dataMap['title'],
+          image: dataMap['image'],
+          source: dataMap['source'],
+          sourceImage: dataMap['sourceImage'],
+          time: readTimestamp(dataMap['time']),
+          description: dataMap['description']);
+    }).toList();
+  }
+
+  static News fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return News(
+        id: snap.id,
+        title: snapshot['title'],
+        image: snapshot['image'],
+        source: snapshot['source'],
+        sourceImage: snapshot['sourceImage'],
+        time: readTimestamp(snapshot['time']),
+        description: snapshot['description']);
   }
 }
