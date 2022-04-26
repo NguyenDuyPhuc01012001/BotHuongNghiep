@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:huong_nghiep/widgets/home/news/list_title_news.dart';
 import 'package:huong_nghiep/widgets/home/news/news_carousel.dart';
-import 'package:provider/provider.dart';
-
-import '../../../providers/news/news_provider.dart';
 
 class NewsWidget extends StatelessWidget {
   const NewsWidget({Key? key}) : super(key: key);

@@ -1,7 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:huong_nghiep/screens/manageNews/update_news_screen.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 
 import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
@@ -14,7 +19,7 @@ class NewsManageBody extends StatefulWidget {
 }
 
 class _NewsManageBodyState extends State<NewsManageBody> {
-  final Stream<QuerySnapshot> newsStream = newsFR.snapshots();
+  Stream<QuerySnapshot> newsStream = newsFR.snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -35,7 +40,6 @@ class _NewsManageBodyState extends State<NewsManageBody> {
             newsdocs.add(a);
             a['id'] = document.id;
           }).toList();
-          print(newsdocs);
 
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -53,12 +57,15 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                       TableCell(
                         child: Container(
                           color: Colors.greenAccent,
-                          child: Center(
-                            child: Text(
-                              'Title',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Tiêu đề',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -67,12 +74,15 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                       TableCell(
                         child: Container(
                           color: Colors.greenAccent,
-                          child: Center(
-                            child: Text(
-                              'Action',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Chức năng',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -84,9 +94,13 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                     TableRow(
                       children: [
                         TableCell(
-                          child: Center(
-                              child: Text(newsdocs[i]['title'],
-                                  style: TextStyle(fontSize: 14.0))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            child: Center(
+                                child: Text(newsdocs[i]['title'],
+                                    style: TextStyle(fontSize: 14.0))),
+                          ),
                         ),
                         TableCell(
                           child: Row(
@@ -94,13 +108,8 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                             children: [
                               IconButton(
                                 onPressed: () => {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => UpdateStudentPage(
-                                  //         id: newsdocs[i]['id']),
-                                  //   ),
-                                  // )
+                                  Get.to(UpdateNewsScreen(
+                                      newsPostID: newsdocs[i]['id']))
                                 },
                                 icon: Icon(
                                   Icons.edit,
@@ -108,8 +117,37 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () => {
-                                  FirebaseHandler.deleteNews(newsdocs[i]['id'])
+                                onPressed: () {
+                                  Dialogs.materialDialog(
+                                      msg: 'Bạn có muốn xoá tin tức này không?',
+                                      title: "Xoá",
+                                      color: Colors.white,
+                                      context: context,
+                                      actions: [
+                                        IconsOutlineButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          text: 'Cancel',
+                                          iconData: Icons.cancel_outlined,
+                                          textStyle:
+                                              TextStyle(color: Colors.grey),
+                                          iconColor: Colors.grey,
+                                        ),
+                                        IconsButton(
+                                          onPressed: () async {
+                                            await FirebaseHandler.deleteNews(
+                                                    newsdocs[i]['id'])
+                                                .whenComplete(() => Get.back());
+                                          },
+                                          text: 'Xoá',
+                                          iconData: Icons.delete,
+                                          color: Colors.red,
+                                          textStyle:
+                                              TextStyle(color: Colors.white),
+                                          iconColor: Colors.white,
+                                        ),
+                                      ]);
                                 },
                                 icon: Icon(
                                   Icons.delete,

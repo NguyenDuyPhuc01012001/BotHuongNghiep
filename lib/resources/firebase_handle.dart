@@ -81,16 +81,17 @@ class FirebaseHandler {
       print("Here is the URL of Image $url");
       urlString = url;
     });
-    print(urlString);
     return urlString;
   }
 
   static Future<void> deleteNews(id) {
-    return newsFR
-        .doc(id)
-        .delete()
-        .then((value) => print('News Deleted'))
-        .catchError((error) => print('Failed to Delete news: $error'));
+    return newsFR.doc(id).delete().then((value) {
+      FirebaseStorage.instance.ref("news/$id").listAll().then((value) {
+        for (var element in value.items) {
+          FirebaseStorage.instance.ref(element.fullPath).delete();
+        }
+      });
+    }).catchError((error) => print('Failed to Delete news: $error'));
   }
 
   static getNewsData() async {
@@ -102,7 +103,6 @@ class FirebaseHandler {
         newsList.add(val);
       }
     });
-    print('News: ' + newsList.toString());
     return newsList;
   }
 
@@ -148,7 +148,7 @@ class FirebaseHandler {
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return newsFR.add({
+    return await newsFR.add({
       'title': title,
       'description': description,
       'source': user.name,
@@ -157,5 +157,23 @@ class FirebaseHandler {
     }).then((value) async {
       await uploadNewsImage(filePath, value.id);
     }).catchError((error) => print('Failed to Add news: $error'));
+  }
+
+  static Future<void> updateNews(
+      String newsID, String title, String description, String filePath) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await newsFR
+        .doc(newsID)
+        .update({
+          'title': title,
+          'description': description,
+          'source': user.name,
+          'sourceImage': user.image,
+          'time': myTimeStamp
+        })
+        .then((value) async => await uploadNewsImage(filePath, newsID))
+        .catchError((error) => print("Failed to update user: $error"));
   }
 }

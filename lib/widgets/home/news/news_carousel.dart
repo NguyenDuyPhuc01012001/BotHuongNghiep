@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +9,21 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/news/news.dart';
-import '../../../providers/news/news_provider.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../screens/home/news/news_page_screen.dart';
-import '../../../utils/values.dart';
 
-class NewsCarousel extends StatelessWidget {
-  NewsCarousel({Key? key}) : super(key: key);
-  final StaticValues staticValues = StaticValues();
+class NewsCarousel extends StatefulWidget {
+  const NewsCarousel({Key? key}) : super(key: key);
 
   @override
+  State<NewsCarousel> createState() => _NewsCarouselState();
+}
+
+class _NewsCarouselState extends State<NewsCarousel> {
+  final _random = Random();
+  bool _isFirst = true;
+  @override
   Widget build(BuildContext context) {
-    final newsProvider = Provider.of<NewsProvider>(context);
     final Stream<QuerySnapshot> newsStream = newsFR.snapshots();
     List<News> newsdocs = [];
     return StreamBuilder<QuerySnapshot>(
@@ -34,8 +39,17 @@ class NewsCarousel extends StatelessWidget {
           }
 
           snapshot.data!.docs.map((DocumentSnapshot document) {
-            News news = News.fromSnap(document);
-            newsdocs.add(news);
+            if (_isFirst) {
+              _isFirst = false;
+              News news = News.fromSnap(document);
+              newsdocs.add(news);
+            } else {
+              var number = _random.nextInt(50);
+              if (number % 2 == 0) {
+                News news = News.fromSnap(document);
+                newsdocs.add(news);
+              }
+            }
           }).toList();
 
           return CarouselSlider(
@@ -43,7 +57,6 @@ class NewsCarousel extends StatelessWidget {
               height: 250.0,
             ),
             items: newsdocs.map((news) {
-              print('Is Rerun');
               return Builder(
                 builder: (BuildContext context) {
                   return GestureDetector(
@@ -77,11 +90,6 @@ class NewsCarousel extends StatelessWidget {
                                     Color(0xCC000000),
                                   ],
                                 ),
-                                // image: DecorationImage(
-                                //     colorFilter: new ColorFilter.mode(
-                                //         Colors.black, BlendMode.dstATop),
-                                //     image: NetworkImage(news.image),
-                                //     fit: BoxFit.cover),
                                 borderRadius: BorderRadius.circular(20)),
                           ),
                           Align(

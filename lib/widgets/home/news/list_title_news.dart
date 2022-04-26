@@ -5,18 +5,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/news/news_page_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../../../model/news/news.dart';
-import '../../../providers/news/news_provider.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../resources/support_function.dart';
 import '../../../utils/styles.dart';
-import '../../../utils/values.dart';
 
-class ListTitleNews extends StatelessWidget {
+class ListTitleNews extends StatefulWidget {
   const ListTitleNews({Key? key}) : super(key: key);
 
+  @override
+  State<ListTitleNews> createState() => _ListTitleNewsState();
+}
+
+class _ListTitleNewsState extends State<ListTitleNews> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> newsStream = newsFR.snapshots();
@@ -78,7 +80,7 @@ class ListTitleNews extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "${newsdocs[i].description.toString().split(' ').length >= 200 ? (newsdocs[i].description.toString().split(' ').length / 200).floor() : (newsdocs[i].description.toString().split(' ').length / 200 * 60).floor()} ${newsdocs[i].description.toString().split(' ').length >= 200 ? "mins" : "secs"} read",
+                                      "${newsdocs[i].description!.split(' ').length >= 200 ? (newsdocs[i].description!.split(' ').length / 200).floor() : (newsdocs[i].description!.split(' ').length / 200 * 60).floor()} ${newsdocs[i].description!.split(' ').length >= 200 ? "phút" : "giây"} đọc",
                                       style: kItemText,
                                     ),
                                     Text(

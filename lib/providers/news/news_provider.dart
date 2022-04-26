@@ -3,17 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 
 class NewsProvider extends ChangeNotifier {
-  bool isFetching = false;
-  String search = "";
-  List newsList = [];
+  bool isFavorite = false;
 
-  getNewsData() async {
-    isFetching = true;
-    notifyListeners();
-
-    newsList = await FirebaseHandler.getNewsData();
-
-    isFetching = false;
+  updateIsFavorite() {
+    isFavorite = !isFavorite;
     notifyListeners();
   }
 }

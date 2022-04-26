@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
@@ -180,7 +179,6 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                             if (filePath != "") {
                               FirebaseHandler.addNews(
                                   title, description, filePath);
-                              clearText();
                               Get.back();
                             }
                             // addNews();
