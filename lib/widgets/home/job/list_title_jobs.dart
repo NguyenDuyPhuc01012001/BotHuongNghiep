@@ -3,7 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/jobs/jobs.dart';
+import 'package:huong_nghiep/models/jobs/jobs.dart';
 import 'package:huong_nghiep/screens/home/jobs/jobs_page_screen.dart';
 import 'package:huong_nghiep/utils/styles.dart';
 

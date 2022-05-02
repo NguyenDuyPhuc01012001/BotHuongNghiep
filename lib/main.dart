@@ -10,6 +10,7 @@ import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/providers/news/news_provider.dart';
 import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
+import 'package:huong_nghiep/screens/home/test/test_screen.dart';
 import 'package:huong_nghiep/screens/other/on_boarding_screen.dart';
 import 'package:huong_nghiep/screens/other/slashing_screen.dart';
 import 'package:provider/provider.dart';
@@ -52,11 +53,13 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: showHome
-              ? FirebaseAuth.instance.currentUser == null
-                  ? SignInScreen()
-                  : SplashingScreen()
-              : OnBoardingScreen(),
+          home:
+              // TestScreen(),
+              showHome
+                  ? FirebaseAuth.instance.currentUser == null
+                      ? SignInScreen()
+                      : SplashingScreen()
+                  : OnBoardingScreen(),
           routes: <String, WidgetBuilder>{
             // '/signin': (BuildContext context) => SignInScreen(),
           }),

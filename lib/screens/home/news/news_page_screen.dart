@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
 import 'package:provider/provider.dart';
 
-import '../../../model/news/news.dart';
+import '../../../models/news/news.dart';
 import '../../../providers/news/news_provider.dart';
 import '../../../utils/styles.dart';
 

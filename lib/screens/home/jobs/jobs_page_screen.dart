@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/utils/styles.dart';
 
-import '../../../model/jobs/jobs.dart';
+import '../../../models/jobs/jobs.dart';
 
 class JobPageScreen extends StatelessWidget {
   final Jobs jobsPost;

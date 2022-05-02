@@ -1,5 +1,5 @@
-import '../model/jobs/jobs.dart';
-import '../model/news/news.dart';
+import '../models/jobs/jobs.dart';
+import '../models/news/news.dart';
 
 class StaticValues {
   List<News> news = [

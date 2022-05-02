@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-import 'package:huong_nghiep/model/user.dart';
+import 'package:huong_nghiep/models/user.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
 
