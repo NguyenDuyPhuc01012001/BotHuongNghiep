@@ -42,3 +42,9 @@ const contentStyleHeader = TextStyle(
     color: Color(0xff999999), fontSize: 14, fontWeight: FontWeight.w700);
 const ktsContentAccordion = TextStyle(
     color: Color(0xff999999), fontSize: 14, fontWeight: FontWeight.normal);
+
+const kDescriptionBoldItalic = TextStyle(
+    color: Colors.black,
+    fontSize: h3,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.italic);

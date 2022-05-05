@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:huong_nghiep/widgets/home/job/jobs_carousel.dart';
-import 'package:huong_nghiep/widgets/home/job/jos_search_bar.dart';
 import 'package:huong_nghiep/widgets/home/job/list_title_jobs.dart';
 
 class JobsWidget extends StatelessWidget {
@@ -20,23 +19,15 @@ class JobsWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [JobSearchBar(), SizedBox(height: 10)],
-                    ),
-                  ),
-                  SizedBox(height: 5),
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 16.0, right: 16.0, bottom: 8.0, top: 4.0),
                     child: Text(
-                      "Nghề nghiệp ngẫu nhiên",
+                      "Bài đăng ngẫu nhiên",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
-                  JobCarousel(),
+                  JobsCarousel(),
                   SizedBox(
                     height: 15,
                   ),
@@ -44,7 +35,7 @@ class JobsWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 16.0, right: 16.0, top: 8.0),
                     child: Text(
-                      "Danh sách nghề nghiệp",
+                      "Danh sách bài đăng",
                       style: TextStyle(fontSize: 24),
                     ),
                   ),

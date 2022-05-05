@@ -1,22 +1,61 @@
-class Jobs {
-  late String _title;
-  late String _image;
-  late String _time;
-  late String _description;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  String get title => _title;
-  String get image => _image;
-  String get time => _time;
-  String get description => _description;
+import '../../resources/support_function.dart';
+
+class Jobs {
+  late String? id;
+  late String? title;
+  late String? image;
+  late String? source;
+  late String? sourceImage;
+  late String? time;
+  late String? define;
+  late String? income;
+  late String? qualities;
 
   Jobs(
-      {required String title,
-      required String image,
-      required String time,
-      required String description}) {
-    _title = title;
-    _image = image;
-    _time = time;
-    _description = description;
+      {this.id,
+      this.title,
+      this.image,
+      this.source,
+      this.sourceImage,
+      this.time,
+      this.define,
+      this.income,
+      this.qualities});
+
+  static List<Jobs> dataListFromSnapshot(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs.map((snapshot) {
+      final Map<String, dynamic> dataMap =
+          snapshot.data() as Map<String, dynamic>;
+
+      return Jobs(
+        id: snapshot.id,
+        title: dataMap['title'],
+        image: dataMap['image'],
+        source: dataMap['source'],
+        sourceImage: dataMap['sourceImage'],
+        time: readTimestamp(dataMap['time']),
+        define: dataMap['define'],
+        income: dataMap['income'],
+        qualities: dataMap['qualities'],
+      );
+    }).toList();
+  }
+
+  static Jobs fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+
+    return Jobs(
+      id: snap.id,
+      title: snapshot['title'],
+      image: snapshot['image'],
+      source: snapshot['source'],
+      sourceImage: snapshot['sourceImage'],
+      time: readTimestamp(snapshot['time']),
+      define: snapshot['define'],
+      income: snapshot['income'],
+      qualities: snapshot['qualities'],
+    );
   }
 }

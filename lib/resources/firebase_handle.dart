@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:huong_nghiep/models/user.dart';
+import 'package:huong_nghiep/models/news/news.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
 
@@ -33,6 +34,14 @@ class FirebaseHandler {
     await doc
         .update({'name': name})
         .then((value) => print("User Updated Names"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static updateRoleFirestore(bool isAdmin, String uid) async {
+    var doc = userFR.doc(uid);
+    await doc
+        .update({'isAdmin': isAdmin})
+        .then((value) => print("User Updated Role"))
         .catchError((error) => print("Failed to update user: $error"));
   }
 
@@ -114,7 +123,7 @@ class FirebaseHandler {
           .ref('news/$newsID/news_image.jpg')
           .putFile(file)
           .then((taskSnapshot) async {
-        print("task done");
+        print("news task done");
 
         // download url when it is uploaded
         if (taskSnapshot.state == TaskState.success) {
@@ -122,11 +131,40 @@ class FirebaseHandler {
               .ref('news/$newsID/news_image.jpg')
               .getDownloadURL()
               .then((url) async {
-            print("Here is the URL of Image $url");
+            print("Here is the URL of News Image $url");
 
             await FirebaseHandler.updateNewsImageToFirestore(url, newsID);
           }).catchError((onError) {
-            print("Got Error $onError");
+            print("News Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  static Future<void> uploadJobsImage(String filePath, String jobsID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('jobs/$jobsID/jobs_image.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("jobs task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('jobs/$jobsID/jobs_image.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of Jobs Image $url");
+
+            await FirebaseHandler.updateJobsImageToFirestore(url, jobsID);
+          }).catchError((onError) {
+            print("Jobs Got Error $onError");
           });
         }
       });
@@ -141,6 +179,14 @@ class FirebaseHandler {
         .update({'image': url})
         .then((value) => print("News Updated Image"))
         .catchError((error) => print("Failed to update news: $error"));
+  }
+
+  static updateJobsImageToFirestore(String url, String jobsID) async {
+    var doc = jobsFR.doc(jobsID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("Jobs Updated Image"))
+        .catchError((error) => print("Failed to update jobs: $error"));
   }
 
   static Future<void> addNews(
@@ -174,6 +220,107 @@ class FirebaseHandler {
           'time': myTimeStamp
         })
         .then((value) async => await uploadNewsImage(filePath, newsID))
-        .catchError((error) => print("Failed to update user: $error"));
+        .catchError((error) => print("Failed to update news: $error"));
+  }
+
+  static addToFavorite(
+      String id, String type, String title, String image) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    return await favoriteFR
+        .add({
+          'favoriteID': id,
+          'favoriteType': type,
+          'title': title,
+          'image': image,
+          'time': myTimeStamp
+        })
+        .then((value) => print("Add Favorite ${value.id} successfull"))
+        .catchError((error) => print("Failed to update favorite: $error"));
+  }
+
+  static deleteFromFavorite(String id) async {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    List<String> listID = [];
+    await favoriteFR
+        .where('favoriteID', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        listID.add(doc.id);
+      }
+    });
+    return favoriteFR.doc(listID.first).delete().then((value) {
+      print("Delete Favorite $id successful");
+    }).catchError((error) => print('Failed to Delete news: $error'));
+  }
+
+  static Stream<QuerySnapshot<Object?>> getListFavorite() async* {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    yield* favoriteFR.snapshots();
+  }
+
+  static getNewsByID(String id) async {
+    News news = News();
+    await newsFR.doc(id).get().then((value) {
+      news = News.fromSnap(value);
+    });
+
+    return news;
+  }
+
+  static Future<void> addJobs(String title, String define, String qualities,
+      String income, String filePath) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await jobsFR.add({
+      'title': title,
+      'define': define,
+      'qualities': qualities,
+      'income': income,
+      'source': user.name,
+      'sourceImage': user.image,
+      'time': myTimeStamp
+    }).then((value) async {
+      await uploadJobsImage(filePath, value.id);
+    }).catchError((error) => print('Failed to Add news: $error'));
+  }
+
+  static Future<void> updateJobs(String jobsID, String title, String define,
+      String qualities, String income, String filePath) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await jobsFR
+        .doc(jobsID)
+        .update({
+          'title': title,
+          'define': define,
+          'qualities': qualities,
+          'income': income,
+          'source': user.name,
+          'sourceImage': user.image,
+          'time': myTimeStamp
+        })
+        .then((value) async => await uploadJobsImage(filePath, jobsID))
+        .catchError((error) => print("Failed to update jobs: $error"));
+  }
+
+  static Future<void> deleteJobs(id) {
+    return jobsFR.doc(id).delete().then((value) {
+      FirebaseStorage.instance.ref("jobs/$id").listAll().then((value) {
+        for (var element in value.items) {
+          FirebaseStorage.instance.ref(element.fullPath).delete();
+        }
+      });
+    }).catchError((error) => print('Failed to Delete jobs: $error'));
   }
 }
