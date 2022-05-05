@@ -14,7 +14,6 @@ import 'package:huong_nghiep/screens/menu/setting_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/home/home_provider.dart';
-import '../../../resources/auth_methods.dart';
 
 class NavBarDrawer extends StatelessWidget {
   @override
@@ -59,42 +58,49 @@ class NavBarDrawer extends StatelessWidget {
             title: Text('Điểm số'),
             onTap: () => Get.to(PointScreen()),
           ),
-          ListTile(
-            leading: Icon(Icons.account_box_outlined),
-            title: Text('Quản lý tài khoản'),
-            onTap: () => Get.to(AdminManageScreen()),
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('Quản lý bài đăng'),
-            onTap: () => Get.to(JobManageScreen()),
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('Quản lý tin tức'),
-            onTap: () => Get.to(NewsManageScreen()),
-          ),
-          ListTile(
-            leading: Icon(Icons.question_answer_outlined),
-            title: Text('Trả lời câu hỏi'),
-            onTap: () => Get.to(QuestionSolutionScreen()),
-            trailing: ClipOval(
-              child: Container(
-                color: Colors.red,
-                width: 20,
-                height: 20,
-                child: Center(
-                  child: Text(
-                    '8',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
+          homeProvider.user.isAdmin
+              ? ListTile(
+                  leading: Icon(Icons.account_box_outlined),
+                  title: Text('Quản lý tài khoản'),
+                  onTap: () => Get.to(AdminManageScreen()))
+              : SizedBox(),
+          homeProvider.user.isAdmin
+              ? ListTile(
+                  leading: Icon(Icons.info_outline),
+                  title: Text('Quản lý bài đăng'),
+                  onTap: () => Get.to(JobsManageScreen()),
+                )
+              : SizedBox(),
+          homeProvider.user.isAdmin
+              ? ListTile(
+                  leading: Icon(Icons.info_outline),
+                  title: Text('Quản lý tin tức'),
+                  onTap: () => Get.to(NewsManageScreen()),
+                )
+              : SizedBox(),
+          homeProvider.user.isAdmin
+              ? ListTile(
+                  leading: Icon(Icons.question_answer_outlined),
+                  title: Text('Trả lời câu hỏi'),
+                  onTap: () => Get.to(QuestionSolutionScreen()),
+                  trailing: ClipOval(
+                    child: Container(
+                      color: Colors.red,
+                      width: 20,
+                      height: 20,
+                      child: Center(
+                        child: Text(
+                          '8',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          ),
+                )
+              : SizedBox(),
           Divider(),
           ListTile(
             leading: Icon(Icons.settings),

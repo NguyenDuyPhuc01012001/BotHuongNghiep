@@ -1,26 +1,38 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/resources/firebase_reference.dart';
-import 'package:provider/provider.dart';
+import 'package:huong_nghiep/utils/styles.dart';
 
-import '../../../model/news/news.dart';
-import '../../../providers/news/news_provider.dart';
-import '../../../utils/styles.dart';
+import '../../../model/jobs/jobs.dart';
+import '../../../resources/firebase_handle.dart';
+import '../../../resources/firebase_reference.dart';
 
-class NewsPageScreen extends StatelessWidget {
-  final String newsPostID;
-  const NewsPageScreen({Key? key, required this.newsPostID}) : super(key: key);
+class JobsPageScreen extends StatefulWidget {
+  final String JobsPostID;
+  const JobsPageScreen({Key? key, required this.JobsPostID}) : super(key: key);
+
+  @override
+  State<JobsPageScreen> createState() => _JobsPageScreenState();
+}
+
+class _JobsPageScreenState extends State<JobsPageScreen> {
+  Future addToFavorite(String id, String title, String image) async {
+    await FirebaseHandler.addToFavorite(id, "jobs", title, image);
+  }
+
+  Future deleteFavorite(String id) async {
+    await FirebaseHandler.deleteFromFavorite(id);
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final newsProvider = Provider.of<NewsProvider>(context);
     return Scaffold(
       body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          future: newsFR.doc(newsPostID).get(),
+          future: jobsFR.doc(widget.JobsPostID).get(),
           builder: (_, snapshot) {
             if (snapshot.hasError) {
               print('Something Went Wrong');
@@ -30,7 +42,7 @@ class NewsPageScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            News newsPost = News.fromSnap(snapshot.data!);
+            Jobs jobsPost = Jobs.fromSnap(snapshot.data!);
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -50,7 +62,7 @@ class NewsPageScreen extends StatelessWidget {
                         child: ClipRRect(
                             child: Image(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(newsPost.image!),
+                                image: NetworkImage(jobsPost.image!),
                                 height: size.height * 0.4,
                                 width: size.width)),
                       ),
@@ -97,7 +109,7 @@ class NewsPageScreen extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(top: 20),
                           child: Text(
-                            newsPost.title!,
+                            jobsPost.title!,
                             style: kTitle,
                           ),
                         ),
@@ -110,7 +122,7 @@ class NewsPageScreen extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       image:
-                                          NetworkImage(newsPost.sourceImage!))),
+                                          NetworkImage(jobsPost.sourceImage!))),
                             ),
                             Expanded(
                               child: Container(
@@ -120,13 +132,13 @@ class NewsPageScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      newsPost.source!,
+                                      jobsPost.source!,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      newsPost.time!,
+                                      jobsPost.time!,
                                       style: TextStyle(color: Colors.grey[600]),
                                     )
                                   ],
@@ -140,14 +152,45 @@ class NewsPageScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  IconButton(
-                                    icon: newsProvider.isFavorite
-                                        ? Icon(Icons.bookmark_outlined,
-                                            color: Colors.black, size: 30)
-                                        : Icon(Icons.bookmark_border_outlined,
-                                            color: Colors.black, size: 30),
-                                    onPressed: () {
-                                      newsProvider.updateIsFavorite();
+                                  StreamBuilder(
+                                    stream: userFR
+                                        .doc(FirebaseAuth
+                                            .instance.currentUser!.uid)
+                                        .collection("favorite")
+                                        .where("favoriteID",
+                                            isEqualTo: jobsPost.id)
+                                        .snapshots(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      if (snapshot.data == null) {
+                                        return Text("");
+                                      }
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8),
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.red,
+                                          child: IconButton(
+                                            onPressed: () => snapshot
+                                                        .data.docs.length ==
+                                                    0
+                                                ? addToFavorite(
+                                                    jobsPost.id!,
+                                                    jobsPost.title!,
+                                                    jobsPost.image!)
+                                                : deleteFavorite(jobsPost.id!),
+                                            icon: snapshot.data.docs.length == 0
+                                                ? Icon(
+                                                    Icons.favorite_outline,
+                                                    color: Colors.white,
+                                                  )
+                                                : Icon(
+                                                    Icons.favorite,
+                                                    color: Colors.white,
+                                                  ),
+                                          ),
+                                        ),
+                                      );
                                     },
                                   ),
                                   IconButton(
@@ -166,11 +209,38 @@ class NewsPageScreen extends StatelessWidget {
                           decoration: BoxDecoration(color: Colors.grey[400]),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: Text(newsPost.description!,
-                              style: kDescription,
-                              textAlign: TextAlign.justify),
-                        )
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text("1. Khái niệm",
+                                style: kDescriptionBoldItalic,
+                                textAlign: TextAlign.justify)),
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text(jobsPost.define!,
+                                style: kDescription,
+                                textAlign: TextAlign.justify)),
+                        Divider(height: 10),
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text("2. Tố chất",
+                                style: kDescriptionBoldItalic,
+                                textAlign: TextAlign.justify)),
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text(jobsPost.qualities!,
+                                style: kDescription,
+                                textAlign: TextAlign.justify)),
+                        Divider(height: 10),
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text("3. Thu nhập",
+                                style: kDescriptionBoldItalic,
+                                textAlign: TextAlign.justify)),
+                        Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Text(jobsPost.income!,
+                                style: kDescription,
+                                textAlign: TextAlign.justify)),
+                        Divider(height: 10),
                       ],
                     ),
                   )
