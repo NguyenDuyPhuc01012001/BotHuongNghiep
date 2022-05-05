@@ -14,7 +14,6 @@ import 'package:huong_nghiep/screens/menu/setting_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/home/home_provider.dart';
-import '../../../resources/auth_methods.dart';
 
 class NavBarDrawer extends StatelessWidget {
   @override
@@ -67,7 +66,7 @@ class NavBarDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.info_outline),
             title: Text('Quản lý bài đăng'),
-            onTap: () => Get.to(JobManageScreen()),
+            onTap: () => Get.to(JobsManageScreen()),
           ),
           ListTile(
             leading: Icon(Icons.info_outline),

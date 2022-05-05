@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/screens/home/news/news_page_screen.dart';
+import 'package:huong_nghiep/screens/home/detailpage/news_page_screen.dart';
 
 import '../../../model/news/news.dart';
 import '../../../resources/firebase_reference.dart';

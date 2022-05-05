@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../model/news/news.dart';
 import '../../../resources/firebase_reference.dart';
-import '../../../screens/home/news/news_page_screen.dart';
+import '../../../screens/home/detailpage/news_page_screen.dart';
 
 class NewsCarousel extends StatefulWidget {
   const NewsCarousel({Key? key}) : super(key: key);

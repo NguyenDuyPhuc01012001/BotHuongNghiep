@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/manageNews/add_news_screen.dart';
-import 'package:huong_nghiep/widgets/home/news_manage/news_manage_body.dart';
+
+import '../../widgets/home/manage/news_manage_body.dart';
 
 class NewsManageScreen extends StatefulWidget {
   const NewsManageScreen({Key? key}) : super(key: key);

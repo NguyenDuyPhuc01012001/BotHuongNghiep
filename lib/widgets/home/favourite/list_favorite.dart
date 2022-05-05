@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/model/favorite/favorite.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
+import 'package:huong_nghiep/screens/home/detailpage/jobs_page_screen.dart';
 
 import '../../../model/news/news.dart';
 import '../../../resources/support_function.dart';
-import '../../../screens/home/news/news_page_screen.dart';
+import '../../../screens/home/detailpage/news_page_screen.dart';
 import '../../../utils/styles.dart';
 
 class ListFavouriteWidget extends StatefulWidget {
@@ -50,6 +51,9 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
                     if (favoriteDocs[i].favoriteType! == "news") {
                       Get.to(NewsPageScreen(
                           newsPostID: favoriteDocs[i].favoriteID!));
+                    } else if (favoriteDocs[i].favoriteType! == "jobs") {
+                      Get.to(JobsPageScreen(
+                          JobsPostID: favoriteDocs[i].favoriteID!));
                     }
                   },
                   child: Container(

@@ -36,3 +36,9 @@ const kTitle =
 
 const kDescription =
     TextStyle(color: Colors.black, fontSize: h3, fontWeight: FontWeight.normal);
+
+const kDescriptionBoldItalic = TextStyle(
+    color: Colors.black,
+    fontSize: h3,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.italic);
