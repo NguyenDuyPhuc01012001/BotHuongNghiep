@@ -119,7 +119,8 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                               IconButton(
                                 onPressed: () {
                                   Dialogs.materialDialog(
-                                      msg: 'Bạn có muốn xoá tin tức này không?',
+                                      msg:
+                                          'Bạn có muốn xoá bài đăng này không?',
                                       title: "Xoá",
                                       color: Colors.white,
                                       context: context,

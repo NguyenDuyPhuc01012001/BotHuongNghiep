@@ -37,6 +37,14 @@ class FirebaseHandler {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  static updateRoleFirestore(bool isAdmin, String uid) async {
+    var doc = userFR.doc(uid);
+    await doc
+        .update({'isAdmin': isAdmin})
+        .then((value) => print("User Updated Admin"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
   static Future<void> uploadFile(String filePath, String uid) async {
     File file = File(filePath);
 
