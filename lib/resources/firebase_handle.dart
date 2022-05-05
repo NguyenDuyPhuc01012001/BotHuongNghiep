@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:huong_nghiep/model/news/news.dart';
 import 'package:huong_nghiep/model/user.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
@@ -175,5 +176,49 @@ class FirebaseHandler {
         })
         .then((value) async => await uploadNewsImage(filePath, newsID))
         .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static addToFavorite(
+      String id, String type, String title, String image) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    return await favoriteFR
+        .add({
+          'favoriteID': id,
+          'favoriteType': type,
+          'title': title,
+          'image': image,
+          'time': myTimeStamp
+        })
+        .then((value) => print("Add Favorite ${value.id} successfull"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+  static deleteFromFavorite(String id) async {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    return favoriteFR.doc(id).delete().then((value) {
+      print("Delete Favorite $id successful");
+    }).catchError((error) => print('Failed to Delete news: $error'));
+  }
+
+  static Stream<QuerySnapshot<Object?>> getListFavorite() async* {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    yield* favoriteFR.snapshots();
+  }
+
+  static getNewsByID(String id) async {
+    News news = News();
+    await newsFR.doc(id).get().then((value) {
+      news = News.fromSnap(value);
+    });
+
+    return news;
   }
 }

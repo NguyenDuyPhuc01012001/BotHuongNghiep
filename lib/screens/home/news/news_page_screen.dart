@@ -147,7 +147,8 @@ class NewsPageScreen extends StatelessWidget {
                                         : Icon(Icons.bookmark_border_outlined,
                                             color: Colors.black, size: 30),
                                     onPressed: () {
-                                      newsProvider.updateIsFavorite();
+                                      newsProvider.updateIsFavorite(newsPostID,
+                                          newsPost.title!, newsPost.image!);
                                     },
                                   ),
                                   IconButton(
