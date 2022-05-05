@@ -41,7 +41,7 @@ class FirebaseHandler {
     var doc = userFR.doc(uid);
     await doc
         .update({'isAdmin': isAdmin})
-        .then((value) => print("User Updated Admin"))
+        .then((value) => print("User Updated Role"))
         .catchError((error) => print("Failed to update user: $error"));
   }
 
