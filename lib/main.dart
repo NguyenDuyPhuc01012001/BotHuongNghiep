@@ -9,8 +9,6 @@ import 'package:huong_nghiep/providers/authentication/emailverify_provider.dart'
 import 'package:huong_nghiep/providers/authentication/signin_provider.dart';
 import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
-import 'package:huong_nghiep/providers/news/news_provider.dart';
-import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 import 'package:huong_nghiep/screens/other/on_boarding_screen.dart';
 import 'package:huong_nghiep/screens/other/slashing_screen.dart';
@@ -44,8 +42,6 @@ class MyApp extends StatelessWidget {
             create: (context) => EmailVerifyProvider()),
         ChangeNotifierProvider<HomeProvider>(
             create: (context) => HomeProvider()),
-        ChangeNotifierProvider<NewsProvider>(
-            create: (context) => NewsProvider())
       ],
       child: GetMaterialApp(
           title: 'Tư vấn hướng nghiệp',

@@ -201,7 +201,16 @@ class FirebaseHandler {
     UserData user = await getCurrentUser();
     CollectionReference favoriteFR =
         userFR.doc(user.uid).collection('favorite');
-    return favoriteFR.doc(id).delete().then((value) {
+    List<String> listID = [];
+    await favoriteFR
+        .where('favoriteID', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        listID.add(doc.id);
+      }
+    });
+    return favoriteFR.doc(listID.first).delete().then((value) {
       print("Delete Favorite $id successful");
     }).catchError((error) => print('Failed to Delete news: $error'));
   }
