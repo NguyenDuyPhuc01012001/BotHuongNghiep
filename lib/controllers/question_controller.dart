@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:huong_nghiep/models/tests/Questions.dart';
+import 'package:huong_nghiep/models/tests/questions.dart';
 import 'package:huong_nghiep/screens/home/test/score_screen.dart';
 // import 'package:huong_nghiep/score/score_screen.dart';
 
@@ -26,9 +26,12 @@ class QuestionController extends GetxController
   String get type => this._type;
   set type(String value) => this._type = value;
 
-  late List<Question> _questions;
+  // late List<Question> _questions;
   // List<Question> _questions = <Question>[];
-  List<Question> get questions => this._questions;
+  // List<Question> get questions => this._questions;
+  int _length = -1;
+  int get length => this._length;
+  set length(int value) => this._length = value;
 
   bool _isAnswered = false;
   bool get isAnswered => this._isAnswered;
@@ -71,16 +74,16 @@ class QuestionController extends GetxController
     // Once 60s is completed go to the next qn
     _animationController.forward().whenComplete(nextQuestion);
     _pageController = PageController();
-    _questions = (_type == "MBTI" ? testMBTI : testHolland)
-        .map(
-          (question) => Question(
-            id: question['id'],
-            question: question['question'],
-            options: question['options'],
-            // answer: question['answer_index']
-          ),
-        )
-        .toList();
+    // _questions = (_type == "MBTI" ? testMBTI : testHolland)
+    //     .map(
+    //       (question) => Question(
+    //         id: question['id'],
+    //         question: question['question'],
+    //         options: question['options'],
+    //         // answer: question['answer_index']
+    //       ),
+    //     )
+    //     .toList();
     super.onInit();
   }
 
@@ -88,14 +91,14 @@ class QuestionController extends GetxController
     final String response = await rootBundle.loadString('assets/data.json');
     final data = await json.decode(response);
     // print(data);
-    data.map((question) => _questions.add(
-          Question(
-            id: question['id'],
-            question: question['question'],
-            options: question['options'].cast<String>(),
-            // answer: question['answer_index']
-          ),
-        ));
+    // data.map((question) => _questions.add(
+    //       Question(
+    //         id: question['id'],
+    //         question: question['question'],
+    //         options: question['options'].cast<String>(),
+    //         // answer: question['answer_index']
+    //       ),
+    //     ));
     update();
     // isLoading = false;
   }
@@ -115,19 +118,19 @@ class QuestionController extends GetxController
 
     // if (_correctAns == _selectedAns) _numOfCorrectAns++;
     lAnswers.add(_selectedAns);
-    // print(lAnswers);
+    print(lAnswers);
     // It will stop the counter
     _animationController.stop();
     update();
 
-    // Once user select an ans after 3s it will go to the next qn
+    // Once user select an ans after 1s it will go to the next qn
     Future.delayed(Duration(seconds: 1), () {
       nextQuestion();
     });
   }
 
   void nextQuestion() {
-    if (_questionNumber.value != _questions.length) {
+    if (_questionNumber.value != _length) {
       _isAnswered = false;
       _pageController.nextPage(
           duration: Duration(milliseconds: 250), curve: Curves.ease);

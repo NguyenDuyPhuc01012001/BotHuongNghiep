@@ -35,11 +35,11 @@ class _CustomInputFieldState extends State<CustomInputField> {
               widget.customInputFieldType == CustomInputFieldType.text
                   ? const Icon(
                       Icons.mail_outline,
-                      color: kPrimaryColor,
+                      color: kcPrimaryColor,
                     )
                   : const Icon(
                       Icons.lock_outline,
-                      color: kPrimaryColor,
+                      color: kcPrimaryColor,
                     ),
               Flexible(
                   child: Padding(

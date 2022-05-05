@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/controllers/question_controller.dart';
-import 'package:huong_nghiep/models/tests/Questions.dart';
+import 'package:huong_nghiep/models/tests/questions.dart';
+import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 
 // import '../../../constants.dart';

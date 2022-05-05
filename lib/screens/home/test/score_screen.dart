@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
+import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 import 'package:huong_nghiep/controllers/question_controller.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class ScoreScreen extends StatelessWidget {
   getScore(List<int> lAnswers) {
@@ -16,8 +19,8 @@ class ScoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuestionController _qnController = Get.put(QuestionController());
-    getScore(_qnController.lAnswers);
+    final _quizProvider = Provider.of<QuizProvider>(context);
+    getScore(_quizProvider.lAnswers);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -35,7 +38,7 @@ class ScoreScreen extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "${10}/${_qnController.questions.length * 10}",
+                "${10}/${_quizProvider.questions.length * 10}",
                 style: Theme.of(context)
                     .textTheme
                     .headline4!

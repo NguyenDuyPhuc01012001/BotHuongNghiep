@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:huong_nghiep/controllers/question_controller.dart';
+import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 
 // import '../../../constants.dart';
@@ -44,9 +45,13 @@ class Option extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "${index + 1}. $text",
-                    style: TextStyle(color: getTheRightColor(), fontSize: 16),
+                  Flexible(
+                    child: Text(
+                      "${index + 1}. $text",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: getTheRightColor(), fontSize: 16),
+                    ),
                   ),
                   Container(
                     height: 26,

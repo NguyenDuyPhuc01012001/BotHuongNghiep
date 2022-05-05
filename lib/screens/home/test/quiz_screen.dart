@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/controllers/question_controller.dart';
+import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
+import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/widgets/home/quiz/body.dart';
+import 'package:provider/provider.dart';
 
 // import '../../quiz/components/body.dart';
 
@@ -11,16 +14,16 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    QuestionController _controller = Get.put(QuestionController());
-    _controller.type = type;
+    final _quizProvider = Provider.of<QuizProvider>(context);
+    _quizProvider.type = type;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         // Fluttter show the back button automatically
-        backgroundColor: Colors.transparent,
+        backgroundColor: kcPrimaryColor,
         elevation: 0,
       ),
-      body: Body(),
+      body: Body(type: type),
     );
   }
 }

@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: CurvedNavigationBar(
           height: screenSize.height * 0.08,
           key: _bottomNavigationKey,
-          color: kPrimaryColor,
+          color: kcPrimaryColor,
           backgroundColor: kcWhiteColor,
           items: const <Widget>[
             Icon(Icons.games, color: kcWhiteColor),

@@ -96,8 +96,8 @@ class QuizWidget extends StatelessWidget {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Color(0xff56ab2f),
                       Color(0xffa8e063),
+                      Color(0xff56ab2f),
                     ],
                   ),
                 ),

@@ -1,9 +1,36 @@
+// class Question {
+//   final int id;
+//   final String question;
+//   final List<String> options;
+
+//   Question({required this.id, required this.question, required this.options});
+// }
+
 class Question {
   final int id;
   final String question;
   final List<String> options;
 
-  Question({required this.id, required this.question, required this.options});
+  Question(this.id, this.question, this.options);
+
+  Question.fromJson(Map<String, dynamic> json)
+      : this.id = json['id'],
+        this.question = json['question'],
+        this.options = json['options'].cast<String>();
+
+  Map<String, dynamic> toJson() =>
+      {"id": this.id, "question": this.question, "options": this.options};
+}
+
+// Question List Model
+class QuestionList {
+  final List<Question> questions;
+  QuestionList(this.questions);
+
+  QuestionList.fromJson(List<dynamic> questionsJson)
+      : questions = questionsJson
+            .map((question) => Question.fromJson(question))
+            .toList();
 }
 
 // const List sample_data = [
