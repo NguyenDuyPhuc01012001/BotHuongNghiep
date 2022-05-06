@@ -265,9 +265,9 @@ class FirebaseHandler {
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    CollectionReference favoriteFR =
-        userFR.doc(user.uid).collection('favorite');
-    return await favoriteFR
+    return await userFR
+        .doc(user.uid)
+        .collection('favorite')
         .add({
           'favoriteID': id,
           'favoriteType': type,

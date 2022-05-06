@@ -34,11 +34,6 @@ class AuthMethods {
         'image': await FirebaseHandler.getDefaultImage()
       });
 
-      await userFR
-          .doc(userCredential.user!.uid)
-          .collection('favorite')
-          .add({'favoriteID': '', 'favoriteType': ''});
-
       user = userCredential.user;
       await user!.updateDisplayName(name);
       await user.reload();
