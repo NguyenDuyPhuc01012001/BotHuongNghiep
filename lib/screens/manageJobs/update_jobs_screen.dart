@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-import '../../model/jobs/jobs.dart';
+import '../../model/jobs.dart';
 import '../../resources/firebase_handle.dart';
 import '../../utils/styles.dart';
 

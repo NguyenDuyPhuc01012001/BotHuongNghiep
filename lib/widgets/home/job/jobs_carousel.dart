@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../model/jobs/jobs.dart';
+import '../../../model/jobs.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../screens/home/detailpage/jobs_page_screen.dart';
 

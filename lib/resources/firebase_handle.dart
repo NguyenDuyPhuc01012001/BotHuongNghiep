@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-import 'package:huong_nghiep/model/news/news.dart';
+import 'package:huong_nghiep/model/news.dart';
 import 'package:huong_nghiep/model/user.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
@@ -173,6 +173,35 @@ class FirebaseHandler {
     }
   }
 
+  static Future<void> uploadPostsImage(String filePath, String postID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('posts/$postID/post_image.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("posts task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('posts/$postID/post_image.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of Post Image $url");
+
+            await FirebaseHandler.updatePostImageToFirestore(url, postID);
+          }).catchError((onError) {
+            print("Posts Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
   static updateNewsImageToFirestore(String url, String newsID) async {
     var doc = newsFR.doc(newsID);
     await doc
@@ -187,6 +216,14 @@ class FirebaseHandler {
         .update({'image': url})
         .then((value) => print("Jobs Updated Image"))
         .catchError((error) => print("Failed to update jobs: $error"));
+  }
+
+  static updatePostImageToFirestore(String url, String postID) async {
+    var doc = postsFR.doc(postID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("Post Updated Image"))
+        .catchError((error) => print("Failed to update post: $error"));
   }
 
   static Future<void> addNews(
@@ -322,5 +359,24 @@ class FirebaseHandler {
         }
       });
     }).catchError((error) => print('Failed to Delete jobs: $error'));
+  }
+
+  static Future<void> addPost(String question, String filePath) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await postsFR.add({
+      'uid': user.uid,
+      'email': user.email,
+      'userImage': user.image,
+      'question': question,
+      'image': "",
+      'numAnswer': 0,
+      'time': myTimeStamp
+    }).then((value) async {
+      if (filePath != "") {
+        await uploadPostsImage(filePath, value.id);
+      }
+    }).catchError((error) => print('Failed to Add news: $error'));
   }
 }
