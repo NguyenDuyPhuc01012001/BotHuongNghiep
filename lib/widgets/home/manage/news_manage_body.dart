@@ -19,7 +19,7 @@ class NewsManageBody extends StatefulWidget {
 }
 
 class _NewsManageBodyState extends State<NewsManageBody> {
-  Stream<QuerySnapshot> newsStream = newsFR.snapshots();
+  Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(

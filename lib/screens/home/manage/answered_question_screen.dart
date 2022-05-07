@@ -27,7 +27,11 @@ class _AnsweredQuestionScreenState extends State<AnsweredQuestionScreen> {
 
   @override
   void initState() {
-    answerStream = postsFR.doc(widget.postID).collection('answers').snapshots();
+    answerStream = postsFR
+        .doc(widget.postID)
+        .collection('answers')
+        .orderBy('time')
+        .snapshots();
     super.initState();
   }
 
@@ -40,7 +44,6 @@ class _AnsweredQuestionScreenState extends State<AnsweredQuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Answer> answerDocs = [];
     return Scaffold(
       appBar: AppBar(title: Text("Giải đáp thắc mắc")),
       body: Form(
@@ -74,6 +77,7 @@ class _AnsweredQuestionScreenState extends State<AnsweredQuestionScreen> {
                         );
                       }
 
+                      List<Answer> answerDocs = [];
                       snapshot.data!.docs.map((DocumentSnapshot document) {
                         Answer answer = Answer.fromSnap(document);
                         answerDocs.add(answer);
@@ -81,12 +85,18 @@ class _AnsweredQuestionScreenState extends State<AnsweredQuestionScreen> {
 
                       return answerDocs.isEmpty
                           ? Center(child: Text("Hiện tại chưa có câu trả lời"))
-                          : Column(
-                              children: [
-                                for (var i = 0; i < answerDocs.length; i++) ...[
-                                  AnswerTitleWidget(answer: answerDocs[i])
-                                ]
-                              ],
+                          : SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              reverse: true,
+                              child: Column(
+                                children: [
+                                  for (var i = 0;
+                                      i < answerDocs.length;
+                                      i++) ...[
+                                    AnswerTitleWidget(answer: answerDocs[i])
+                                  ]
+                                ],
+                              ),
                             );
                     },
                   )),

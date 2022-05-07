@@ -34,6 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  static final List<String> _listTitle = [
+    "Trắc nghiệm",
+    "Thông tin nghề nghiệp",
+    "Tin tức",
+    "Giải đáp"
+  ];
+
   ///Thay widget cua minh vao day
   static final List<Widget> _widgetOptions = <Widget>[
     QuizWidget(),
@@ -61,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         title: Text(
-          'Trang chủ',
+          _listTitle[_currentIndex],
           style: TextStyle(
               color:
                   themeValue == Brightness.dark ? Colors.white : Colors.black),

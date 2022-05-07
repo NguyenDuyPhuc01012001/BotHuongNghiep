@@ -21,8 +21,8 @@ class ListTitleJobs extends StatefulWidget {
 class _ListTitleJobsState extends State<ListTitleJobs> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> jobsStream = jobsFR.snapshots();
-    List<Jobs> jobsdocs = [];
+    final Stream<QuerySnapshot> jobsStream = jobsFR.orderBy('time').snapshots();
+
     return StreamBuilder<QuerySnapshot>(
         stream: jobsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -35,6 +35,7 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
             );
           }
 
+          List<Jobs> jobsdocs = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Jobs jobs = Jobs.fromSnap(document);
             jobsdocs.add(jobs);

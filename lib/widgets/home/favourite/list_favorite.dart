@@ -25,8 +25,7 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
   @override
   Widget build(BuildContext context) {
     final favoriteStream = FirebaseHandler.getListFavorite();
-    List<Favorite> favoriteDocs = [];
-    List<News> listDocs = [];
+
     return StreamBuilder<QuerySnapshot>(
         stream: favoriteStream,
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -39,6 +38,7 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
             );
           }
 
+          List<Favorite> favoriteDocs = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Favorite favorite = Favorite.fromSnap(document);
             favoriteDocs.add(favorite);

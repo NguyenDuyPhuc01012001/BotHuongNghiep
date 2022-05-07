@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:huong_nghiep/model/answer.dart';
 
 import '../../../utils/styles.dart';
@@ -55,9 +56,13 @@ class AnswerTitleWidget extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(answer.answer!,
-                      style: kContentText.copyWith(
-                          fontWeight: FontWeight.normal, color: Colors.white)),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 320),
+                    child: Text(answer.answer!,
+                        style: kContentText.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white)),
+                  ),
                 ),
               ),
               CustomPaint(painter: CustomShape(Colors.blue[400]!)),
