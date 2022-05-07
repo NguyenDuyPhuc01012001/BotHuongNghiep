@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
@@ -21,6 +22,7 @@ class _AdminManageBodyState extends State<AdminManageBody> {
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> userStream = userFR.snapshots();
+    String uid = FirebaseAuth.instance.currentUser!.uid;
     return StreamBuilder<QuerySnapshot>(
         stream: userStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -132,63 +134,67 @@ class _AdminManageBodyState extends State<AdminManageBody> {
                           ),
                         ),
                         TableCell(
-                          child: IconButton(
-                              onPressed: () => {
-                                    Dialogs.materialDialog(
-                                        msg:
-                                            'Bạn có muốn thay đổi quyền của người dùng này không?',
-                                        title: "Vai trò",
-                                        color: Colors.white,
-                                        context: context,
-                                        actions: [
-                                          IconsButton(
-                                            onPressed: () async {
-                                              await FirebaseHandler
-                                                      .updateRoleFirestore(true,
-                                                          userdocs[i]['id'])
-                                                  .whenComplete(
-                                                      () => Get.back());
-                                            },
-                                            text: 'Admin',
-                                            iconData:
-                                                Icons.account_box_outlined,
-                                            color: Colors.red,
-                                            textStyle:
-                                                TextStyle(color: Colors.white),
-                                            iconColor: Colors.white,
-                                          ),
-                                          IconsButton(
-                                            onPressed: () async {
-                                              await FirebaseHandler
-                                                      .updateRoleFirestore(
-                                                          false,
-                                                          userdocs[i]['id'])
-                                                  .whenComplete(
-                                                      () => Get.back());
-                                            },
-                                            text: 'User',
-                                            iconData: Icons.people_alt_rounded,
-                                            color: Colors.blue,
-                                            textStyle:
-                                                TextStyle(color: Colors.white),
-                                            iconColor: Colors.white,
-                                          ),
-                                          IconsOutlineButton(
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            text: 'Cancel',
-                                            iconData: Icons.cancel_outlined,
-                                            textStyle:
-                                                TextStyle(color: Colors.grey),
-                                            iconColor: Colors.grey,
-                                          ),
-                                        ])
-                                  },
-                              icon: Icon(
-                                Icons.edit,
-                                color: Colors.orange,
-                              )),
+                          child: uid == userdocs[i]['id']
+                              ? SizedBox()
+                              : IconButton(
+                                  onPressed: () => {
+                                        Dialogs.materialDialog(
+                                            msg:
+                                                'Bạn có muốn thay đổi quyền của người dùng này không?',
+                                            title: "Vai trò",
+                                            color: Colors.white,
+                                            context: context,
+                                            actions: [
+                                              IconsButton(
+                                                onPressed: () async {
+                                                  await FirebaseHandler
+                                                          .updateRoleFirestore(
+                                                              true,
+                                                              userdocs[i]['id'])
+                                                      .whenComplete(
+                                                          () => Get.back());
+                                                },
+                                                text: 'Admin',
+                                                iconData:
+                                                    Icons.account_box_outlined,
+                                                color: Colors.red,
+                                                textStyle: TextStyle(
+                                                    color: Colors.white),
+                                                iconColor: Colors.white,
+                                              ),
+                                              IconsButton(
+                                                onPressed: () async {
+                                                  await FirebaseHandler
+                                                          .updateRoleFirestore(
+                                                              false,
+                                                              userdocs[i]['id'])
+                                                      .whenComplete(
+                                                          () => Get.back());
+                                                },
+                                                text: 'User',
+                                                iconData:
+                                                    Icons.people_alt_rounded,
+                                                color: Colors.blue,
+                                                textStyle: TextStyle(
+                                                    color: Colors.white),
+                                                iconColor: Colors.white,
+                                              ),
+                                              IconsOutlineButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                text: 'Cancel',
+                                                iconData: Icons.cancel_outlined,
+                                                textStyle: TextStyle(
+                                                    color: Colors.grey),
+                                                iconColor: Colors.grey,
+                                              ),
+                                            ])
+                                      },
+                                  icon: Icon(
+                                    Icons.edit,
+                                    color: Colors.orange,
+                                  )),
                         ),
                       ],
                     ),

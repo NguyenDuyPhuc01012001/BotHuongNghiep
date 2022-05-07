@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 
-import 'package:huong_nghiep/screens/chatbot/chatbot_screen.dart';
 import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
 import 'package:huong_nghiep/widgets/home/quiz/quiz_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../resources/auth_methods.dart';
 import '../../utils/colors.dart';
 import '../../widgets/home/answer/answers_widget.dart';
+import '../floatactions/chatbot_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
