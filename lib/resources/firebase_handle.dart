@@ -389,7 +389,7 @@ class FirebaseHandler {
         .doc(user.uid)
         .collection('quiz')
         .doc(type)
-        .update(sc)
+        .set(sc)
         .then((value) async => print("Update successfully"))
         .catchError((error) => print("Failed to update score: $error"));
   }

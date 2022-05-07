@@ -13,7 +13,8 @@ const kcSecondBackgroundButton = Color(0xff5B5B5B);
 const kcCorrect = Color(0xff1de235);
 const kcWrong = Color(0xfffc4646);
 
-const kSecondaryColor = Color(0xFF101010);
+const kSecondaryColor = Color.fromARGB(255, 74, 74, 74);
+const kWhite90 = Color.fromARGB(204, 255, 255, 255);
 const kGreenColor = Color(0xFF6AC259);
 const kRedColor = Color(0xFFE92E30);
 const kGrayColor = Color(0xFFC1C1C1);

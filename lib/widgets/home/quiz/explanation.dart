@@ -1,10 +1,10 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:huong_nghiep/models/tests/explanation.dart';
-import 'package:huong_nghiep/models/tests/question.dart';
 import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
-import 'package:huong_nghiep/utils/colors.dart';
-import 'package:huong_nghiep/utils/constants.dart';
+
+import '../../../utils/colors.dart';
 
 class ExplanationContainer extends StatelessWidget {
   final String type;
@@ -19,16 +19,22 @@ class ExplanationContainer extends StatelessWidget {
     List<Widget> children = [];
 
     for (int i = 0; i < resultKey.length; i++)
-      for (int j = 0; j < explanations.length; j++)
-        if (explanations[j].id == resultKey[i])
+      // ignore: curly_braces_in_flow_control_structures
+      for (int j = 0; j < explanations.length; j++) {
+        if (explanations[j].id == resultKey[i]) {
           children.add(getExplanationContainer(
               explanations[j].title, explanations[j].explanation));
+        }
+      }
 
     if (resultKey.length > 1)
-      for (int j = 0; j < explanations.length; j++)
-        if (explanations[j].id == resultKey)
+      // ignore: curly_braces_in_flow_control_structures
+      for (int j = 0; j < explanations.length; j++) {
+        if (explanations[j].id == resultKey) {
           children.add(getExplanationContainer(
               explanations[j].title, explanations[j].explanation));
+        }
+      }
 
     return children;
   }
@@ -38,18 +44,21 @@ class ExplanationContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: const BoxDecoration(
-        color: Color.fromRGBO(255, 153, 51, 0.5),
+        color: Color.fromRGBO(255, 228, 181, 0.8),
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          '$title: ',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          title,
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
         ),
         Text(
-          '$explanation',
+          explanation,
           textAlign: TextAlign.justify,
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+          style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 20,
+              color: kSecondaryColor),
         ),
       ]),
     );
@@ -71,15 +80,9 @@ class ExplanationContainer extends StatelessWidget {
                 return Center(child: Text('Some error occurred!'));
               } else {
                 print(_explanations);
-                return Container(
-                  // decoration: BoxDecoration(
-                  //   color: new Color.fromRGBO(255, 153,51, 0.5),
-                  //   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  // ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: getListExplanation(_explanations!),
-                  ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: getListExplanation(_explanations!),
                 );
               }
           }

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,11 +9,8 @@ import 'package:huong_nghiep/screens/home/home_screen.dart';
 import 'package:huong_nghiep/screens/home/test/quiz_screen.dart';
 import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
-import 'package:huong_nghiep/controllers/question_controller.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:huong_nghiep/widgets/alert.dart';
 import 'package:huong_nghiep/widgets/home/quiz/explanation.dart';
-import 'package:provider/provider.dart';
 
 class ScoreScreen extends StatelessWidget {
   String resultKey = "";
@@ -31,8 +30,9 @@ class ScoreScreen extends StatelessWidget {
     } else {
       // type= "Holland"
       sc.forEach((k, v) {
-        if (v > resultValue) {
-          resultValue = v;
+        int value = v as int;
+        if (value > resultValue) {
+          resultValue = value;
           resultKey = k;
         }
       });
@@ -45,19 +45,18 @@ class ScoreScreen extends StatelessWidget {
     final quizStream = FirebaseHandler.getListQuizScore(type);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Get.to(HomeScreen()),
-        ),
-        backgroundColor: kcPrimaryColor,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     icon: Icon(Icons.arrow_back, color: Colors.white),
+      //     onPressed: () => Get.to(HomeScreen()),
+      //   ),
+      //   backgroundColor: kcPrimaryColor,
+      //   elevation: 0,
+      // ),
       body: StreamBuilder<DocumentSnapshot>(
           stream: quizStream,
           builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) print('Something went Wrong');
-            // print(snapshot);
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(color: Colors.black),
@@ -67,7 +66,6 @@ class ScoreScreen extends StatelessWidget {
               try {
                 Map<String, dynamic> sc =
                     snapshot.data!.data() as Map<String, dynamic>;
-                // print("vo6 r ne");
                 getScore(type, sc);
                 return SingleChildScrollView(
                   child: Container(
@@ -77,26 +75,41 @@ class ScoreScreen extends StatelessWidget {
                     width: double.infinity,
                     child: Column(
                       children: [
-                        verticalSpaceLarge,
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.only(top: 30, left: 10),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
                         Text(
                           "Kết quả kiểm tra, bạn là:",
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
-                              .copyWith(color: kSecondaryColor),
+                              .copyWith(color: Colors.white),
                         ),
                         Text(
-                          "$resultKey",
+                          resultKey,
                           style: Theme.of(context)
                               .textTheme
                               .headline2!
-                              .copyWith(color: kSecondaryColor),
+                              .copyWith(color: Colors.white),
                         ),
                         GridView.count(
                             crossAxisCount: 2,
                             childAspectRatio: ((size.width / 2) / 50),
                             controller:
-                                new ScrollController(keepScrollOffset: false),
+                                ScrollController(keepScrollOffset: false),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             children: getListScore(sc, type)),
@@ -160,8 +173,9 @@ class ScoreScreen extends StatelessWidget {
       children.add(getScoreContainer('F', '${scMap['F']}'));
       children.add(getScoreContainer('J', '${scMap['J']}'));
       children.add(getScoreContainer('P', '${scMap['P']}'));
-    } else
-      scMap.forEach((k, v) => children.add(getScoreContainer(k, v)));
+    } else {
+      scMap.forEach((k, v) => children.add(getScoreContainer(k, v.toString())));
+    }
     return children;
   }
 
@@ -170,40 +184,10 @@ class ScoreScreen extends StatelessWidget {
       child: Container(
         child: Text(
           '$title: $score',
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 25),
+          style: TextStyle(
+              fontWeight: FontWeight.normal, fontSize: 25, color: kWhite90),
         ),
       ),
-    );
-  }
-
-  List<Widget> getListExplanation() {
-    List<Widget> children = [];
-    if (resultKey.length > 1)
-      for (int i = 0; i < resultKey.length; i++)
-        children.add(getExplanationContainer(resultKey[i], resultKey[i]));
-    // else
-
-    return children;
-  }
-
-  Widget getExplanationContainer(String title, String explanation) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: new Color.fromRGBO(255, 0, 0, 0.5),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          '$title: ',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-        ),
-        Text(
-          '$explanation',
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
-        ),
-      ]),
     );
   }
 }
