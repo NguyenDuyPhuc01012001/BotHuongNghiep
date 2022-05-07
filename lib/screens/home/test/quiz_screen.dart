@@ -14,8 +14,8 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _quizProvider = Provider.of<QuizProvider>(context);
-    _quizProvider.type = type;
+    // final _quizProvider = Provider.of<QuizProvider>(context);
+    // _quizProvider.type = type;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(

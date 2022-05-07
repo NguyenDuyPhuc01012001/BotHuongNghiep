@@ -4,8 +4,9 @@ import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
 import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 import 'package:huong_nghiep/controllers/question_controller.dart';
-import 'package:huong_nghiep/models/tests/questions.dart';
+import 'package:huong_nghiep/models/tests/question.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:huong_nghiep/utils/styles.dart';
 import 'package:provider/provider.dart';
 
 // import 'progress_bar.dart';
@@ -27,11 +28,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    // So that we have acccess our controller
-    // final _quizProvider = Provider.of<QuizProvider>(context);
-    // _quizProvider.readJson();
-    // var _questions = Provider.of<List<Question>>(context);
-    // print(_questionController.questions);
     return FutureBuilder<List<Question>>(
         future: LoadDataFromJson.loadQuestionData(context, widget.type),
         builder: (context, snapshot) {
@@ -44,24 +40,14 @@ class _BodyState extends State<Body> {
               if (snapshot.hasError) {
                 return Center(child: Text('Some error occurred!'));
               } else {
-                _questionController.length = _questions!.length;
+                _questionController.qLength = _questions!.length;
+                _questionController.type = widget.type;
                 return Stack(
                   children: [
                     // SvgPicture.asset("assets/images/bg.svg", fit: BoxFit.fill),
                     SafeArea(
-                      child:
-                          // _questionController.questions == null
-                          //     ? Container()
-                          //     :
-                          //             Obx(() => _questionController.isLoading
-                          // ? Container()
-                          // :
-                          Container(
+                      child: Container(
                         decoration: const BoxDecoration(
-                          //     image: DecorationImage(
-                          //   repeat: ImageRepeat.repeatX,
-                          //   image: AssetImage('assets/images/bg.jpg'),
-                          // ),
                           gradient: kgPrimaryBackgroundGradient,
                         ),
                         child: Column(
@@ -87,7 +73,7 @@ class _BodyState extends State<Body> {
                                         .copyWith(color: kSecondaryColor),
                                     children: [
                                       TextSpan(
-                                        text: "/${_questionController.length}",
+                                        text: "/${_questionController.qLength}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline5!
@@ -107,7 +93,7 @@ class _BodyState extends State<Body> {
                                 controller: _questionController.pageController,
                                 onPageChanged:
                                     _questionController.updateTheQnNum,
-                                itemCount: _questionController.length,
+                                itemCount: _questionController.qLength,
                                 itemBuilder: (context, index) =>
                                     QuestionCard(question: _questions[index]),
                               ),

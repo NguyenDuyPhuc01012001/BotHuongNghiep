@@ -57,6 +57,7 @@ dependencies:
   firestore_search: ^0.1.9
   material_dialogs: ^1.1.1
   accordion: ^2.2.3
+  cool_alert: ^1.1.0
 
 dev_dependencies:
   flutter_test:

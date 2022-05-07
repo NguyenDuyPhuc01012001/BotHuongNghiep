@@ -46,8 +46,8 @@ class MyApp extends StatelessWidget {
             create: (context) => HomeProvider()),
         // ChangeNotifierProvider<NewsProvider>(
         //     create: (context) => NewsProvider()),
-        ChangeNotifierProvider<QuizProvider>(
-            create: (context) => QuizProvider()),
+        // ChangeNotifierProvider<QuizProvider>(
+        //     create: (context) => QuizProvider()),
         // FutureProvider(
         //   create: (_) => LoadDataFromJson().loadQuestionData(),
         //   initialData: null,

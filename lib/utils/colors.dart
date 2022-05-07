@@ -29,3 +29,21 @@ const kgPrimaryBackgroundGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
+
+const kgDone = LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+    Color(0xffa8e063),
+    Color(0xff56ab2f),
+  ],
+);
+
+const kgNotDone = LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+    Color(0xffff0f7b),
+    Color(0xfff89b29),
+  ],
+);

@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/home/test/quiz_screen.dart';
+import 'package:huong_nghiep/screens/home/test/score_screen.dart';
+import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/styles.dart';
 
 class QuizWidget extends StatelessWidget {
@@ -11,138 +15,102 @@ class QuizWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var themeValue = MediaQuery.of(context).platformBrightness;
-    return Scaffold(
-      backgroundColor:
-          themeValue == Brightness.dark ? Color(0xff262626) : Color(0xffFFFFFF),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: InkWell(
-              onTap: () => Get.to(QuizScreen(type: "MBTI")),
-              // onTap: () {
-              // QuizAlerts().confirm('This quiz contains 10 question\n', 'Proceed', 'Cancel', () => controller.goToQuiz(), () => Get.back(), context);
-              // },
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xffff0f7b),
-                      Color(0xfff89b29),
-                    ],
-                  ),
+    final quizStream = FirebaseHandler.getListQuiz();
+    return StreamBuilder<QuerySnapshot>(
+        stream: quizStream,
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            print('Something went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(color: Colors.black),
+            );
+          }
+          var lQuiz = snapshot.data!.docs.map((doc) => doc.id).toList();
+          return Scaffold(
+            backgroundColor: themeValue == Brightness.dark
+                ? Color(0xff262626)
+                : Color(0xffFFFFFF),
+            body: Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: QuizContainer(lQuiz: lQuiz, type: "MBTI"),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '70',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(color: Colors.white, fontSize: 30),
-                        ),
-                        Icon(
-                          Icons.tag_faces_sharp,
-                          color: Colors.white,
-                          size: 40,
-                        )
-                      ],
-                    ),
-                    Text(
-                      'MBTI',
-                      style: Theme.of(context).textTheme.headline3!.copyWith(
-                            color: Colors.white,
-                          ),
-                    ),
-                    Text(
-                      'Tìm hiểu tính cách bản thân',
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white, fontSize: h3),
-                      maxLines: 2,
-                    )
-                  ],
+                Expanded(
+                  flex: 1,
+                  child: QuizContainer(lQuiz: lQuiz, type: "Holland"),
                 ),
-              ),
+              ],
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: InkWell(
-              // onTap: () {
-              // QuizAlerts().confirm('This quiz contains 10 question\n', 'Proceed', 'Cancel', () => controller.goToQuiz(), () => Get.back(), context);
-              // },
-              onTap: () => Get.to(QuizScreen(type: "Holland")),
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                padding: EdgeInsets.all(15),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xffa8e063),
-                      Color(0xff56ab2f),
-                    ],
-                  ),
+          );
+        });
+  }
+}
+
+class QuizContainer extends StatelessWidget {
+  final List<String> lQuiz;
+  final String type;
+  const QuizContainer({Key? key, required this.lQuiz, required this.type})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => lQuiz.contains(type)
+          ? Get.to(ScoreScreen(type: type))
+          : Get.to(QuizScreen(type: type)),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: EdgeInsets.all(15),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          gradient: lQuiz.contains(type) ? kgDone : kgNotDone,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  type == "MBTI" ? '70' : '54',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(color: Colors.white, fontSize: 30),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '54',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline1!
-                              .copyWith(color: Colors.white, fontSize: 30),
-                        ),
-                        Icon(
-                          Icons.business_center_outlined,
-                          color: Colors.white,
-                          size: 40,
-                        )
-                      ],
-                    ),
-                    Text(
-                      'Holland',
-                      style: Theme.of(context).textTheme.headline3!.copyWith(
-                            color: Colors.white,
-                          ),
-                    ),
-                    Text(
-                      'Định hướng nghề phù hợp',
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white, fontSize: h3),
-                      maxLines: 2,
-                    )
-                  ],
-                ),
-              ),
+                Icon(
+                  type == "MBTI"
+                      ? Icons.tag_faces_sharp
+                      : Icons.business_center_outlined,
+                  color: Colors.white,
+                  size: 40,
+                )
+              ],
             ),
-          ),
-        ],
+            Text(
+              type,
+              style: Theme.of(context).textTheme.headline3!.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+            Text(
+              type == "MBTI"
+                  ? 'Tìm hiểu tính cách bản thân'
+                  : 'Định hướng nghề phù hợp',
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(color: Colors.white, fontSize: h3),
+              maxLines: 2,
+            )
+          ],
+        ),
       ),
     );
   }
