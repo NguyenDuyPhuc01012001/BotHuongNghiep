@@ -301,7 +301,7 @@ class FirebaseHandler {
     UserData user = await getCurrentUser();
     CollectionReference favoriteFR =
         userFR.doc(user.uid).collection('favorite');
-    yield* favoriteFR.snapshots();
+    yield* favoriteFR.orderBy('time').snapshots();
   }
 
   static getNewsByID(String id) async {
@@ -381,7 +381,7 @@ class FirebaseHandler {
   }
 
   static deletePost(String postID) async {
-    return jobsFR.doc(postID).delete().then((value) {
+    return postsFR.doc(postID).delete().then((value) {
       FirebaseStorage.instance.ref("posts/$postID").listAll().then((value) {
         for (var element in value.items) {
           FirebaseStorage.instance.ref(element.fullPath).delete();

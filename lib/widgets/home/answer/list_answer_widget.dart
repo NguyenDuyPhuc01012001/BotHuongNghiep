@@ -18,13 +18,12 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
   late Stream<QuerySnapshot> postsStream;
   @override
   void initState() {
-    postsStream = postsFR.snapshots();
+    postsStream = postsFR.orderBy('time', descending: true).snapshots();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Post> postDocs = [];
     return StreamBuilder(
         stream: postsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -37,6 +36,7 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
             );
           }
 
+          List<Post> postDocs = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Post post = Post.fromSnap(document);
             postDocs.add(post);

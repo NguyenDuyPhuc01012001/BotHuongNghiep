@@ -19,7 +19,7 @@ class JobsManageBody extends StatefulWidget {
 }
 
 class _JobsManageBodyState extends State<JobsManageBody> {
-  Stream<QuerySnapshot> jobsStream = jobsFR.snapshots();
+  Stream<QuerySnapshot> jobsStream = jobsFR.orderBy('time').snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
