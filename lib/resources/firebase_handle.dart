@@ -5,8 +5,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-import 'package:huong_nghiep/model/news.dart';
-import 'package:huong_nghiep/model/user.dart';
+import 'package:huong_nghiep/models/news.dart';
+import 'package:huong_nghiep/models/tests/score.dart';
+import 'package:huong_nghiep/models/user.dart';
+import 'package:huong_nghiep/models/news.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
 
@@ -304,6 +306,24 @@ class FirebaseHandler {
     yield* favoriteFR.orderBy('time').snapshots();
   }
 
+  static Stream<QuerySnapshot<Object?>> getListQuiz() async* {
+    UserData user = await getCurrentUser();
+    CollectionReference quizFR = userFR.doc(user.uid).collection('quiz');
+    yield* quizFR.snapshots();
+  }
+
+  static Stream<DocumentSnapshot<Object?>> getListQuizScore(
+      String type) async* {
+    UserData user = await getCurrentUser();
+    DocumentReference quizFR =
+        userFR.doc(user.uid).collection('quiz').doc(type);
+    // print(user.uid);
+    // print(type);
+    // print(quizFR);
+    // print(quizFR.snapshots());
+    yield* quizFR.snapshots();
+  }
+
   static getNewsByID(String id) async {
     News news = News();
     await newsFR.doc(id).get().then((value) {
@@ -359,6 +379,19 @@ class FirebaseHandler {
         }
       });
     }).catchError((error) => print('Failed to Delete jobs: $error'));
+  }
+
+  static Future<void> updateQuizScores(String type, Map<String, int> sc) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await userFR
+        .doc(user.uid)
+        .collection('quiz')
+        .doc(type)
+        .update(sc)
+        .then((value) async => print("Update successfully"))
+        .catchError((error) => print("Failed to update score: $error"));
   }
 
   static Future<void> addPost(String question, String filePath) async {

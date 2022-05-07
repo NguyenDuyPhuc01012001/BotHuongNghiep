@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../model/posts.dart';
+import '../../../models/posts.dart';
 import '../../../screens/home/detailpage/answer_page_screen.dart';
 import '../../../utils/styles.dart';
 

@@ -9,6 +9,8 @@ import 'package:huong_nghiep/providers/authentication/emailverify_provider.dart'
 import 'package:huong_nghiep/providers/authentication/signin_provider.dart';
 import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
+// import 'package:huong_nghiep/providers/news/news_provider.dart';
+import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
 import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 import 'package:huong_nghiep/screens/other/on_boarding_screen.dart';
 import 'package:huong_nghiep/screens/other/slashing_screen.dart';
@@ -42,6 +44,18 @@ class MyApp extends StatelessWidget {
             create: (context) => EmailVerifyProvider()),
         ChangeNotifierProvider<HomeProvider>(
             create: (context) => HomeProvider()),
+        // ChangeNotifierProvider<NewsProvider>(
+        //     create: (context) => NewsProvider()),
+        // ChangeNotifierProvider<QuizProvider>(
+        //     create: (context) => QuizProvider()),
+        // FutureProvider(
+        //   create: (_) => LoadDataFromJson().loadQuestionData(),
+        //   initialData: null,
+        // ),
+        // FutureProvider(
+        //   create: (_) => LoadDataFromJson().loadMBTIData(),
+        //   initialData: null,
+        // ),
       ],
       child: GetMaterialApp(
           title: 'Tư vấn hướng nghiệp',
@@ -50,11 +64,13 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home: showHome
-              ? FirebaseAuth.instance.currentUser == null
-                  ? SignInScreen()
-                  : SplashingScreen()
-              : OnBoardingScreen(),
+          home:
+              // TestScreen(),
+              showHome
+                  ? FirebaseAuth.instance.currentUser == null
+                      ? SignInScreen()
+                      : SplashingScreen()
+                  : OnBoardingScreen(),
           routes: <String, WidgetBuilder>{
             // '/signin': (BuildContext context) => SignInScreen(),
           }),

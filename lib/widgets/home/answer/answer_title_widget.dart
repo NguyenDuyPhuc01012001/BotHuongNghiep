@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:huong_nghiep/model/answer.dart';
+import 'package:huong_nghiep/models/answer.dart';
 
 import '../../../utils/styles.dart';
 import '../../custom/custom_shape.dart';

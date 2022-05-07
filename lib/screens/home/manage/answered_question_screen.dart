@@ -2,13 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:huong_nghiep/model/posts.dart';
+import 'package:huong_nghiep/models/posts.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
 import 'package:huong_nghiep/widgets/home/answer/answer_title_widget.dart';
 import 'package:huong_nghiep/widgets/home/answer/post_title_widget.dart';
 
-import '../../../model/answer.dart';
+import '../../../models/answer.dart';
 
 class AnsweredQuestionScreen extends StatefulWidget {
   final String postID;

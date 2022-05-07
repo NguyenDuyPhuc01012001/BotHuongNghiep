@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/user.dart';
+import 'package:huong_nghiep/models/user.dart';
 import 'package:huong_nghiep/resources/auth_methods.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 

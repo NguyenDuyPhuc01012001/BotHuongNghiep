@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/model/favorite.dart';
+import 'package:huong_nghiep/models/favorite.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/home/detailpage/jobs_page_screen.dart';
 
-import '../../../model/news.dart';
+import '../../../models/news.dart';
 import '../../../resources/support_function.dart';
 import '../../../screens/home/detailpage/news_page_screen.dart';
 import '../../../utils/styles.dart';

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:huong_nghiep/widgets/home/answer/post_widget.dart';
 
-import '../../../model/posts.dart';
+import '../../../models/posts.dart';
 import '../../../resources/firebase_reference.dart';
 
 class ListAnswerWidget extends StatefulWidget {

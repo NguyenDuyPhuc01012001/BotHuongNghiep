@@ -1,0 +1,422 @@
+{
+	"MBTI": {
+		"1": {
+			"question": "Trong một bữa tiệc, bạn làm: ",
+			"a": "Tương tác với nhiều người, bao gồm cả người lạ ",
+			"b": "Tương tác với một số ít, được biết đến với bạn "
+		},
+		"2": {
+			"question": "Bạn có nhiều hơn: ",
+			"a": "Thực tế hơn đầu cơ ",
+			"b": "Đầu cơ hơn thực tế "
+		},
+		"3": {
+			"question": "Có tệ hơn không: ",
+			"a": "Có đầu trên mây của bạn ",
+			"b": "Hãy trong một lối mòn "
+		},
+		"4": {
+			"question": "Bạn có ấn tượng hơn với: ",
+			"a": "Nguyên tắc ",
+			"b": "Cảm xúc "
+		},
+		"5": {
+			"question": "Bị thu hút nhiều hơn về phía: ",
+			"a": "Thuyết phục ",
+			"b": "Chạm vào "
+		},
+		"6": {
+			"question": "Bạn có thích làm việc hơn: ",
+			"a": "Đến thời hạn ",
+			"b": "Chỉ là bất cứ khi nào "
+		},
+		"7": {
+			"question": "Bạn có xu hướng chọn: ",
+			"a": "Khá cẩn thận ",
+			"b": "Hơi bốc đồng "
+		},
+		"8": {
+			"question": "Tại các bữa tiệc, bạn làm: ",
+			"a": "Ở lại muộn, với năng lượng ngày càng tăng ",
+			"b": "Rời đi sớm với năng lượng giảm "
+		},
+		"9": {
+			"question": "Bạn có bị thu hút nhiều hơn bởi: ",
+			"a": "Những người nhạy cảm ",
+			"b": "Những người giàu trí tưởng tượng "
+		},
+		"10": {
+			"question": "Bạn có quan tâm nhiều hơn đến: ",
+			"a": "Điều gì là thực tế ",
+			"b": "Điều gì là possible "
+		},
+		"11": {
+			"question": "Khi đánh giá người khác, bạn bị ảnh hưởng nhiều hơn bởi: ",
+			"a": "Luật pháp hơn hoàn cảnh ",
+			"b": "Hoàn cảnh hơn luật pháp "
+		},
+		"12": {
+			"question": "Trong việc tiếp cận người khác là khuynh hướng của bạn để được phần nào: ",
+			"a": "Mục tiêu ",
+			"b": "Cá nhân "
+		},
+		"13": {
+			"question": "Bạn có nhiều hơn: ",
+			"a": "Đúng giờ ",
+			"b": "Thong thả "
+		},
+		"14": {
+			"question": "Nó có làm phiền bạn nhiều hơn khi có những thứ: ",
+			"a": "Không hoàn thành ",
+			"b": "Hoàn thành "
+		},
+		"15": {
+			"question": "Trong các nhóm xã hội của bạn làm bạn: ",
+			"a": "Theo kịp những diễn biến của người khác ",
+			"b": "Đứng sau tin tức "
+		},
+		"16": {
+			"question": "Khi làm những việc bình thường, bạn có nhiều khả năng: ",
+			"a": "Làm theo cách thông thường ",
+			"b": "Hãy làm theo cách của riêng bạn "
+		},
+		"17": {
+			"question": "Người viết nên: ",
+			"a": "Hãy nói những gì họ muốn nói và có nghĩa là những gì họ nói ",
+			"b": "Thể hiện mọi thứ nhiều hơn bằng cách sử dụng sự tương tự "
+		},
+		"18": {
+			"question": "Điều này hấp dẫn bạn nhiều hơn: ",
+			"a": "Tính nhất quán của suy nghĩ ",
+			"b": "Các mối quan hệ hài hòa của con người "
+		},
+		"19": {
+			"question": "Bạn có cảm thấy thoải mái hơn khi thực hiện: ",
+			"a": "Phán đoán logic ",
+			"b": "Phán quyết giá trị "
+		},
+		"20": {
+			"question": "Bạn có muốn những thứ: ",
+			"a": "Giải quyết và quyết định ",
+			"b": "Bất ổn và chưa quyết định "
+		},
+		"21": {
+			"question": "Bạn sẽ nói rằng bạn là nhiều hơn: ",
+			"a": "Nghiêm túc và quyết tâm ",
+			"b": "Dễ tính "
+		},
+		"22": {
+			"question": "Trong việc gọi điện, bạn có: ",
+			"a": "Hiếm khi câu hỏi rằng tất cả sẽ được nói ",
+			"b": "Luyện tập những gì bạn sẽ nói "
+		},
+		"23": {
+			"question": "Sự kiện: ",
+			"a": "Nói cho chính mình ",
+			"b": "Minh họa các nguyên tắc "
+		},
+		"24": {
+			"question": "Là những người có tầm nhìn xa trông rộng: ",
+			"a": "hơi khó chịu ",
+			"b": "khá hấp dẫn "
+		},
+		"25": {
+			"question": "Bạn có thường xuyên hơn: ",
+			"a": "Một người lạnh lùng ",
+			"b": "Một người có trái tim ấm áp "
+		},
+		"26": {
+			"question": "Có tệ hơn không: ",
+			"a": "bất công ",
+			"b": "độc ác "
+		},
+		"27": {
+			"question": "Người ta thường nên để các sự kiện xảy ra: ",
+			"a": "bằng cách lựa chọn và lựa chọn cẩn thận ",
+			"b": "ngẫu nhiên và tình cờ "
+		},
+		"28": {
+			"question": "Bạn có cảm thấy tốt hơn về: ",
+			"a": "đã mua ",
+			"b": "Có tùy chọn mua "
+		},
+		"": {
+			"question": "Trong công ty bạn làm: ",
+			"a": "bắt đầu hội thoại ",
+			"b": "chờ đợi để được tiếp cận "
+		},
+		"30": {
+			"question": "Cảm giác thông thường là: ",
+			"a": "hiếm khi bị nghi ngờ ",
+			"b": "thường xuyên bị nghi ngờ "
+		},
+		"31": {
+			"question": "Trẻ em thường không: ",
+			"a": "Làm cho mình đủ hữu ích ",
+			"b": "thực hiện tưởng tượng của họ đủ "
+		},
+		"32": {
+			"question": "Khi đưa ra quyết định, bạn có cảm thấy thoải mái hơn với: ",
+			"a": "tiêu chuẩn ",
+			"b": "feelings "
+		},
+		"33": {
+			"question": "Bạn có nhiều hơn: ",
+			"a": "vững chắc hơn nhẹ nhàng ",
+			"b": "nhẹ nhàng hơn vững chắc "
+		},
+		"34": {
+			"question": "Điều đó đáng ngưỡng mộ hơn: ",
+			"a": "Khả năng tổ chức và có phương pháp ",
+			"b": "Khả năng thích ứng và thực hiện "
+		},
+		"35": {
+			"question": "Bạn có đặt nhiều giá trị hơn vào: ",
+			"a": "vô hạn ",
+			"b": "cởi mở "
+		},
+		"36": {
+			"question": "Có tương tác mới và không thường xuyên với người khác: ",
+			"a": "Kích thích và tiếp thêm năng lượng cho bạn ",
+			"b": "đánh thuế dự trữ của bạn "
+		},
+		"37": {
+			"question": "Bạn có thường xuyên hơn: ",
+			"a": "Một loại người thực tế ",
+			"b": "Một loại người huyền ảo "
+		},
+		"38": {
+			"question": "Bạn có nhiều khả năng: ",
+			"a": "Xem những người khác hữu ích như thế nào ",
+			"b": "Xem người khác nhìn nhận như thế nào "
+		},
+		"39": {
+			"question": "Điều gì thỏa mãn hơn: ",
+			"a": "Để thảo luận kỹ lưỡng về một vấn đề ",
+			"b": "Để đi đến thỏa thuận về một vấn đề "
+		},
+		"40": {
+			"question": "Quy tắc nào bạn nhiều hơn: ",
+			"a": "đầu của bạn ",
+			"b": "Trái tim em "
+		},
+		"41": {
+			"question": "Bạn có cảm thấy thoải mái hơn với công việc đó là: ",
+			"a": "đã ký hợp đồng ",
+			"b": "được thực hiện trên cơ sở ngẫu nhiên "
+		},
+		"42": {
+			"question": "Bạn có xu hướng tìm kiếm: ",
+			"a": "có trật tự ",
+			"b": "bất cứ điều gì bật lên "
+		},
+		"43": {
+			"question": "Bạn có thích: ",
+			"a": "nhiều bạn bè có liên lạc ngắn ",
+			"b": "Một vài người bạn có liên lạc lâu dài hơn "
+		},
+		"44": {
+			"question": "Bạn có đi nhiều hơn bằng cách: ",
+			"a": "Sự kiện ",
+			"b": "Nguyên tắc "
+		},
+		"45": {
+			"question": "Bạn có quan tâm nhiều hơn đến: ",
+			"a": "sản xuất và phân phối ",
+			"b": "design và nghiên cứu "
+		},
+		"46": {
+			"question": "Đó là một lời khen ngợi nhiều hơn: ",
+			"a": "Có một người rất logic",
+			"b": "Có một người rất đa cảm"
+		},
+		"47": {
+			"question": "Bạn có đánh giá cao bản thân nhiều hơn rằng bạn là: ",
+			"a": "Vững chắc ",
+			"b": "tận tuỵ "
+		},
+		"48": {
+			"question": "Bạn có thường thích ",
+			"a": "tuyên bố cuối cùng và không thể thay đổi ",
+			"b": "tuyên bố dự kiến và sơ bộ "
+		},
+		"49": {
+			"question": "Bạn có cảm thấy thoải mái hơn không: ",
+			"a": "sau khi có quyết định ",
+			"b": "trước khi có quyết định "
+		},
+		"50": {
+			"question": "Bạn có: ",
+			"a": "Nói chuyện dễ dàng và dài dòng với người lạ ",
+			"b": "Tìm thấy rất ít để nói với người lạ "
+		},
+		"51": {
+			"question": "Bạn có nhiều khả năng tin tưởng yoyour: ",
+			"a": "kinh nghiệm ",
+			"b": "linh cảm "
+		},
+		"52": {
+			"question": "Bạn có cảm thấy: ",
+			"a": "thực tế hơn là khéo léo ",
+			"b": "khéo léo hơn thực tế "
+		},
+		"53": {
+			"question": "Người nào được khen ngợi nhiều hơn - một trong những: ",
+			"a": "lý do rõ ràng ",
+			"b": "cảm giác mạnh mẽ "
+		},
+		"54": {
+			"question": "Bạn có xu hướng nhiều hơn để được: ",
+			"a": "Fair-minded ",
+			"b": "Cảm "
+		},
+		"55": {
+			"question": "Nó có thích hợp hơn chủ yếu là: ",
+			"a": "Đảm bảo mọi thứ được sắp xếp ",
+			"b": "Chỉ cần để mọi thứ xảy ra "
+		},
+		"56": {
+			"question": "Trong các mối quan hệ nên hầu hết mọi thứ là: ",
+			"a": "có thể thương lượng lại ",
+			"b": "ngẫu nhiên và gián tiếp "
+		},
+		"57": {
+			"question": "Khi điện thoại reo, bạn: ",
+			"a": "vội vàng để có được nó đầu tiên ",
+			"b": "Hy vọng người khác sẽ answer "
+		},
+		"58": {
+			"question": "Bạn có đánh giá cao hơn ở bản thân: ",
+			"a": "Một cảm giác mạnh mẽ về thực tế ",
+			"b": "Một trí tưởng tượng sống động "
+		},
+		"59": {
+			"question": "Bạn có bị thu hút nhiều hơn với: ",
+			"a": "Fundamentals ",
+			"b": "âm điệu "
+		},
+		"60": {
+			"question": "Có vẻ như sai lầm lớn hơn: ",
+			"a": "Để quá đam mê ",
+			"b": "Quá khách quan "
+		},
+		"61": {
+			"question": "Bạn có thấy mình về cơ bản: ",
+			"a": "đầu óc cứng đầu ",
+			"b": "trái tim mềm mại "
+		},
+		"62": {
+			"question": "Tình huống nào hấp dẫn bạn nhiều hơn: ",
+			"a": "có cấu trúc và theo lịch trình ",
+			"b": "không có cấu trúc và đột xuất "
+		},
+		"63": {
+			"question": "Bạn có phải là một người nhiều hơn: ",
+			"a": "routinized hơn whimsical ",
+			"b": "hay thay đổi hơn routinized "
+		},
+		"64": {
+			"question": "Bạn có xu hướng: ",
+			"a": "dễ tiếp cận ",
+			"b": "hơi dè dặt "
+		},
+		"65": {
+			"question": "Trong các bài viết, bạn có thích: ",
+			"a": "càng theo nghĩa đen ",
+			"b": "càng tượng trưng "
+		},
+		"66": {
+			"question": "Có khó khăn hơn cho bạn để: ",
+			"a": "đồng nhất với người khác ",
+			"b": "sử dụng người khác "
+		},
+		"67": {
+			"question": "Điều gì bạn mong muốn nhiều hơn cho bản thân: ",
+			"a": "sự rõ ràng của lý do ",
+			"b": "Sức mạnh của lòng trắc ẩn "
+		},
+		"68": {
+			"question": "Đó là lỗi lớn hơn: ",
+			"a": "bừa bãi ",
+			"b": "đang phê phán "
+		},
+		"69": {
+			"question": "Bạn có thích: ",
+			"a": "sự kiện theo kế hoạch ",
+			"b": "sự kiện ngoài kế hoạch "
+		},
+		"70": {
+			"question": "Bạn có xu hướng nhiều hơn: ",
+			"a": "cố ý hơn spontaneous ",
+			"b": "tự phát hơn là cố ý "
+		}
+	},
+	"Holland": {
+		"R": {
+			"question": "Tôi có tính tự lập",
+			"question": "Tôi suy nghĩ thực tế",
+			"question": "Tôi là người thích nghi với môi trường mới",
+			"question": "Tôi có thể vận hành, điều khiển các máy móc thiết bị",
+			"question": "Tôi làm các công việc thủ công như gấp giấy, đan, móc",
+			"question": "Tôi thích tiếp xúc với thiên nhiên, động vật, cây cỏ",
+			"question": "Tôi thích những công việc sử dụng tay chân hơn là tríóc",
+			"question": "Tôi thích những công việc thấy ngay kết quả",
+			"question": "Tôi thích làmviệc ngoài trời hơn là trong phòng học, văn phòng"
+		},
+		"I": {
+			"question": "Tôi có tìm hiểu khám phá nhiều vấn đề mới",
+			"question": "Tôi có khả năng phân tích vấn đề",
+			"question": "Tôi biết suy nghĩ một cách mạch lạc, chặt chẽ",
+			"question": "Tôi thích thực hiện các thí nghiệm hay nghiên cứu",
+			"question": "Tôi có khả năng tổng hợp, khái quát, suy đoán những vấn đề",
+			"question": "Tôi thích những hoạt động điều tra, phân loại, kiểm tra, đánh giá",
+			"question": "Tôi tự tổ chức công việc mình phái làm",
+			"question": "Tôi thích suy nghĩ về những vấn đề phức tạp, làm những công việc phức tạp",
+			"question": "Tôi có khả năng giải quyết các vấn đề"
+		},
+		"A": {
+			"question": "Tôi là người dễ xúc động",
+			"question": "Tôi có óc tưởng tượng phong phú",
+			"question": "Tôi thích sự tự do, không theo những quy định , quy tắc",
+			"question": "Tôi có khả năng thuyết trình, diễn xuất",
+			"question": "Tôi có thể chụp hình hoặc vẽ tranh, trang trí, điêu khắc",
+			"question": "Tôi có năng khiếu âm nhạc",
+			"question": "Tôi có khả năng viết, trình bày những ý tưởng của mình",
+			"question": "Tôi thích làm những công việc mới, những công việc đòi hỏi sự sáng tạo",
+			"question": "Tôi thoải mái bộc lộ những ý thích"
+		},
+		"S": {
+			"question": "Tôi là người thân thiện, hay giúp đỡ người khác",
+			"question": "Tôi thích gặp gỡ, làm việc với con người",
+			"question": "Tôi là người lịch sự, tử tế",
+			"question": "Tôi thích khuyên bảo, huấn luyện hay giảng giái cho người khác",
+			"question": "Tôi là người biệt lắng nghe",
+			"question": "Tôi thích các hoạt động chăm sóc sức khỏe của bản thân và người khác",
+			"question": "Tôi thích các hoạt độngvì mục tiêu chung của công đồng, xã hội",
+			"question": "Tôi mong muốn mình có thể đóng góp để xã hội tốt đẹp hơn",
+			"question": "Tôi có khả năng hòa giải, giải quyết những sự viêc mâu thuẫn"
+		},
+		"E": {
+			"question": "Tôi là người có tính phiêu lưu, mạo hiểm",
+			"question": "Tôi có tính quyết đoán",
+			"question": "Tôi là người năng động",
+			"question": "Tôi có khả năng diễn đạt, tranh luận, và thuyết phục người khác",
+			"question": "Tôi thíc các việc quản lý, đánh giá",
+			"question": "Tôi thường đặt ra các mục tiêu, kế hoạch trong cuộc sống",
+			"question": "Tôi thích gây ảnh hưởng đến người khác",
+			"question": "Tôi là người thích cạnh tranh, và muốn mình giói hơn người khác",
+			"question": "Tôi muốn người khác phải kính trọng, nể phục tôi"
+		},
+		"C": {
+			"question": "Tôi là người có đầu óc sắp xếp, tổ chức",
+			"question": "Tôi có tính cẩn thận",
+			"question": "Tôi là người chu đáo, chính xác và đáng tin cậy",
+			"question": "Tôi thích công việc tính toán sổ sách, ghi chép số liệu",
+			"question": "Tôi thíc các công việc lưu trữ, phân loại, cập nhất thông tin",
+			"question": "Tôi thường đặt ra những mục tiêu, kế hoạch trong cuộc sống",
+			"question": "Tôi thích dự kiến các khoản thu chi",
+			"question": "Tôi thích lập thời khóa biểu, sắp xếp lịch làm việc",
+			"question": "Tôi thích làm việc với các con số, làm việc theo hướng dẫn, quy trình"
+		}
+	}
+}

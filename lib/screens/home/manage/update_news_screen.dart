@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-import '../../../model/news.dart';
+import '../../../models/news.dart';
 import '../../../utils/styles.dart';
 
 class UpdateNewsScreen extends StatefulWidget {

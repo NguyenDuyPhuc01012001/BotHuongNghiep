@@ -2,10 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:huong_nghiep/model/answer.dart';
+import 'package:huong_nghiep/models/answer.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
 
-import '../../../model/posts.dart';
+import '../../../models/posts.dart';
 import '../../../widgets/home/answer/answer_title_widget.dart';
 import '../../../widgets/home/answer/post_title_widget.dart';
 

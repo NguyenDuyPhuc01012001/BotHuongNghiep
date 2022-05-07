@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/utils/styles.dart';
 
-import '../../../model/jobs.dart';
+import '../../../models/jobs.dart';
 import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
 
