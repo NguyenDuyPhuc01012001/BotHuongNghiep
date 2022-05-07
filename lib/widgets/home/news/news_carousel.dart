@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/news/news.dart';
+import '../../../models/news.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../screens/home/detailpage/news_page_screen.dart';
 

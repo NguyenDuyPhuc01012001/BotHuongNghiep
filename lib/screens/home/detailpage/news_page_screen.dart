@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
 
-import '../../../models/news/news.dart';
-// import '../../../providers/news/news_provider.dart';
-import '../../../models/news/news.dart';
+import '../../../models/news.dart';
 import '../../../resources/firebase_handle.dart';
 import '../../../utils/styles.dart';
 

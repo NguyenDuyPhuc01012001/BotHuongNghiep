@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../resources/support_function.dart';
+import '../resources/support_function.dart';
 
 class Favorite {
   late String? id;

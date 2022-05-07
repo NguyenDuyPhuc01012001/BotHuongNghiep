@@ -44,6 +44,7 @@ class Alerts {
         context: context,
         type: CoolAlertType.confirm,
         text: question,
+        title: 'Xác nhận',
         confirmBtnText: accept,
         cancelBtnText: cancel,
         confirmBtnColor: Colors.green,

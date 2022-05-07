@@ -9,7 +9,7 @@ import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 
 import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
-import '../../../screens/manageJobs/update_jobs_screen.dart';
+import '../../../screens/home/manage/update_jobs_screen.dart';
 
 class JobsManageBody extends StatefulWidget {
   const JobsManageBody({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class JobsManageBody extends StatefulWidget {
 }
 
 class _JobsManageBodyState extends State<JobsManageBody> {
-  Stream<QuerySnapshot> jobsStream = jobsFR.snapshots();
+  Stream<QuerySnapshot> jobsStream = jobsFR.orderBy('time').snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(

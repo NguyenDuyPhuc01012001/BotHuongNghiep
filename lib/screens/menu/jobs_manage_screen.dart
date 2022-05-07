@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../widgets/home/manage/jobs_manage_body.dart';
-import '../manageJobs/add_jobs_screen.dart';
+import '../home/manage/add_jobs_screen.dart';
 
 class JobsManageScreen extends StatefulWidget {
   const JobsManageScreen({Key? key}) : super(key: key);

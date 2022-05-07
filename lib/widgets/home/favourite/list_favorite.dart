@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/models/favorite/favorite.dart';
+import 'package:huong_nghiep/models/favorite.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/home/detailpage/jobs_page_screen.dart';
 
-import '../../../models/news/news.dart';
+import '../../../models/news.dart';
 import '../../../resources/support_function.dart';
 import '../../../screens/home/detailpage/news_page_screen.dart';
 import '../../../utils/styles.dart';
@@ -25,8 +25,7 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
   @override
   Widget build(BuildContext context) {
     final favoriteStream = FirebaseHandler.getListFavorite();
-    List<Favorite> favoriteDocs = [];
-    List<News> listDocs = [];
+
     return StreamBuilder<QuerySnapshot>(
         stream: favoriteStream,
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -39,6 +38,7 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
             );
           }
 
+          List<Favorite> favoriteDocs = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Favorite favorite = Favorite.fromSnap(document);
             favoriteDocs.add(favorite);
