@@ -1,54 +1,46 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-import '../../resources/firebase_handle.dart';
-import '../../utils/styles.dart';
-import '../../widgets/authentication/custom_error_box.dart';
+import '../../../utils/styles.dart';
+import '../../../widgets/authentication/custom_error_box.dart';
 
-class AddJobsScreen extends StatefulWidget {
-  const AddJobsScreen({Key? key}) : super(key: key);
+class AddNewsScreen extends StatefulWidget {
+  const AddNewsScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddJobsScreen> createState() => _AddJobsScreenState();
+  State<AddNewsScreen> createState() => _AddNewsScreenState();
 }
 
-class _AddJobsScreenState extends State<AddJobsScreen> {
+class _AddNewsScreenState extends State<AddNewsScreen> {
   final _formKey = GlobalKey<FormState>();
 
   var title = "";
-  var define = "";
-  var qualities = "";
-  var income = "";
+  var description = "";
   var filePath = "";
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final titleController = TextEditingController();
-  final defineController = TextEditingController();
-  final qualitiesController = TextEditingController();
-  final incomeController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     titleController.dispose();
-    defineController.dispose();
-    qualitiesController.dispose();
-    incomeController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
   clearText() {
     titleController.clear();
-    defineController.clear();
-    qualitiesController.clear();
-    incomeController.clear();
+    descriptionController.clear();
     setState(() {
       filePath = '';
     });
@@ -58,7 +50,7 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Thêm bài đăng'),
+        title: Text('Thêm tin tức'),
       ),
       body: Form(
         key: _formKey,
@@ -66,7 +58,7 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: ListView(
             children: [
-              Divider(height: 10),
+              SizedBox(height: 10),
               Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
@@ -91,7 +83,7 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
                   },
                 ),
               ),
-              Divider(height: 10),
+              SizedBox(height: 10),
               Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
@@ -143,84 +135,29 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
               ),
               filePath == ""
                   ? CustomErrorBox(
-                      message: "Vui lòng chọn hình ảnh cho bài đăng")
+                      message: "Vui lòng chọn hình ảnh cho tin tức")
                   : SizedBox(),
-              Divider(height: 10),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                  child: Text("Chi tiết bài đăng",
-                      style: ktsMediumLabelInputText)),
-              Divider(height: 6),
+              SizedBox(height: 10),
               Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                  child: Text("1. Khái niệm", style: kDescriptionBoldItalic)),
+                  child:
+                      Text("Chi tiết tin tức", style: ktsMediumLabelInputText)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
-                  controller: defineController,
+                  controller: descriptionController,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
-                      hintText: 'Nhập khái niệm',
+                      hintText: 'Nhập chi tiết tin tức',
                       hintStyle: TextStyle(color: Colors.grey),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       )),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Khái niệm không được bỏ trống';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Divider(height: 6),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                  child: Text("2. Tố chất", style: kDescriptionBoldItalic)),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: TextFormField(
-                  controller: qualitiesController,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                      hintText: 'Nhập tố chất',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Tố chất không được bỏ trống';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Divider(height: 6),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                  child: Text("3. Thu nhập", style: kDescriptionBoldItalic)),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: TextFormField(
-                  controller: incomeController,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                      hintText: 'Nhập thu nhập',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Thu nhập không được bỏ trống';
+                      return 'Chi tiết tin tức không được bỏ trống';
                     }
                     return null;
                   },
@@ -238,15 +175,13 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
                         if (_formKey.currentState!.validate()) {
                           setState(() {
                             title = titleController.text;
-                            define = defineController.text;
-                            qualities = qualitiesController.text;
-                            income = incomeController.text;
+                            description = descriptionController.text;
                             if (filePath != "") {
-                              FirebaseHandler.addJobs(
-                                  title, define, qualities, income, filePath);
+                              FirebaseHandler.addNews(
+                                  title, description, filePath);
                               Get.back();
                             }
-                            // addJobs();
+                            // addNews();
                           });
                         }
                       },

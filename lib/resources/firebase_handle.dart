@@ -379,4 +379,29 @@ class FirebaseHandler {
       }
     }).catchError((error) => print('Failed to Add news: $error'));
   }
+
+  static deletePost(String postID) async {
+    return jobsFR.doc(postID).delete().then((value) {
+      FirebaseStorage.instance.ref("posts/$postID").listAll().then((value) {
+        for (var element in value.items) {
+          FirebaseStorage.instance.ref(element.fullPath).delete();
+        }
+      });
+    }).catchError((error) => print('Failed to Delete posts: $error'));
+  }
+
+  static addAnswerPost(String message, String postID) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+
+    return await postsFR.doc(postID).collection("answers").add({
+      'source': user.name,
+      'sourceImage': user.image,
+      'answer': message,
+      'time': myTimeStamp
+    }).then((value) async {
+      await postsFR.doc(postID).update({'numAnswer': FieldValue.increment(1)});
+    }).catchError((error) => print('Failed to Add answers: $error'));
+  }
 }

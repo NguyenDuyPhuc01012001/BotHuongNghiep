@@ -3,27 +3,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/resources/firebase_reference.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 
 import '../../../resources/firebase_handle.dart';
-import '../../../resources/firebase_reference.dart';
-import '../../../screens/home/manage/update_jobs_screen.dart';
+import '../../../screens/home/manage/answered_question_screen.dart';
 
-class JobsManageBody extends StatefulWidget {
-  const JobsManageBody({Key? key}) : super(key: key);
+class QuestionManageBody extends StatefulWidget {
+  const QuestionManageBody({Key? key}) : super(key: key);
 
   @override
-  State<JobsManageBody> createState() => _JobsManageBodyState();
+  State<QuestionManageBody> createState() => _QuestionManageBodyState();
 }
 
-class _JobsManageBodyState extends State<JobsManageBody> {
-  Stream<QuerySnapshot> jobsStream = jobsFR.snapshots();
+class _QuestionManageBodyState extends State<QuestionManageBody> {
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> postStream = postsFR.snapshots();
     return StreamBuilder<QuerySnapshot>(
-        stream: jobsStream,
+        stream: postStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
@@ -34,10 +34,10 @@ class _JobsManageBodyState extends State<JobsManageBody> {
             );
           }
 
-          final List jobsdocs = [];
+          final List postdocs = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Map a = document.data() as Map<String, dynamic>;
-            jobsdocs.add(a);
+            postdocs.add(a);
             a['id'] = document.id;
           }).toList();
 
@@ -48,7 +48,8 @@ class _JobsManageBodyState extends State<JobsManageBody> {
               child: Table(
                 border: TableBorder.all(),
                 columnWidths: const <int, TableColumnWidth>{
-                  1: FixedColumnWidth(140),
+                  0: FixedColumnWidth(200),
+                  2: FixedColumnWidth(120),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
@@ -61,7 +62,24 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                             padding: const EdgeInsets.all(8.0),
                             child: Center(
                               child: Text(
-                                'Tiêu đề',
+                                'Câu hỏi',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Container(
+                          color: Colors.greenAccent,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Số câu TL',
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
@@ -90,7 +108,7 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                       ),
                     ],
                   ),
-                  for (var i = 0; i < jobsdocs.length; i++) ...[
+                  for (var i = 0; i < postdocs.length; i++) ...[
                     TableRow(
                       children: [
                         TableCell(
@@ -98,7 +116,16 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 4),
                             child: Center(
-                                child: Text(jobsdocs[i]['title'],
+                                child: Text(postdocs[i]['question'],
+                                    style: TextStyle(fontSize: 14.0))),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            child: Center(
+                                child: Text("${postdocs[i]['numAnswer']}",
                                     style: TextStyle(fontSize: 14.0))),
                           ),
                         ),
@@ -108,19 +135,18 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                             children: [
                               IconButton(
                                 onPressed: () => {
-                                  Get.to(UpdateJobsScreen(
-                                      jobsPostID: jobsdocs[i]['id']))
+                                  Get.to(AnsweredQuestionScreen(
+                                      postID: postdocs[i]['id']))
                                 },
                                 icon: Icon(
-                                  Icons.edit,
+                                  Icons.chat_outlined,
                                   color: Colors.orange,
                                 ),
                               ),
                               IconButton(
                                 onPressed: () {
                                   Dialogs.materialDialog(
-                                      msg:
-                                          'Bạn có muốn xoá bài đăng này không?',
+                                      msg: 'Bạn có muốn xoá câu hỏi này không?',
                                       title: "Xoá",
                                       color: Colors.white,
                                       context: context,
@@ -137,8 +163,8 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                                         ),
                                         IconsButton(
                                           onPressed: () async {
-                                            await FirebaseHandler.deleteJobs(
-                                                    jobsdocs[i]['id'])
+                                            await FirebaseHandler.deletePost(
+                                                    postdocs[i]['id'])
                                                 .whenComplete(() => Get.back());
                                           },
                                           text: 'Xoá',
