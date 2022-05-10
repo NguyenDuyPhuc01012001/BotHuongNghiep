@@ -24,7 +24,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> jobsStream = jobsFR.snapshots();
-    List<Jobs> jobsdocs = [];
+
     return StreamBuilder<QuerySnapshot>(
         stream: jobsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -36,13 +36,14 @@ class _JobsCarouselState extends State<JobsCarousel> {
               child: CircularProgressIndicator(color: Colors.black),
             );
           }
-
+          List<Jobs> jobsdocs = [];
+          int count = 1;
           snapshot.data!.docs.map((DocumentSnapshot document) {
-            if (_isFirst) {
+            if (_isFirst && count < 4) {
               _isFirst = false;
               Jobs jobs = Jobs.fromSnap(document);
-              print(jobs.title);
               jobsdocs.add(jobs);
+              count++;
             } else {
               var number = _random.nextInt(50);
               if (number % 2 == 0) {

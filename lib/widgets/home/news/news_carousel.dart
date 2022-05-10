@@ -25,7 +25,7 @@ class _NewsCarouselState extends State<NewsCarousel> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> newsStream = newsFR.snapshots();
-    List<News> newsdocs = [];
+
     return StreamBuilder<QuerySnapshot>(
         stream: newsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -37,12 +37,14 @@ class _NewsCarouselState extends State<NewsCarousel> {
               child: CircularProgressIndicator(color: Colors.black),
             );
           }
-
+          List<News> newsdocs = [];
+          int count = 1;
           snapshot.data!.docs.map((DocumentSnapshot document) {
-            if (_isFirst) {
+            if (_isFirst && count < 4) {
               _isFirst = false;
               News news = News.fromSnap(document);
               newsdocs.add(news);
+              count++;
             } else {
               var number = _random.nextInt(50);
               if (number % 2 == 0) {

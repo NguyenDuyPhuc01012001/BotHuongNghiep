@@ -39,7 +39,6 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Jobs jobs = Jobs.fromSnap(document);
             jobsdocs.add(jobs);
-            print(jobsdocs);
           }).toList();
 
           return Column(children: [
