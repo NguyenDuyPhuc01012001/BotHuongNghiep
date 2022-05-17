@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_declarations
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';

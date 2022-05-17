@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:huong_nghiep/models/answer.dart';
 
 import '../../../utils/styles.dart';

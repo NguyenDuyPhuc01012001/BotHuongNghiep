@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../widgets/home/manage/question_manage_body.dart';
 

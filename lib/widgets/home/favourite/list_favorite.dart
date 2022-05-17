@@ -8,7 +8,6 @@ import 'package:huong_nghiep/models/favorite.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/home/detailpage/jobs_page_screen.dart';
 
-import '../../../models/news.dart';
 import '../../../resources/support_function.dart';
 import '../../../screens/home/detailpage/news_page_screen.dart';
 import '../../../utils/styles.dart';
@@ -53,7 +52,7 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
                           newsPostID: favoriteDocs[i].favoriteID!));
                     } else if (favoriteDocs[i].favoriteType! == "jobs") {
                       Get.to(JobsPageScreen(
-                          JobsPostID: favoriteDocs[i].favoriteID!));
+                          jobsPostID: favoriteDocs[i].favoriteID!));
                     }
                   },
                   child: Container(

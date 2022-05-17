@@ -1,11 +1,9 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, avoid_print
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, avoid_print, must_be_immutable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
-import 'package:huong_nghiep/screens/home/home_screen.dart';
 import 'package:huong_nghiep/screens/home/test/quiz_screen.dart';
 import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';

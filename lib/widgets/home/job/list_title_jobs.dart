@@ -45,7 +45,7 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
             for (var i = 0; i < jobsdocs.length; i++) ...[
               GestureDetector(
                   onTap: () {
-                    Get.to(JobsPageScreen(JobsPostID: jobsdocs[i].id!));
+                    Get.to(JobsPageScreen(jobsPostID: jobsdocs[i].id!));
                   },
                   child: Container(
                       margin: EdgeInsets.symmetric(vertical: 5),

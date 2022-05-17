@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/providers/home/home_provider.dart';
-import 'package:huong_nghiep/screens/home/home_screen.dart';
 import 'package:huong_nghiep/screens/other/slashing_screen.dart';
 
 import '../../resources/auth_methods.dart';

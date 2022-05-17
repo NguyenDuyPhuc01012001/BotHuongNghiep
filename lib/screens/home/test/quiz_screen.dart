@@ -23,7 +23,7 @@ class QuizScreen extends StatelessWidget {
             'Bạn có chắc chắn muốn thoát bài kiểm tra\n', 'Đồng ý', 'Hủy', () {
           willLeave = true;
           Get.back();
-          Get.off(HomeScreen());
+          Get.off(const HomeScreen());
         }, () => Get.back(), context);
         return willLeave;
       },

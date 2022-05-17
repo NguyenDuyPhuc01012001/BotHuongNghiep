@@ -140,8 +140,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   controller: _confirmPass,
                   obscureText: !_confirmPasswordVisible,
                   validator: (val) {
-                    if (val!.isEmpty)
+                    if (val!.isEmpty) {
                       return 'Không được để trống xác nhận mật khẩu';
+                    }
                     if (val != _pass.text) {
                       return 'Mật khẩu xác nhận không trùng khớp';
                     }

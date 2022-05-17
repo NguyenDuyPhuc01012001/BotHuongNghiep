@@ -1,15 +1,17 @@
+// ignore_for_file: constant_identifier_names
+
 class Explanation {
   final String id, title, explanation;
 
   Explanation(this.id, this.title, this.explanation);
 
   Explanation.fromJson(Map<String, dynamic> json)
-      : this.id = json['id'],
-        this.title = json['title'],
-        this.explanation = json['explanation'];
+      : id = json['id'],
+        title = json['title'],
+        explanation = json['explanation'];
 
   Map<String, dynamic> toJson() =>
-      {"id": this.id, "title": this.title, "explanation": this.explanation};
+      {"id": id, "title": title, "explanation": explanation};
 }
 
 // Explanation List Model

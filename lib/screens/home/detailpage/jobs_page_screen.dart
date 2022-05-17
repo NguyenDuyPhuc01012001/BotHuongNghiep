@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,8 +11,8 @@ import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
 
 class JobsPageScreen extends StatefulWidget {
-  final String JobsPostID;
-  const JobsPageScreen({Key? key, required this.JobsPostID}) : super(key: key);
+  final String jobsPostID;
+  const JobsPageScreen({Key? key, required this.jobsPostID}) : super(key: key);
 
   @override
   State<JobsPageScreen> createState() => _JobsPageScreenState();
@@ -32,7 +32,7 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          future: jobsFR.doc(widget.JobsPostID).get(),
+          future: jobsFR.doc(widget.jobsPostID).get(),
           builder: (_, snapshot) {
             if (snapshot.hasError) {
               print('Something Went Wrong');

@@ -14,10 +14,11 @@ class CustomErrorBox extends StatelessWidget {
             color: Colors.red,
             borderRadius: BorderRadius.all(Radius.circular(5))),
         child: Padding(
-          padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
           child: Text(
             message,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w700),
           ),
         ),
       ),

@@ -6,12 +6,12 @@ class Question {
   Question(this.id, this.question, this.options);
 
   Question.fromJson(Map<String, dynamic> json)
-      : this.id = json['id'],
-        this.question = json['question'],
-        this.options = json['options'].cast<String>();
+      : id = json['id'],
+        question = json['question'],
+        options = json['options'].cast<String>();
 
   Map<String, dynamic> toJson() =>
-      {"id": this.id, "question": this.question, "options": this.options};
+      {"id": id, "question": question, "options": options};
 }
 
 // Question List Model

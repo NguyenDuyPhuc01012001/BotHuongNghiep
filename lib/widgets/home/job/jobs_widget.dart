@@ -43,7 +43,7 @@ class JobsWidget extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [ListTitleJobs()],
+                      children: const [ListTitleJobs()],
                     ),
                   )
                 ],

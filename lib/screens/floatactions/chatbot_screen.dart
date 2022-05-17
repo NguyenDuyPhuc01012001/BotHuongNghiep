@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
-import 'package:huong_nghiep/utils/colors.dart';
 
 class ChatbotScreen extends StatefulWidget {
+  const ChatbotScreen({Key? key}) : super(key: key);
+
   @override
   _ChatbotScreenState createState() => _ChatbotScreenState();
 }
@@ -72,7 +75,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                 ? Colors.white
                                 : Colors.black,
                             fontFamily: 'Roboto'),
-                        decoration: new InputDecoration(
+                        decoration: InputDecoration(
                           border: InputBorder.none,
                           hintStyle: TextStyle(
                             color: themeValue == Brightness.dark

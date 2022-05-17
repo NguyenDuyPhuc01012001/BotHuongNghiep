@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, invalid_return_type_for_catch_error
+// ignore_for_file: avoid_print, invalid_return_type_for_catch_error, unused_local_variable
 
 import 'dart:io';
 
@@ -6,9 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:huong_nghiep/models/news.dart';
-import 'package:huong_nghiep/models/tests/score.dart';
 import 'package:huong_nghiep/models/user.dart';
-import 'package:huong_nghiep/models/news.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
 

@@ -62,7 +62,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
                 builder: (BuildContext context) {
                   return GestureDetector(
                     onTap: () {
-                      Get.to(JobsPageScreen(JobsPostID: jobs.id!));
+                      Get.to(JobsPageScreen(jobsPostID: jobs.id!));
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 5),

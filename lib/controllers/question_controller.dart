@@ -1,11 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, unnecessary_getters_setters, prefer_final_fields
 
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:huong_nghiep/models/tests/question.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/home/test/score_screen.dart';
@@ -20,37 +16,37 @@ class QuestionController extends GetxController
   late AnimationController _animationController;
   late Animation _animation;
   // so that we can access our animation outside
-  Animation get animation => this._animation;
+  Animation get animation => _animation;
 
   late PageController _pageController;
-  PageController get pageController => this._pageController;
+  PageController get pageController => _pageController;
 
   String _type = "";
-  String get type => this._type;
-  set type(String value) => this._type = value;
+  String get type => _type;
+  set type(String value) => _type = value;
 
   // late List<Question> _questions;
   // List<Question> _questions = <Question>[];
   // List<Question> get questions => this._questions;
   int _qLength = -1;
-  int get qLength => this._qLength;
-  set qLength(int value) => this._qLength = value;
+  int get qLength => _qLength;
+  set qLength(int value) => _qLength = value;
 
   bool _isAnswered = false;
-  bool get isAnswered => this._isAnswered;
+  bool get isAnswered => _isAnswered;
 
   late int _correctAns;
-  int get correctAns => this._correctAns;
+  int get correctAns => _correctAns;
 
   late int _selectedAns;
-  int get selectedAns => this._selectedAns;
+  int get selectedAns => _selectedAns;
 
   // for more about obs please check documentation
   RxInt _questionNumber = 1.obs;
-  RxInt get questionNumber => this._questionNumber;
+  RxInt get questionNumber => _questionNumber;
 
   List<int> _lAnswers = <int>[];
-  List<int> get lAnswers => this._lAnswers;
+  List<int> get lAnswers => _lAnswers;
 
   // int _numOfCorrectAns = 0;
   // int get numOfCorrectAns => this._numOfCorrectAns;
@@ -166,12 +162,24 @@ class QuestionController extends GetxController
       }
     } else {
       // type= "Holland"
-      for (int i = 0; i < 9; i++) scR += ++lAnswers[i];
-      for (int i = 9; i < 18; i++) scI += ++lAnswers[i];
-      for (int i = 18; i < 27; i++) scA += ++lAnswers[i];
-      for (int i = 27; i < 36; i++) scS += ++lAnswers[i];
-      for (int i = 36; i < 45; i++) scE += ++lAnswers[i];
-      for (int i = 45; i < 54; i++) scC += ++lAnswers[i];
+      for (int i = 0; i < 9; i++) {
+        scR += ++lAnswers[i];
+      }
+      for (int i = 9; i < 18; i++) {
+        scI += ++lAnswers[i];
+      }
+      for (int i = 18; i < 27; i++) {
+        scA += ++lAnswers[i];
+      }
+      for (int i = 27; i < 36; i++) {
+        scS += ++lAnswers[i];
+      }
+      for (int i = 36; i < 45; i++) {
+        scE += ++lAnswers[i];
+      }
+      for (int i = 45; i < 54; i++) {
+        scC += ++lAnswers[i];
+      }
     }
     Map<String, int> scMap = {};
     if (type == "MBTI") {
