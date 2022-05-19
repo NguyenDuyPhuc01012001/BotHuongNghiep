@@ -62,13 +62,12 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          home:
-              // TestScreen(),
-              showHome
-                  ? FirebaseAuth.instance.currentUser == null
-                      ? SignInScreen()
-                      : SplashingScreen()
-                  : OnBoardingScreen(),
+          // home: AddScreen(),
+          home: showHome
+              ? FirebaseAuth.instance.currentUser == null
+                  ? SignInScreen()
+                  : SplashingScreen()
+              : OnBoardingScreen(),
           routes: <String, WidgetBuilder>{
             // '/signin': (BuildContext context) => SignInScreen(),
           }),

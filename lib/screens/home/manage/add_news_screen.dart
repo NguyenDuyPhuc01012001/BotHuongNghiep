@@ -1,16 +1,16 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
-
-import 'dart:io';
+// ignore_for_file: prefer_const_constructors, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
+import 'package:huong_nghiep/utils/constants.dart';
+import 'package:huong_nghiep/widgets/home/news/title_news.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../../../models/news.dart';
+import '../../../models/title_news.dart';
 import '../../../utils/styles.dart';
-import '../../../widgets/authentication/custom_error_box.dart';
+import '../../../widgets/home/news/detail_news_add.dart';
 
 class AddNewsScreen extends StatefulWidget {
   const AddNewsScreen({Key? key}) : super(key: key);
@@ -20,191 +20,154 @@ class AddNewsScreen extends StatefulWidget {
 }
 
 class _AddNewsScreenState extends State<AddNewsScreen> {
-  final _formKey = GlobalKey<FormState>();
+  List<DetailNewsWidget> dynamicList = [];
+  TitleNewsWidget titleNewsWidget = TitleNewsWidget();
 
-  var title = "";
-  var description = "";
-  var filePath = "";
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+  List<String> contents = [];
+  List<String> filePaths = [];
+  List<String> titles = [];
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    titleController.dispose();
-    descriptionController.dispose();
-    super.dispose();
+  onDeleteVar(int val) {
+    setState(
+      () => {
+        titles = [],
+        contents = [],
+        filePaths = [],
+        dynamicList.forEach((element) => {
+              titles.add(element.titleController.text),
+              contents.add(element.contentController.text),
+              filePaths.add(element.filePath)
+            }),
+        dynamicList.removeWhere((item) => item.index == val),
+        titles.removeAt(val),
+        contents.removeAt(val),
+        filePaths.removeAt(val),
+        dynamicList.forEach((element) => {
+              element.index = dynamicList.indexOf(element),
+              element.contentController.text =
+                  contents.elementAt(dynamicList.indexOf(element)),
+              element.titleController.text =
+                  titles.elementAt(dynamicList.indexOf(element)),
+              element.filePath =
+                  filePaths.elementAt(dynamicList.indexOf(element))
+            })
+      },
+    );
   }
 
-  clearText() {
-    titleController.clear();
-    descriptionController.clear();
-    setState(() {
-      filePath = '';
-    });
+  addDynamic() {
+    setState(() {});
+    dynamicList.add(
+        DetailNewsWidget(index: dynamicList.length, removeItem: onDeleteVar));
+  }
+
+  clearScreen() {
+    dynamicList.forEach((element) => {
+          element.index = dynamicList.indexOf(element),
+          element.contentController.text = "",
+          element.titleController.text = "",
+          element.filePath = ""
+        });
+
+    titles.forEach((element) => {element = ""});
+    contents.forEach((element) => {element = ""});
+    titleNewsWidget.titleController.text = "";
+    setState(() {});
+  }
+
+  checkValidate() {
+    dynamicList.forEach((element) => {
+          titles.add(element.titleController.text),
+          contents.add(element.contentController.text),
+          filePaths.add(element.filePath)
+        });
+    String titleNews = titleNewsWidget.titleController.text;
+    String imageNews = titleNewsWidget.filePath;
+    int checkContentEmpty = 0;
+    contents.forEach((element) => {if (element.isEmpty) checkContentEmpty++});
+    return titleNews.isEmpty || checkContentEmpty > 0 || imageNews.isEmpty;
+  }
+
+  saveScreen() {
+    if (checkValidate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content:
+                Text('Dữ liệu nhập vào còn thiếu. Vui lòng kiểm tra lại.')),
+      );
+    } else {
+      List<TitleNews> listTitleNews = [];
+      for (int i = 0; i < dynamicList.length; i++) {
+        listTitleNews.add(TitleNews(
+            title: titles[i], content: contents[i], image: filePaths[i]));
+      }
+      String title = titleNewsWidget.titleController.text;
+      String image = titleNewsWidget.filePath;
+      News news = News(title: title, image: image, listTitle: listTitleNews);
+      FirebaseHandler.addNews(news).then(
+        (value) => const SnackBar(content: Text('Đã thêm dữ liệu')),
+      );
+      Get.back();
+    }
+  }
+
+  @override
+  void initState() {
+    dynamicList.add(
+        DetailNewsWidget(index: dynamicList.length, removeItem: onDeleteVar));
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Thêm tin tức'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          child: ListView(
-            children: [
-              SizedBox(height: 10),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                  child: Text("Tiêu đề", style: ktsMediumTitleText)),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: TextFormField(
-                  autofocus: false,
-                  controller: titleController,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      hintText: 'Nhập tiêu đề',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Vui lòng nhập tiêu đề';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                  child: Text("Hình ảnh", style: ktsMediumLabelInputText)),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                child: GestureDetector(
-                    onTap: () async {
-                      final image = await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
-
-                      if (image == null) return;
-
-                      final location = await getApplicationDocumentsDirectory();
-                      final name = basename(image.path);
-                      final imageFile = File('${location.path}/$name');
-                      final newImage =
-                          await File(image.path).copy(imageFile.path);
-                      setState(() {
-                        filePath = newImage.path;
-                        print('File Path: ' + filePath);
-                      });
-                    },
-                    child: filePath == ''
-                        ? Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Icon(Icons.add, size: 40),
-                            width: 250,
-                            height: 250,
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.file(
-                                File(filePath),
-                                fit: BoxFit.fill,
-                                width: 250,
-                                height: 250,
-                              ),
-                            ))),
-              ),
-              filePath == ""
-                  ? CustomErrorBox(
-                      message: "Vui lòng chọn hình ảnh cho tin tức")
-                  : SizedBox(),
-              SizedBox(height: 10),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-                  child:
-                      Text("Chi tiết tin tức", style: ktsMediumLabelInputText)),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: TextFormField(
-                  controller: descriptionController,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                      hintText: 'Nhập chi tiết tin tức',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      )),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Chi tiết tin tức không được bỏ trống';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, otherwise false.
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            title = titleController.text;
-                            description = descriptionController.text;
-                            if (filePath != "") {
-                              FirebaseHandler.addNews(
-                                  title, description, filePath);
-                              Get.back();
-                            }
-                            // addNews();
-                          });
-                        }
-                      },
-                      child: Text(
-                        'Thêm',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => {clearText()},
-                      child: Text(
-                        'Clear',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+    Widget dynamicTextField = ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: dynamicList.length,
+      itemBuilder: (_, index) => dynamicList[index],
     );
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xffBFBFBF),
+          title: Text('Thêm tin tức'),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                    onPressed: clearScreen,
+                    icon: Icon(MdiIcons.eraser),
+                    color: Color(0xffede7f6),
+                    iconSize: 32),
+                horizontalSpaceSmall,
+                IconButton(
+                    onPressed: saveScreen,
+                    icon: Icon(MdiIcons.contentSaveOutline),
+                    color: Color(0xffede7f6),
+                    iconSize: 32),
+                horizontalSpaceTiny
+              ],
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
+                    child: Text("Tiêu đề bài báo",
+                        style:
+                            ktsMediumTitleText.copyWith(color: Colors.black))),
+                titleNewsWidget,
+                Padding(
+                    padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
+                    child: Text("Nội dung bài báo",
+                        style:
+                            ktsMediumTitleText.copyWith(color: Colors.black))),
+                dynamicTextField,
+              ]),
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: addDynamic, child: Icon(Icons.add)));
   }
 }

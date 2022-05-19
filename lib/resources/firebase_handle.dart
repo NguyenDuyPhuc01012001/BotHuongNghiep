@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:huong_nghiep/models/news.dart';
+import 'package:huong_nghiep/models/title_news.dart';
 import 'package:huong_nghiep/models/user.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
@@ -226,22 +227,6 @@ class FirebaseHandler {
         .catchError((error) => print("Failed to update post: $error"));
   }
 
-  static Future<void> addNews(
-      String title, String description, String filePath) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return await newsFR.add({
-      'title': title,
-      'description': description,
-      'source': user.name,
-      'sourceImage': user.image,
-      'time': myTimeStamp
-    }).then((value) async {
-      await uploadNewsImage(filePath, value.id);
-    }).catchError((error) => print('Failed to Add news: $error'));
-  }
-
   static Future<void> updateNews(
       String newsID, String title, String description, String filePath) async {
     UserData user = await getCurrentUser();
@@ -434,5 +419,136 @@ class FirebaseHandler {
     }).then((value) async {
       await postsFR.doc(postID).update({'numAnswer': FieldValue.increment(1)});
     }).catchError((error) => print('Failed to Add answers: $error'));
+  }
+
+  static Future<void> addNews(News news) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await newsFR.add({
+      'title': news.title,
+      'description': "",
+      'source': user.name,
+      'sourceImage': user.image,
+      'time': myTimeStamp
+    }).then((fNews) async {
+      await uploadNewsImage(news.image!, fNews.id);
+      for (TitleNews element in news.listTitle!) {
+        await newsFR
+            .doc(fNews.id)
+            .collection("titles")
+            .add({'title': element.title, 'content': element.content}).then(
+                (fTitle) async {
+          if (element.image!.isNotEmpty) {
+            await uploadNewsTitleImage(element.image!, fNews.id, fTitle.id);
+          }
+        });
+      }
+    }).catchError((error) => print('Failed to Add news: $error'));
+  }
+
+  static Future<void> uploadNewsTitleImage(
+      String filePath, String newsID, String titlesID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('news/$newsID/$titlesID.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("news task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('news/$newsID/$titlesID.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of News Image $url");
+
+            await FirebaseHandler.updateNewsTitleImageToFirestore(
+                url, newsID, titlesID);
+          }).catchError((onError) {
+            print("News Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  static updateNewsTitleImageToFirestore(
+      String url, String newsID, String titlesID) async {
+    var doc = newsFR.doc(newsID).collection("titles").doc(titlesID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("News Updated Image"))
+        .catchError((error) => print("Failed to update news: $error"));
+  }
+
+  static Future<News> getNewByID(String id) async {
+    News news = News();
+    await newsFR.doc(id).get().then((value) {
+      news = News.fromSnap(value);
+    });
+
+    List<TitleNews> titleList = await getListTitleNews(news.id!);
+    news.listTitle = titleList;
+
+    return news;
+  }
+
+  static Future<List<TitleNews>> getListTitleNews(String newsId) async {
+    List<TitleNews> titleList = [];
+    QuerySnapshot titleQuerySnapshot =
+        await newsFR.doc(newsId).collection("titles").get();
+
+    titleList = TitleNews.dataListFromSnapshot(titleQuerySnapshot);
+
+    return titleList;
+  }
+
+  static Future<void> updateNew(News news) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await newsFR.doc(news.id).update({
+      'title': news.title,
+      'description': "",
+      'source': user.name,
+      'sourceImage': user.image,
+      'time': myTimeStamp
+    }).then((result) async {
+      await uploadNewsImage(news.image!, news.id!);
+      for (TitleNews element in news.listTitle!) {
+        element.id!.isEmpty
+            ? await newsFR
+                .doc(news.id!)
+                .collection("titles")
+                .add({'title': element.title, 'content': element.content}).then(
+                    (fTitle) async {
+                if (element.image!.isNotEmpty) {
+                  await uploadNewsTitleImage(
+                      element.image!, news.id!, fTitle.id);
+                }
+              }).catchError((error) =>
+                    print("Failed to update news title without Image: $error"))
+            : await newsFR
+                .doc(news.id!)
+                .collection("titles")
+                .doc(element.id)
+                .update({
+                'title': element.title,
+                'content': element.content
+              }).then((result) async {
+                if (element.image!.isNotEmpty) {
+                  await uploadNewsTitleImage(
+                      element.image!, news.id!, element.id!);
+                }
+              }).catchError((error) =>
+                    print("Failed to update news title add Image: $error"));
+      }
+    }).catchError((error) => print("Failed to update news: $error"));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huong_nghiep/models/title_news.dart';
 import 'package:huong_nghiep/resources/support_function.dart';
 
 class News {
@@ -9,6 +10,7 @@ class News {
   late String? sourceImage;
   late String? time;
   late String? description;
+  late List<TitleNews>? listTitle;
 
   News(
       {this.id,
@@ -17,7 +19,8 @@ class News {
       this.source,
       this.sourceImage,
       this.time,
-      this.description});
+      this.description,
+      this.listTitle});
 
   static List<News> dataListFromSnapshot(QuerySnapshot querySnapshot) {
     return querySnapshot.docs.map((snapshot) {
@@ -26,12 +29,12 @@ class News {
 
       return News(
           id: snapshot.id,
-          title: dataMap['title'],
-          image: dataMap['image'],
-          source: dataMap['source'],
-          sourceImage: dataMap['sourceImage'],
+          title: dataMap['title'] ?? "",
+          image: dataMap['image'] ?? "",
+          source: dataMap['source'] ?? "",
+          sourceImage: dataMap['sourceImage'] ?? "",
           time: readTimestamp(dataMap['time']),
-          description: dataMap['description']);
+          description: dataMap['description'] ?? "");
     }).toList();
   }
 
@@ -40,11 +43,11 @@ class News {
 
     return News(
         id: snap.id,
-        title: snapshot['title'],
-        image: snapshot['image'],
-        source: snapshot['source'],
-        sourceImage: snapshot['sourceImage'],
+        title: snapshot['title'] ?? "",
+        image: snapshot['image'] ?? "",
+        source: snapshot['source'] ?? "",
+        sourceImage: snapshot['sourceImage'] ?? "",
         time: readTimestamp(snapshot['time']),
-        description: snapshot['description']);
+        description: snapshot['description'] ?? "");
   }
 }
