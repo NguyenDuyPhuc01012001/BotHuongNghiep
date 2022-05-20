@@ -30,3 +30,15 @@ String readTimestamp(Timestamp timestamp) {
 
   return time;
 }
+
+String getReadTime(List<String> content) {
+  String listContent = "";
+  for (String element in content) {
+    listContent += element + " ";
+  }
+  int time = listContent.split(' ').length >= 200
+      ? (listContent.split(' ').length / 200).floor()
+      : (listContent.split(' ').length / 200 * 60).floor();
+  String timeUnit = listContent.split(' ').length >= 200 ? "phút" : "giây";
+  return "$time $timeUnit";
+}

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:huong_nghiep/models/title_news.dart';
-import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/resources/support_function.dart';
 
 class News {
@@ -11,6 +10,7 @@ class News {
   late String? sourceImage;
   late String? time;
   late String? description;
+  late String? timeRead;
   late List<TitleNews>? listTitle;
 
   News(
@@ -21,6 +21,7 @@ class News {
       this.sourceImage,
       this.time,
       this.description,
+      this.timeRead,
       this.listTitle});
 
   static List<News> dataListFromSnapshot(QuerySnapshot querySnapshot) {
@@ -35,6 +36,7 @@ class News {
           source: dataMap['source'] ?? "",
           sourceImage: dataMap['sourceImage'] ?? "",
           time: readTimestamp(dataMap['time']),
+          timeRead: dataMap['timeRead'] ?? "",
           description: dataMap['description'] ?? "");
     }).toList();
   }
@@ -49,6 +51,7 @@ class News {
         source: snapshot['source'] ?? "",
         sourceImage: snapshot['sourceImage'] ?? "",
         time: readTimestamp(snapshot['time']),
+        timeRead: snapshot['timeRead'] ?? "",
         description: snapshot['description'] ?? "");
   }
 }

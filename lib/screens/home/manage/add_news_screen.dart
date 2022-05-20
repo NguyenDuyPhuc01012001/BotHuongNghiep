@@ -3,14 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
+import 'package:huong_nghiep/resources/support_function.dart';
 import 'package:huong_nghiep/utils/constants.dart';
-import 'package:huong_nghiep/widgets/home/news/title_news.dart';
+import 'package:huong_nghiep/widgets/home/news/title_manage_news.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../models/news.dart';
 import '../../../models/title_news.dart';
 import '../../../utils/styles.dart';
-import '../../../widgets/home/news/detail_news_add.dart';
+import '../../../widgets/home/news/content_manage_news.dart';
 
 class AddNewsScreen extends StatefulWidget {
   const AddNewsScreen({Key? key}) : super(key: key);
@@ -20,8 +21,8 @@ class AddNewsScreen extends StatefulWidget {
 }
 
 class _AddNewsScreenState extends State<AddNewsScreen> {
-  List<DetailNewsWidget> dynamicList = [];
-  TitleNewsWidget titleNewsWidget = TitleNewsWidget();
+  List<ContentManageNewsWidget> dynamicList = [];
+  TitleManageNewsWidget titleNewsWidget = TitleManageNewsWidget();
 
   List<String> contents = [];
   List<String> filePaths = [];
@@ -57,8 +58,8 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
 
   addDynamic() {
     setState(() {});
-    dynamicList.add(
-        DetailNewsWidget(index: dynamicList.length, removeItem: onDeleteVar));
+    dynamicList.add(ContentManageNewsWidget(
+        index: dynamicList.length, removeItem: onDeleteVar));
   }
 
   clearScreen() {
@@ -103,7 +104,12 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
       }
       String title = titleNewsWidget.titleController.text;
       String image = titleNewsWidget.filePath;
-      News news = News(title: title, image: image, listTitle: listTitleNews);
+      String timeRead = getReadTime(contents);
+      News news = News(
+          title: title,
+          image: image,
+          listTitle: listTitleNews,
+          timeRead: timeRead);
       FirebaseHandler.addNews(news).then(
         (value) => const SnackBar(content: Text('Đã thêm dữ liệu')),
       );
@@ -113,8 +119,8 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
 
   @override
   void initState() {
-    dynamicList.add(
-        DetailNewsWidget(index: dynamicList.length, removeItem: onDeleteVar));
+    dynamicList.add(ContentManageNewsWidget(
+        index: dynamicList.length, removeItem: onDeleteVar));
     super.initState();
   }
 

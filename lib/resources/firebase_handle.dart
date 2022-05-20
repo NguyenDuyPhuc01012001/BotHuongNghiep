@@ -430,7 +430,8 @@ class FirebaseHandler {
       'description': "",
       'source': user.name,
       'sourceImage': user.image,
-      'time': myTimeStamp
+      'time': myTimeStamp,
+      'timeRead': news.timeRead
     }).then((fNews) async {
       await uploadNewsImage(news.image!, fNews.id);
       for (TitleNews element in news.listTitle!) {
@@ -521,6 +522,7 @@ class FirebaseHandler {
       'source': user.name,
       'sourceImage': user.image,
       'time': myTimeStamp,
+      'timeRead': news.timeRead,
       'image': news.image!.contains("http") ? news.image : ""
     }).then((result) async {
       if (!news.image!.contains("http")) {

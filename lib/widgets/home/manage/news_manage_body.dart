@@ -3,9 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/manage/update_news_screen.dart';
-import 'package:material_dialogs/material_dialogs.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:huong_nghiep/utils/styles.dart';
+import 'package:huong_nghiep/widgets/alert.dart';
 
 import '../../../models/news.dart';
 import '../../../resources/firebase_handle.dart';
@@ -18,6 +17,7 @@ class NewsManageBody extends StatefulWidget {
 }
 
 class _NewsManageBodyState extends State<NewsManageBody> {
+  Alerts alerts = Alerts();
   // Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
 
   @override
@@ -35,140 +35,82 @@ class _NewsManageBodyState extends State<NewsManageBody> {
           }
 
           List<News> newsdocs = snapshot.data!;
-          // snapshot.data!.docs.map((DocumentSnapshot document) {
-          //   Map a = document.data() as Map<String, dynamic>;
-          //   newsdocs.add(a);
-          //   a['id'] = document.id;
-          // }).toList();
 
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Table(
-                border: TableBorder.all(),
-                columnWidths: const <int, TableColumnWidth>{
-                  1: FixedColumnWidth(140),
-                },
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: [
-                  TableRow(
-                    children: [
-                      TableCell(
-                        child: Container(
-                          color: Colors.greenAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                'Tiêu đề',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                scrollDirection: Axis.vertical,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: newsdocs.length,
+                    itemBuilder: ((context, index) {
+                      return Dismissible(
+                        key: UniqueKey(),
+
+                        // only allows the user swipe from right to left
+                        direction: DismissDirection.endToStart,
+
+                        // Remove this product from the list
+                        // In production enviroment, you may want to send some request to delete it on server side
+                        onDismissed: (_) {
+                          setState(() {
+                            Alerts().confirm(
+                                "Bạn có muốn xoá tin tức này không?",
+                                'Đồng ý',
+                                'Hủy', () async {
+                              await FirebaseHandler.deleteNews(
+                                      newsdocs[index].id!)
+                                  .whenComplete(
+                                      () => {Get.back(), setState(() {})});
+                            }, () => Get.back(), context);
+                            newsdocs.removeAt(index);
+                          });
+                        },
+
+                        // Display item's title, price...
+                        child: Card(
+                          elevation: 20,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
+                          child: InkWell(
+                            onTap: () async {
+                              final result = await Get.to(
+                                  UpdateScreen(newsPost: newsdocs[index]));
+                              if (result != null) {
+                                setState(() {});
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 8),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  child: Text("${index + 1}"),
                                 ),
+                                title: Text(newsdocs[index].title!,
+                                    style: kDefaultTextStyle,
+                                    textAlign: TextAlign.justify),
+                                trailing: const Icon(Icons.arrow_back),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      TableCell(
-                        child: Container(
-                          color: Colors.greenAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                'Chức năng',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+
+                        // This will show up when the user performs dismissal action
+                        // It is a red background and a trash icon
+                        background: Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          color: Colors.red,
+                          margin: const EdgeInsets.symmetric(horizontal: 15),
+                          alignment: Alignment.centerRight,
+                          child: const Icon(
+                            Icons.delete,
+                            color: Colors.white,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  for (var i = 0; i < newsdocs.length; i++) ...[
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            child: Center(
-                                child: Text(newsdocs[i].title!,
-                                    style: TextStyle(fontSize: 14.0))),
-                          ),
-                        ),
-                        TableCell(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: () async {
-                                  final result = await Get.to(
-                                      UpdateScreen(newsPost: newsdocs[i]));
-                                  if (result != null) {
-                                    setState(() {});
-                                  }
-                                },
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: Colors.orange,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  Dialogs.materialDialog(
-                                      msg: 'Bạn có muốn xoá tin tức này không?',
-                                      title: "Xoá",
-                                      color: Colors.white,
-                                      context: context,
-                                      actions: [
-                                        IconsOutlineButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          text: 'Cancel',
-                                          iconData: Icons.cancel_outlined,
-                                          textStyle:
-                                              TextStyle(color: Colors.grey),
-                                          iconColor: Colors.grey,
-                                        ),
-                                        IconsButton(
-                                          onPressed: () async {
-                                            await FirebaseHandler.deleteNews(
-                                                    newsdocs[i].id!)
-                                                .whenComplete(() => {
-                                                      Get.back(),
-                                                      setState(() {})
-                                                    });
-                                          },
-                                          text: 'Xoá',
-                                          iconData: Icons.delete,
-                                          color: Colors.red,
-                                          textStyle:
-                                              TextStyle(color: Colors.white),
-                                          iconColor: Colors.white,
-                                        ),
-                                      ]);
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
-            ),
+                      );
+                    }))),
           );
         });
   }

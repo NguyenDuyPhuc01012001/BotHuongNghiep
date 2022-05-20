@@ -1,18 +1,17 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, avoid_function_literals_in_foreach_calls
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
+import 'package:huong_nghiep/resources/support_function.dart';
 import 'package:huong_nghiep/utils/constants.dart';
-import 'package:huong_nghiep/widgets/home/news/title_news.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../models/news.dart';
 import '../../../models/title_news.dart';
 import '../../../utils/styles.dart';
-import '../../../widgets/home/news/detail_news_add.dart';
-import '../../../widgets/home/news/title_news.dart';
+import '../../../widgets/home/news/content_manage_news.dart';
+import '../../../widgets/home/news/title_manage_news.dart';
 
 class UpdateScreen extends StatefulWidget {
   final News newsPost;
@@ -23,8 +22,8 @@ class UpdateScreen extends StatefulWidget {
 }
 
 class _UpdateScreenState extends State<UpdateScreen> {
-  List<DetailNewsWidget> dynamicList = [];
-  TitleNewsWidget titleNewsWidget = TitleNewsWidget();
+  List<ContentManageNewsWidget> dynamicList = [];
+  TitleManageNewsWidget titleNewsWidget = TitleManageNewsWidget();
 
   List<TitleNews> listTitle = [];
 
@@ -66,7 +65,8 @@ class _UpdateScreenState extends State<UpdateScreen> {
   setDataToDynamic(List<TitleNews> titleList) {
     resetList();
     for (int i = 0; i < titleList.length; i++) {
-      dynamicList.add(DetailNewsWidget(removeItem: onDeleteVar, index: i));
+      dynamicList
+          .add(ContentManageNewsWidget(removeItem: onDeleteVar, index: i));
       dynamicList[i].id = titleList[i].id!;
       dynamicList[i].titleController.text = titleList[i].title!;
       dynamicList[i].contentController.text = titleList[i].content!;
@@ -86,7 +86,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
 
   addDynamic() {
     setState(() {});
-    dynamicList.add(DetailNewsWidget(
+    dynamicList.add(ContentManageNewsWidget(
         index: dynamicList.length, removeItem: onDeleteVar, id: ""));
   }
 
@@ -121,6 +121,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
       );
     } else {
       List<TitleNews> listTitleNews = [];
+      List<String> contents = [];
       for (int i = 0; i < dynamicList.length; i++) {
         String idTitle = listTitle[i].id!;
         String titleTitle = listTitle[i].title!;
@@ -131,12 +132,19 @@ class _UpdateScreenState extends State<UpdateScreen> {
             title: titleTitle,
             content: titleContent,
             image: titleImage));
+
+        contents.add(titleContent);
       }
       String title = titleNewsWidget.titleController.text;
       String image = titleNewsWidget.filePath;
       String id = titleNewsWidget.id!;
-      News news =
-          News(id: id, title: title, image: image, listTitle: listTitleNews);
+      String timeRead = getReadTime(contents);
+      News news = News(
+          id: id,
+          title: title,
+          image: image,
+          listTitle: listTitleNews,
+          timeRead: timeRead);
       FirebaseHandler.updateNew(news)
           .then((value) => Get.back(result: 'success'));
     }

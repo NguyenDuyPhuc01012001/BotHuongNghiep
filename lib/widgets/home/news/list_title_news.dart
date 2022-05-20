@@ -81,7 +81,7 @@ class _ListTitleNewsState extends State<ListTitleNews> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "${newsdocs[i].description!.split(' ').length >= 200 ? (newsdocs[i].description!.split(' ').length / 200).floor() : (newsdocs[i].description!.split(' ').length / 200 * 60).floor()} ${newsdocs[i].description!.split(' ').length >= 200 ? "phút" : "giây"} đọc",
+                                      "${newsdocs[i].timeRead!} đọc",
                                       style: kItemText,
                                     ),
                                     Text(

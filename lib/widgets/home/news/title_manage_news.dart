@@ -13,18 +13,18 @@ import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../../utils/styles.dart';
 
-class TitleNewsWidget extends StatefulWidget {
+class TitleManageNewsWidget extends StatefulWidget {
   TextEditingController titleController = TextEditingController();
   String? id;
   String filePath = "";
 
-  TitleNewsWidget({Key? key, this.id}) : super(key: key);
+  TitleManageNewsWidget({Key? key, this.id}) : super(key: key);
 
   @override
-  State<TitleNewsWidget> createState() => _TitleNewsWidgetState();
+  State<TitleManageNewsWidget> createState() => _TitleManageNewsWidgetState();
 }
 
-class _TitleNewsWidgetState extends State<TitleNewsWidget> {
+class _TitleManageNewsWidgetState extends State<TitleManageNewsWidget> {
   addImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
