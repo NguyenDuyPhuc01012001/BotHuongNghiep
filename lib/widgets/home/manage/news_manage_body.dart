@@ -1,16 +1,14 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/manage/update_news_screen.dart';
-import 'package:huong_nghiep/screens/home/manage/update_screen.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 
+import '../../../models/news.dart';
 import '../../../resources/firebase_handle.dart';
-import '../../../resources/firebase_reference.dart';
 
 class NewsManageBody extends StatefulWidget {
   const NewsManageBody({Key? key}) : super(key: key);
@@ -20,12 +18,13 @@ class NewsManageBody extends StatefulWidget {
 }
 
 class _NewsManageBodyState extends State<NewsManageBody> {
-  Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
+  // Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: newsStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return FutureBuilder<List<News>>(
+        future: FirebaseHandler.getListNews(),
+        builder: (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
           }
@@ -35,12 +34,12 @@ class _NewsManageBodyState extends State<NewsManageBody> {
             );
           }
 
-          final List newsdocs = [];
-          snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map a = document.data() as Map<String, dynamic>;
-            newsdocs.add(a);
-            a['id'] = document.id;
-          }).toList();
+          List<News> newsdocs = snapshot.data!;
+          // snapshot.data!.docs.map((DocumentSnapshot document) {
+          //   Map a = document.data() as Map<String, dynamic>;
+          //   newsdocs.add(a);
+          //   a['id'] = document.id;
+          // }).toList();
 
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -99,7 +98,7 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 4),
                             child: Center(
-                                child: Text(newsdocs[i]['title'],
+                                child: Text(newsdocs[i].title!,
                                     style: TextStyle(fontSize: 14.0))),
                           ),
                         ),
@@ -108,9 +107,12 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton(
-                                onPressed: () => {
-                                  Get.to(UpdateScreen(
-                                      newsPostID: newsdocs[i]['id']))
+                                onPressed: () async {
+                                  final result = await Get.to(
+                                      UpdateScreen(newsPost: newsdocs[i]));
+                                  if (result != null) {
+                                    setState(() {});
+                                  }
                                 },
                                 icon: Icon(
                                   Icons.edit,
@@ -138,8 +140,11 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                                         IconsButton(
                                           onPressed: () async {
                                             await FirebaseHandler.deleteNews(
-                                                    newsdocs[i]['id'])
-                                                .whenComplete(() => Get.back());
+                                                    newsdocs[i].id!)
+                                                .whenComplete(() => {
+                                                      Get.back(),
+                                                      setState(() {})
+                                                    });
                                           },
                                           text: 'Xoá',
                                           iconData: Icons.delete,

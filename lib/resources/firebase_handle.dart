@@ -504,7 +504,9 @@ class FirebaseHandler {
     QuerySnapshot titleQuerySnapshot =
         await newsFR.doc(newsId).collection("titles").get();
 
-    titleList = TitleNews.dataListFromSnapshot(titleQuerySnapshot);
+    if (titleQuerySnapshot.size > 0) {
+      titleList = TitleNews.dataListFromSnapshot(titleQuerySnapshot);
+    }
 
     return titleList;
   }
@@ -518,9 +520,12 @@ class FirebaseHandler {
       'description': "",
       'source': user.name,
       'sourceImage': user.image,
-      'time': myTimeStamp
+      'time': myTimeStamp,
+      'image': news.image!.contains("http") ? news.image : ""
     }).then((result) async {
-      await uploadNewsImage(news.image!, news.id!);
+      if (!news.image!.contains("http")) {
+        await uploadNewsImage(news.image!, news.id!);
+      }
       for (TitleNews element in news.listTitle!) {
         element.id!.isEmpty
             ? await newsFR
@@ -540,9 +545,10 @@ class FirebaseHandler {
                 .doc(element.id)
                 .update({
                 'title': element.title,
-                'content': element.content
+                'content': element.content,
+                'image': element.image!.contains("http") ? element.image : ""
               }).then((result) async {
-                if (element.image!.isNotEmpty) {
+                if (!element.image!.contains("http")) {
                   await uploadNewsTitleImage(
                       element.image!, news.id!, element.id!);
                 }
@@ -550,5 +556,18 @@ class FirebaseHandler {
                     print("Failed to update news title add Image: $error"));
       }
     }).catchError((error) => print("Failed to update news: $error"));
+  }
+
+  static Future<List<News>> getListNews() async {
+    List<News> newsList = [];
+    QuerySnapshot newsQuerySnapshot = await newsFR.orderBy('time').get();
+    newsList = newsQuerySnapshot.docs.map((doc) => News.fromSnap(doc)).toList();
+
+    for (int i = 0; i < newsList.length; i++) {
+      List<TitleNews> listTitle = await getListTitleNews(newsList[i].id!);
+      newsList[i].listTitle = listTitle;
+    }
+
+    return newsList;
   }
 }

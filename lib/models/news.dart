@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:huong_nghiep/models/title_news.dart';
+import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/resources/support_function.dart';
 
 class News {
