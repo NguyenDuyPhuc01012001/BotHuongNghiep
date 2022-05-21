@@ -10,20 +10,20 @@ import '../../../models/news.dart';
 import '../../../resources/firebase_handle.dart';
 
 class NewsManageBody extends StatefulWidget {
-  const NewsManageBody({Key? key}) : super(key: key);
+  final bool descending;
+  const NewsManageBody({Key? key, required this.descending}) : super(key: key);
 
   @override
   State<NewsManageBody> createState() => _NewsManageBodyState();
 }
 
 class _NewsManageBodyState extends State<NewsManageBody> {
-  Alerts alerts = Alerts();
   // Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<News>>(
-        future: FirebaseHandler.getListNews(),
+        future: FirebaseHandler.getListNews(widget.descending),
         builder: (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
@@ -64,7 +64,6 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                                   .whenComplete(
                                       () => {Get.back(), setState(() {})});
                             }, () => Get.back(), context);
-                            newsdocs.removeAt(index);
                           });
                         },
 
@@ -83,15 +82,25 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
+                                  horizontal: 4, vertical: 8),
                               child: ListTile(
                                 leading: CircleAvatar(
-                                  child: Text("${index + 1}"),
+                                  child: Text(
+                                    "${index + 1}",
+                                    style: kDefaultTextStyle.copyWith(
+                                        color: Colors.white),
+                                  ),
+                                  backgroundColor: Color(0xffBFBFBF),
                                 ),
                                 title: Text(newsdocs[index].title!,
                                     style: kDefaultTextStyle,
                                     textAlign: TextAlign.justify),
-                                trailing: const Icon(Icons.arrow_back),
+                                subtitle: Text(
+                                    "Đã đăng vào ${newsdocs[index].time!}",
+                                    style: kDefaultTextStyle.copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.justify),
                               ),
                             ),
                           ),

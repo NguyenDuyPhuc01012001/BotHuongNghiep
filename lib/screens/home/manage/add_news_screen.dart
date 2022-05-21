@@ -113,7 +113,7 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
       FirebaseHandler.addNews(news).then(
         (value) => const SnackBar(content: Text('Đã thêm dữ liệu')),
       );
-      Get.back();
+      Get.back(result: "success");
     }
   }
 
@@ -134,25 +134,58 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
     );
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xffBFBFBF),
-          title: Text('Thêm tin tức'),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: clearScreen,
-                    icon: Icon(MdiIcons.eraser),
-                    color: Color(0xffede7f6),
-                    iconSize: 32),
-                horizontalSpaceSmall,
-                IconButton(
-                    onPressed: saveScreen,
-                    icon: Icon(MdiIcons.contentSaveOutline),
-                    color: Color(0xffede7f6),
-                    iconSize: 32),
-                horizontalSpaceTiny
-              ],
+          leading: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffBFBFBF),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
+              child: Icon(
+                Icons.arrow_back,
+              ),
             ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Text("Thêm tin tức",
+                style: kDefaultTextStyle.copyWith(
+                    fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+                textAlign: TextAlign.center),
+          ),
+          centerTitle: true,
+          actions: <Widget>[
+            GestureDetector(
+              onTap: clearScreen,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.1,
+                decoration: BoxDecoration(
+                    color: Color(0xffBFBFBF),
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.all(5),
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                child: Icon(MdiIcons.eraser),
+              ),
+            ),
+            horizontalSpaceSmall,
+            GestureDetector(
+              onTap: saveScreen,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.1,
+                decoration: BoxDecoration(
+                    color: Color(0xffBFBFBF),
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.all(5),
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                child: Icon(MdiIcons.contentSaveOutline),
+              ),
+            ),
+            horizontalSpaceTiny
           ],
         ),
         body: SingleChildScrollView(
@@ -174,6 +207,9 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
               ]),
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: addDynamic, child: Icon(Icons.add)));
+          onPressed: addDynamic,
+          child: Icon(Icons.add),
+          backgroundColor: Color(0xffBFBFBF),
+        ));
   }
 }

@@ -160,32 +160,61 @@ class _UpdateScreenState extends State<UpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xffBFBFBF),
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Get.back(result: 'success');
-              }),
-          title: Text('Cập nhật tin tức'),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: clearScreen,
-                    icon: Icon(MdiIcons.eraser),
-                    color: Color(0xffede7f6),
-                    iconSize: 32),
-                horizontalSpaceSmall,
-                IconButton(
-                    onPressed: saveScreen,
-                    icon: Icon(MdiIcons.contentSaveOutline),
-                    color: Color(0xffede7f6),
-                    iconSize: 32),
-                horizontalSpaceTiny
-              ],
+          leading: GestureDetector(
+            onTap: () {
+              Get.back(result: 'success');
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffBFBFBF),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
+              child: Icon(
+                Icons.arrow_back,
+              ),
             ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Text("Cập nhật tin tức",
+                style: kDefaultTextStyle.copyWith(
+                    fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+                textAlign: TextAlign.center),
+          ),
+          centerTitle: true,
+          actions: <Widget>[
+            GestureDetector(
+              onTap: clearScreen,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.1,
+                decoration: BoxDecoration(
+                    color: Color(0xffBFBFBF),
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.all(5),
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                child: Icon(MdiIcons.eraser),
+              ),
+            ),
+            horizontalSpaceSmall,
+            GestureDetector(
+              onTap: saveScreen,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.1,
+                decoration: BoxDecoration(
+                    color: Color(0xffBFBFBF),
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.all(5),
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                child: Icon(MdiIcons.contentSaveOutline),
+              ),
+            ),
+            horizontalSpaceTiny
           ],
         ),
+        // extendBodyBehindAppBar: true,
         body: SingleChildScrollView(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,6 +247,9 @@ class _UpdateScreenState extends State<UpdateScreen> {
               ]),
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: addDynamic, child: Icon(Icons.add)));
+          onPressed: addDynamic,
+          child: Icon(Icons.add),
+          backgroundColor: Color(0xffBFBFBF),
+        ));
   }
 }

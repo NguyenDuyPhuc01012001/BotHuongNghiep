@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, invalid_return_type_for_catch_error, unused_local_variable
+// ignore_for_file: avoid_print, invalid_return_type_for_catch_error, unused_local_variable, avoid_function_literals_in_foreach_calls
 
 import 'dart:io';
 
@@ -95,13 +95,19 @@ class FirebaseHandler {
   }
 
   static Future<void> deleteNews(id) {
-    return newsFR.doc(id).delete().then((value) {
-      FirebaseStorage.instance.ref("news/$id").listAll().then((value) {
-        for (var element in value.items) {
-          FirebaseStorage.instance.ref(element.fullPath).delete();
-        }
-      });
-    }).catchError((error) => print('Failed to Delete news: $error'));
+    CollectionReference tiltesRef = newsFR.doc(id).collection("tiltes");
+    Future<QuerySnapshot> tiltes = tiltesRef.get();
+    return tiltes
+        .then((value) => value.docs.forEach((element) {
+              tiltesRef.doc(element.id).delete();
+            }))
+        .then((value) => newsFR.doc(id).delete().then((value) {
+              FirebaseStorage.instance.ref("news/$id").listAll().then((value) {
+                for (var element in value.items) {
+                  FirebaseStorage.instance.ref(element.fullPath).delete();
+                }
+              });
+            }).catchError((error) => print('Failed to Delete news: $error')));
   }
 
   static getNewsData() async {
@@ -560,9 +566,10 @@ class FirebaseHandler {
     }).catchError((error) => print("Failed to update news: $error"));
   }
 
-  static Future<List<News>> getListNews() async {
+  static Future<List<News>> getListNews(bool descending) async {
     List<News> newsList = [];
-    QuerySnapshot newsQuerySnapshot = await newsFR.orderBy('time').get();
+    QuerySnapshot newsQuerySnapshot =
+        await newsFR.orderBy('time', descending: descending).get();
     newsList = newsQuerySnapshot.docs.map((doc) => News.fromSnap(doc)).toList();
 
     for (int i = 0; i < newsList.length; i++) {

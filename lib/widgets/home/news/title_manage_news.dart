@@ -114,15 +114,21 @@ class _TitleManageNewsWidgetState extends State<TitleManageNewsWidget> {
                 if (widget.filePath.contains("http"))
                   Padding(
                     padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                    child: CachedNetworkImage(
+                    child: Container(
                       alignment: Alignment.center,
-                      height: 250,
-                      fit: BoxFit.fill,
-                      imageUrl: widget.filePath,
-                      placeholder: (context, url) => Center(
-                          child:
-                              CircularProgressIndicator(color: Colors.black)),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: CachedNetworkImage(
+                          height: 250,
+                          fit: BoxFit.fill,
+                          imageUrl: widget.filePath,
+                          placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.black)),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                      ),
                     ),
                   )
                 else

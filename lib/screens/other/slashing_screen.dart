@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/home_screen.dart';
-import 'package:huong_nghiep/screens/menu/news_manage_screen.dart';
 
 class SplashingScreen extends StatefulWidget {
   const SplashingScreen({Key? key}) : super(key: key);
