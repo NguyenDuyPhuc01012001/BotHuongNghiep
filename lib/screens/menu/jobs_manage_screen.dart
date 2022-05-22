@@ -24,7 +24,7 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Get.back(result: 'success');
+            Get.back();
           },
           child: Container(
             decoration: BoxDecoration(

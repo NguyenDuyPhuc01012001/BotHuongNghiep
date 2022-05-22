@@ -111,14 +111,21 @@ class _NewsManageBodyState extends State<NewsManageBody> {
 
                         // This will show up when the user performs dismissal action
                         // It is a red background and a trash icon
-                        background: Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                        background: Card(
+                          elevation: 20,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
                           color: Colors.red,
-                          margin: const EdgeInsets.symmetric(horizontal: 15),
-                          alignment: Alignment.centerRight,
-                          child: const Icon(
-                            Icons.delete,
-                            color: Colors.white,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       );
