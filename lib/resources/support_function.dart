@@ -8,27 +8,32 @@ String getTruncatedTitle(String actualString, int maxLetters) {
 }
 
 String readTimestamp(Timestamp timestamp) {
-  var now = DateTime.now();
-  var format = DateFormat('HH:mm a');
-  var date =
-      DateTime.fromMicrosecondsSinceEpoch(timestamp.microsecondsSinceEpoch);
-  var diff = date.difference(now);
-  var time = '';
+  // var now = DateTime.now();
+  // var format = DateFormat('HH:mm a');
+  // var date =
+  //     DateTime.fromMicrosecondsSinceEpoch(timestamp.microsecondsSinceEpoch);
+  // var diff = date.difference(now);
+  // var time = '';
 
-  if (diff.inSeconds <= 0 ||
-      diff.inSeconds > 0 && diff.inMinutes == 0 ||
-      diff.inMinutes > 0 && diff.inHours == 0 ||
-      diff.inHours > 0 && diff.inDays == 0) {
-    time = format.format(date);
-  } else {
-    if (diff.inDays == 1) {
-      time = diff.inDays.toString() + ' ngày trước';
-    } else {
-      time = diff.inDays.toString() + ' ngày trước';
-    }
-  }
+  // if (diff.inSeconds <= 0 ||
+  //     diff.inSeconds > 0 && diff.inMinutes == 0 ||
+  //     diff.inMinutes > 0 && diff.inHours == 0 ||
+  //     diff.inHours > 0 && diff.inDays == 0) {
+  //   time = format.format(date);
+  // } else {
+  //   if (diff.inDays == 1) {
+  //     time = diff.inDays.toString() + ' ngày trước';
+  //   } else {
+  //     time = diff.inDays.toString() + ' ngày trước';
+  //   }
+  // }
 
-  return time;
+  DateTime myDateTime = DateTime.parse(timestamp.toDate().toString());
+  String formattedTime = DateFormat('hh:mm a').format(myDateTime);
+  String formattedDate = DateFormat('dd-MM-yyyy').format(myDateTime);
+  String formattedDateTime = "$formattedTime ngày $formattedDate";
+
+  return formattedDateTime;
 }
 
 String getReadTime(List<String> content) {

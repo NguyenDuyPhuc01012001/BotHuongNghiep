@@ -5,8 +5,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:huong_nghiep/models/jobs.dart';
 import 'package:huong_nghiep/models/news.dart';
-import 'package:huong_nghiep/models/title_news.dart';
+import 'package:huong_nghiep/models/titles.dart';
 import 'package:huong_nghiep/models/user.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
@@ -94,92 +95,6 @@ class FirebaseHandler {
     return urlString;
   }
 
-  static Future<void> deleteNews(id) {
-    CollectionReference tiltesRef = newsFR.doc(id).collection("tiltes");
-    Future<QuerySnapshot> tiltes = tiltesRef.get();
-    return tiltes
-        .then((value) => value.docs.forEach((element) {
-              tiltesRef.doc(element.id).delete();
-            }))
-        .then((value) => newsFR.doc(id).delete().then((value) {
-              FirebaseStorage.instance.ref("news/$id").listAll().then((value) {
-                for (var element in value.items) {
-                  FirebaseStorage.instance.ref(element.fullPath).delete();
-                }
-              });
-            }).catchError((error) => print('Failed to Delete news: $error')));
-  }
-
-  static getNewsData() async {
-    List newsList = [];
-    await newsFR.get().then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        Map val = doc.data() as Map<String, dynamic>;
-        val['id'] = doc.id;
-        newsList.add(val);
-      }
-    });
-    return newsList;
-  }
-
-  static Future<void> uploadNewsImage(String filePath, String newsID) async {
-    File file = File(filePath);
-
-    try {
-      await firebaseStorage
-          .ref('news/$newsID/news_image.jpg')
-          .putFile(file)
-          .then((taskSnapshot) async {
-        print("news task done");
-
-        // download url when it is uploaded
-        if (taskSnapshot.state == TaskState.success) {
-          await FirebaseStorage.instance
-              .ref('news/$newsID/news_image.jpg')
-              .getDownloadURL()
-              .then((url) async {
-            print("Here is the URL of News Image $url");
-
-            await FirebaseHandler.updateNewsImageToFirestore(url, newsID);
-          }).catchError((onError) {
-            print("News Got Error $onError");
-          });
-        }
-      });
-    } on firebase_core.FirebaseException catch (e) {
-      print(e);
-    }
-  }
-
-  static Future<void> uploadJobsImage(String filePath, String jobsID) async {
-    File file = File(filePath);
-
-    try {
-      await firebaseStorage
-          .ref('jobs/$jobsID/jobs_image.jpg')
-          .putFile(file)
-          .then((taskSnapshot) async {
-        print("jobs task done");
-
-        // download url when it is uploaded
-        if (taskSnapshot.state == TaskState.success) {
-          await FirebaseStorage.instance
-              .ref('jobs/$jobsID/jobs_image.jpg')
-              .getDownloadURL()
-              .then((url) async {
-            print("Here is the URL of Jobs Image $url");
-
-            await FirebaseHandler.updateJobsImageToFirestore(url, jobsID);
-          }).catchError((onError) {
-            print("Jobs Got Error $onError");
-          });
-        }
-      });
-    } on firebase_core.FirebaseException catch (e) {
-      print(e);
-    }
-  }
-
   static Future<void> uploadPostsImage(String filePath, String postID) async {
     File file = File(filePath);
 
@@ -209,46 +124,12 @@ class FirebaseHandler {
     }
   }
 
-  static updateNewsImageToFirestore(String url, String newsID) async {
-    var doc = newsFR.doc(newsID);
-    await doc
-        .update({'image': url})
-        .then((value) => print("News Updated Image"))
-        .catchError((error) => print("Failed to update news: $error"));
-  }
-
-  static updateJobsImageToFirestore(String url, String jobsID) async {
-    var doc = jobsFR.doc(jobsID);
-    await doc
-        .update({'image': url})
-        .then((value) => print("Jobs Updated Image"))
-        .catchError((error) => print("Failed to update jobs: $error"));
-  }
-
   static updatePostImageToFirestore(String url, String postID) async {
     var doc = postsFR.doc(postID);
     await doc
         .update({'image': url})
         .then((value) => print("Post Updated Image"))
         .catchError((error) => print("Failed to update post: $error"));
-  }
-
-  static Future<void> updateNews(
-      String newsID, String title, String description, String filePath) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return await newsFR
-        .doc(newsID)
-        .update({
-          'title': title,
-          'description': description,
-          'source': user.name,
-          'sourceImage': user.image,
-          'time': myTimeStamp
-        })
-        .then((value) async => await uploadNewsImage(filePath, newsID))
-        .catchError((error) => print("Failed to update news: $error"));
   }
 
   static addToFavorite(
@@ -313,63 +194,6 @@ class FirebaseHandler {
     yield* quizFR.snapshots();
   }
 
-  static getNewsByID(String id) async {
-    News news = News();
-    await newsFR.doc(id).get().then((value) {
-      news = News.fromSnap(value);
-    });
-
-    return news;
-  }
-
-  static Future<void> addJobs(String title, String define, String qualities,
-      String income, String filePath) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return await jobsFR.add({
-      'title': title,
-      'define': define,
-      'qualities': qualities,
-      'income': income,
-      'source': user.name,
-      'sourceImage': user.image,
-      'time': myTimeStamp
-    }).then((value) async {
-      await uploadJobsImage(filePath, value.id);
-    }).catchError((error) => print('Failed to Add news: $error'));
-  }
-
-  static Future<void> updateJobs(String jobsID, String title, String define,
-      String qualities, String income, String filePath) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return await jobsFR
-        .doc(jobsID)
-        .update({
-          'title': title,
-          'define': define,
-          'qualities': qualities,
-          'income': income,
-          'source': user.name,
-          'sourceImage': user.image,
-          'time': myTimeStamp
-        })
-        .then((value) async => await uploadJobsImage(filePath, jobsID))
-        .catchError((error) => print("Failed to update jobs: $error"));
-  }
-
-  static Future<void> deleteJobs(id) {
-    return jobsFR.doc(id).delete().then((value) {
-      FirebaseStorage.instance.ref("jobs/$id").listAll().then((value) {
-        for (var element in value.items) {
-          FirebaseStorage.instance.ref(element.fullPath).delete();
-        }
-      });
-    }).catchError((error) => print('Failed to Delete jobs: $error'));
-  }
-
   static Future<void> updateQuizScores(String type, Map<String, int> sc) async {
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
@@ -427,6 +251,9 @@ class FirebaseHandler {
     }).catchError((error) => print('Failed to Add answers: $error'));
   }
 
+  // START NEWS
+
+  // Add News to FireStore
   static Future<void> addNews(News news) async {
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
@@ -440,7 +267,7 @@ class FirebaseHandler {
       'timeRead': news.timeRead
     }).then((fNews) async {
       await uploadNewsImage(news.image!, fNews.id);
-      for (TitleNews element in news.listTitle!) {
+      for (Titles element in news.listTitle!) {
         await newsFR
             .doc(fNews.id)
             .collection("titles")
@@ -454,6 +281,7 @@ class FirebaseHandler {
     }).catchError((error) => print('Failed to Add news: $error'));
   }
 
+  // Upload News Contents Image to Storage
   static Future<void> uploadNewsTitleImage(
       String filePath, String newsID, String titlesID) async {
     File file = File(filePath);
@@ -485,6 +313,7 @@ class FirebaseHandler {
     }
   }
 
+  // Update News Contents Image From Storage to FireStore
   static updateNewsTitleImageToFirestore(
       String url, String newsID, String titlesID) async {
     var doc = newsFR.doc(newsID).collection("titles").doc(titlesID);
@@ -494,30 +323,87 @@ class FirebaseHandler {
         .catchError((error) => print("Failed to update news: $error"));
   }
 
+  // Upload News Image to Storage
+  static Future<void> uploadNewsImage(String filePath, String newsID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('news/$newsID/news_image.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("news task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('news/$newsID/news_image.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of News Image $url");
+
+            await FirebaseHandler.updateNewsImageToFirestore(url, newsID);
+          }).catchError((onError) {
+            print("News Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  // Update News Image From Storage to FireStore
+  static updateNewsImageToFirestore(String url, String newsID) async {
+    var doc = newsFR.doc(newsID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("News Updated Image"))
+        .catchError((error) => print("Failed to update news: $error"));
+  }
+
+  // Get News by ID from FireStore
   static Future<News> getNewByID(String id) async {
     News news = News();
     await newsFR.doc(id).get().then((value) {
       news = News.fromSnap(value);
     });
 
-    List<TitleNews> titleList = await getListTitleNews(news.id!);
+    List<Titles> titleList = await getListNewsTitle(news.id!);
     news.listTitle = titleList;
 
     return news;
   }
 
-  static Future<List<TitleNews>> getListTitleNews(String newsId) async {
-    List<TitleNews> titleList = [];
+  // Get List Titles News from colection(tiltes) from FireStore
+  static Future<List<Titles>> getListNewsTitle(String newsId) async {
+    List<Titles> titleList = [];
     QuerySnapshot titleQuerySnapshot =
         await newsFR.doc(newsId).collection("titles").get();
 
     if (titleQuerySnapshot.size > 0) {
-      titleList = TitleNews.dataListFromSnapshot(titleQuerySnapshot);
+      titleList = Titles.dataListFromSnapshot(titleQuerySnapshot);
     }
 
     return titleList;
   }
 
+  // Get List News from FireStore
+  static Future<List<News>> getListNews(bool descending) async {
+    List<News> newsList = [];
+    QuerySnapshot newsQuerySnapshot =
+        await newsFR.orderBy('time', descending: descending).get();
+    newsList = newsQuerySnapshot.docs.map((doc) => News.fromSnap(doc)).toList();
+
+    for (int i = 0; i < newsList.length; i++) {
+      List<Titles> listTitle = await getListNewsTitle(newsList[i].id!);
+      newsList[i].listTitle = listTitle;
+    }
+
+    return newsList;
+  }
+
+  // Update News to FireStore
   static Future<void> updateNew(News news) async {
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
@@ -531,10 +417,10 @@ class FirebaseHandler {
       'timeRead': news.timeRead,
       'image': news.image!.contains("http") ? news.image : ""
     }).then((result) async {
-      if (!news.image!.contains("http")) {
+      if (!news.image!.contains("http") && news.image!.isNotEmpty) {
         await uploadNewsImage(news.image!, news.id!);
       }
-      for (TitleNews element in news.listTitle!) {
+      for (Titles element in news.listTitle!) {
         element.id!.isEmpty
             ? await newsFR
                 .doc(news.id!)
@@ -556,7 +442,8 @@ class FirebaseHandler {
                 'content': element.content,
                 'image': element.image!.contains("http") ? element.image : ""
               }).then((result) async {
-                if (!element.image!.contains("http")) {
+                if (!element.image!.contains("http") &&
+                    element.image!.isNotEmpty) {
                   await uploadNewsTitleImage(
                       element.image!, news.id!, element.id!);
                 }
@@ -566,17 +453,243 @@ class FirebaseHandler {
     }).catchError((error) => print("Failed to update news: $error"));
   }
 
-  static Future<List<News>> getListNews(bool descending) async {
-    List<News> newsList = [];
-    QuerySnapshot newsQuerySnapshot =
-        await newsFR.orderBy('time', descending: descending).get();
-    newsList = newsQuerySnapshot.docs.map((doc) => News.fromSnap(doc)).toList();
+  // Delete News from FireStore include colection(tiltes)
+  static Future<void> deleteNews(id) {
+    CollectionReference tiltesRef = newsFR.doc(id).collection("tiltes");
+    Future<QuerySnapshot> tiltes = tiltesRef.get();
+    return tiltes
+        .then((value) => value.docs.forEach((element) {
+              tiltesRef.doc(element.id).delete();
+            }))
+        .then((value) => newsFR.doc(id).delete().then((value) {
+              FirebaseStorage.instance.ref("news/$id").listAll().then((value) {
+                for (var element in value.items) {
+                  FirebaseStorage.instance.ref(element.fullPath).delete();
+                }
+              });
+            }).catchError((error) => print('Failed to Delete news: $error')));
+  }
 
-    for (int i = 0; i < newsList.length; i++) {
-      List<TitleNews> listTitle = await getListTitleNews(newsList[i].id!);
-      newsList[i].listTitle = listTitle;
+  // END NEWS
+
+  // START JOBS
+
+  // Upload Jobs Image to Storage
+  static Future<void> uploadJobsImage(String filePath, String jobsID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('jobs/$jobsID/jobs_image.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("jobs task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('jobs/$jobsID/jobs_image.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of Jobs Image $url");
+
+            await FirebaseHandler.updateJobsImageToFirestore(url, jobsID);
+          }).catchError((onError) {
+            print("Jobs Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  // Update Jobs Image from Storage to FireStore
+  static updateJobsImageToFirestore(String url, String jobsID) async {
+    var doc = jobsFR.doc(jobsID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("Jobs Updated Image"))
+        .catchError((error) => print("Failed to update jobs: $error"));
+  }
+
+  // Upload Jobs Contents Image to Storage
+  static Future<void> uploadJobsTitleImage(
+      String filePath, String jobsID, String titlesID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('jobs/$jobsID/$titlesID.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("jobs task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('jobs/$jobsID/$titlesID.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of Jobs Image $url");
+
+            await FirebaseHandler.updateJobsTitleImageToFirestore(
+                url, jobsID, titlesID);
+          }).catchError((onError) {
+            print("Jobs Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  // Update News Contents Image From Storage to FireStore
+  static updateJobsTitleImageToFirestore(
+      String url, String jobsID, String titlesID) async {
+    var doc = jobsFR.doc(jobsID).collection("titles").doc(titlesID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("Jobs Updated Image"))
+        .catchError((error) => print("Failed to update jobs: $error"));
+  }
+
+  // Add Jobs to FireStore
+  static Future<void> addJobs(Jobs jobs) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await jobsFR.add({
+      'title': jobs.title,
+      'description': "",
+      'source': user.name,
+      'sourceImage': user.image,
+      'time': myTimeStamp,
+      'timeRead': jobs.timeRead
+    }).then((fJobs) async {
+      await uploadJobsImage(jobs.image!, fJobs.id);
+      for (Titles element in jobs.listTitle!) {
+        await jobsFR
+            .doc(fJobs.id)
+            .collection("titles")
+            .add({'title': element.title, 'content': element.content}).then(
+                (fTitle) async {
+          if (element.image!.isNotEmpty) {
+            await uploadJobsTitleImage(element.image!, fJobs.id, fTitle.id);
+          }
+        });
+      }
+    }).catchError((error) => print('Failed to Add jobs: $error'));
+  }
+
+  // Update Jobs to FireStore
+  static Future<void> updateJobs(Jobs jobs) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await jobsFR.doc(jobs.id).update({
+      'title': jobs.title,
+      'description': "",
+      'source': user.name,
+      'sourceImage': user.image,
+      'time': myTimeStamp,
+      'timeRead': jobs.timeRead,
+      'image': jobs.image!.contains("http") ? jobs.image : ""
+    }).then((result) async {
+      if (!jobs.image!.contains("http") && jobs.image!.isNotEmpty) {
+        await uploadJobsImage(jobs.image!, jobs.id!);
+      }
+      for (Titles element in jobs.listTitle!) {
+        element.id!.isEmpty
+            ? await jobsFR
+                .doc(jobs.id!)
+                .collection("titles")
+                .add({'title': element.title, 'content': element.content}).then(
+                    (fTitle) async {
+                if (element.image!.isNotEmpty) {
+                  await uploadJobsTitleImage(
+                      element.image!, jobs.id!, fTitle.id);
+                }
+              }).catchError((error) =>
+                    print("Failed to update jobs title without Image: $error"))
+            : await jobsFR
+                .doc(jobs.id!)
+                .collection("titles")
+                .doc(element.id)
+                .update({
+                'title': element.title,
+                'content': element.content,
+                'image': element.image!.contains("http") ? element.image : ""
+              }).then((result) async {
+                if (!element.image!.contains("http") &&
+                    element.image!.isNotEmpty) {
+                  await uploadJobsTitleImage(
+                      element.image!, jobs.id!, element.id!);
+                }
+              }).catchError((error) =>
+                    print("Failed to update jobs title add Image: $error"));
+      }
+    }).catchError((error) => print("Failed to update jobs: $error"));
+  }
+
+  // Delete Jobs from FireStore include colection(tiltes)
+  static Future<void> deleteJobs(id) {
+    CollectionReference tiltesRef = jobsFR.doc(id).collection("tiltes");
+    Future<QuerySnapshot> tiltes = tiltesRef.get();
+    return tiltes
+        .then((value) => value.docs.forEach((element) {
+              tiltesRef.doc(element.id).delete();
+            }))
+        .then((value) => jobsFR.doc(id).delete().then((value) {
+              FirebaseStorage.instance.ref("jobs/$id").listAll().then((value) {
+                for (var element in value.items) {
+                  FirebaseStorage.instance.ref(element.fullPath).delete();
+                }
+              });
+            }).catchError((error) => print('Failed to Delete jobs: $error')));
+  }
+
+  // Get Jobs by ID from FireStore
+  static Future<Jobs> getJobsByID(String id) async {
+    Jobs jobs = Jobs();
+    await jobsFR.doc(id).get().then((value) {
+      jobs = Jobs.fromSnap(value);
+    });
+
+    List<Titles> titleList = await getListJobsTitle(jobs.id!);
+    jobs.listTitle = titleList;
+
+    return jobs;
+  }
+
+  // Get List Titles Jobs from colection(tiltes) from FireStore
+  static Future<List<Titles>> getListJobsTitle(String jobsId) async {
+    List<Titles> titleList = [];
+    QuerySnapshot titleQuerySnapshot =
+        await jobsFR.doc(jobsId).collection("titles").get();
+
+    if (titleQuerySnapshot.size > 0) {
+      titleList = Titles.dataListFromSnapshot(titleQuerySnapshot);
     }
 
-    return newsList;
+    return titleList;
   }
+
+  // Get List Jobs from FireStore
+  static Future<List<Jobs>> getListJobs(bool descending) async {
+    List<Jobs> jobsList = [];
+    QuerySnapshot jobsQuerySnapshot =
+        await jobsFR.orderBy('time', descending: descending).get();
+    jobsList = jobsQuerySnapshot.docs.map((doc) => Jobs.fromSnap(doc)).toList();
+
+    for (int i = 0; i < jobsList.length; i++) {
+      List<Titles> listTitle = await getListJobsTitle(jobsList[i].id!);
+      jobsList[i].listTitle = listTitle;
+    }
+
+    return jobsList;
+  }
+
+  // END JOBS
 }

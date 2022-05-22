@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var themeValue = MediaQuery.of(context).platformBrightness;
 
     final homeProvider = Provider.of<HomeProvider>(context);
-    homeProvider.getCurrentUser();
+    // homeProvider.getCurrentUser();
 
     return Scaffold(
       key: _scaffoldState,

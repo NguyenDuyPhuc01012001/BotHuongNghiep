@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/home_screen.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/home/home_provider.dart';
 
 class SplashingScreen extends StatefulWidget {
   const SplashingScreen({Key? key}) : super(key: key);
@@ -17,7 +21,7 @@ class _SplashScreenState extends State<SplashingScreen> {
   @override
   void initState() {
     _timer = Timer(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
       () => Get.offAll(const HomeScreen()),
     );
     super.initState();
@@ -31,15 +35,14 @@ class _SplashScreenState extends State<SplashingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final homeProvider = Provider.of<HomeProvider>(context);
+    homeProvider.getCurrentUser();
     return Material(
       child: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.4,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/jobs_icon.jpg'),
-            ),
-          ),
+        child: SizedBox(
+          child: Lottie.network(
+              "https://assets10.lottiefiles.com/packages/lf20_i9mtrven.json",
+              fit: BoxFit.cover),
         ),
       ),
     );

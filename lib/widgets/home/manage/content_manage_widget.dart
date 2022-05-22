@@ -13,7 +13,7 @@ import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../../utils/styles.dart';
 
-class ContentManageNewsWidget extends StatefulWidget {
+class ContentManageWidget extends StatefulWidget {
   late int? index;
   String? id;
   final Function(int) removeItem;
@@ -22,7 +22,7 @@ class ContentManageNewsWidget extends StatefulWidget {
   TextEditingController contentController = TextEditingController();
   String filePath = "";
 
-  ContentManageNewsWidget({
+  ContentManageWidget({
     Key? key,
     this.index,
     this.id,
@@ -30,11 +30,10 @@ class ContentManageNewsWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ContentManageNewsWidget> createState() =>
-      _ContentManageNewsWidgetState();
+  State<ContentManageWidget> createState() => _ContentManageWidgetState();
 }
 
-class _ContentManageNewsWidgetState extends State<ContentManageNewsWidget> {
+class _ContentManageWidgetState extends State<ContentManageWidget> {
   addImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 

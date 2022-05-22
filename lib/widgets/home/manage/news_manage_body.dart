@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/manage/update_news_screen.dart';
+import 'package:huong_nghiep/screens/other/error_screen.dart';
 import 'package:huong_nghiep/utils/styles.dart';
 import 'package:huong_nghiep/widgets/alert.dart';
 
@@ -27,10 +29,11 @@ class _NewsManageBodyState extends State<NewsManageBody> {
         builder: (BuildContext context, AsyncSnapshot<List<News>> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
+            return ErrorScreen();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
             );
           }
 
@@ -75,7 +78,7 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                           child: InkWell(
                             onTap: () async {
                               final result = await Get.to(
-                                  UpdateScreen(newsPost: newsdocs[index]));
+                                  UpdateNewsScreen(newsPost: newsdocs[index]));
                               if (result != null) {
                                 setState(() {});
                               }

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:huong_nghiep/models/title_news.dart';
+import 'package:huong_nghiep/models/titles.dart';
 import 'package:huong_nghiep/resources/support_function.dart';
 
 class News {
@@ -11,7 +11,7 @@ class News {
   late String? time;
   late String? description;
   late String? timeRead;
-  late List<TitleNews>? listTitle;
+  late List<Titles>? listTitle;
 
   News(
       {this.id,

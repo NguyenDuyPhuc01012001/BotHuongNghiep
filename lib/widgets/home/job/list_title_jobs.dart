@@ -81,7 +81,7 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "${(jobsdocs[i].define! + jobsdocs[i].income! + jobsdocs[i].qualities!).split(' ').length >= 200 ? ((jobsdocs[i].define! + jobsdocs[i].income! + jobsdocs[i].qualities!).split(' ').length / 200).floor() : ((jobsdocs[i].define! + jobsdocs[i].income! + jobsdocs[i].qualities!).split(' ').length / 200 * 60).floor()} ${(jobsdocs[i].define! + jobsdocs[i].income! + jobsdocs[i].qualities!).split(' ').length >= 200 ? "phút" : "giây"} đọc",
+                                      "${jobsdocs[i].timeRead!} đọc",
                                       style: kItemText,
                                     ),
                                     Text(

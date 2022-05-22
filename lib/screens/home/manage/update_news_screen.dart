@@ -4,37 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/resources/support_function.dart';
+import 'package:huong_nghiep/screens/other/loading_screen.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../models/news.dart';
-import '../../../models/title_news.dart';
+import '../../../models/titles.dart';
 import '../../../utils/styles.dart';
-import '../../../widgets/home/news/content_manage_news.dart';
-import '../../../widgets/home/news/title_manage_news.dart';
+import '../../../widgets/home/manage/content_manage_widget.dart';
+import '../../../widgets/home/manage/title_manage_widget.dart';
 
-class UpdateScreen extends StatefulWidget {
+class UpdateNewsScreen extends StatefulWidget {
   final News newsPost;
-  const UpdateScreen({Key? key, required this.newsPost}) : super(key: key);
+  const UpdateNewsScreen({Key? key, required this.newsPost}) : super(key: key);
 
   @override
-  State<UpdateScreen> createState() => _UpdateScreenState();
+  State<UpdateNewsScreen> createState() => _UpdateNewsScreenState();
 }
 
-class _UpdateScreenState extends State<UpdateScreen> {
-  List<ContentManageNewsWidget> dynamicList = [];
-  TitleManageNewsWidget titleNewsWidget = TitleManageNewsWidget();
+class _UpdateNewsScreenState extends State<UpdateNewsScreen> {
+  List<ContentManageWidget> dynamicList = [];
+  TitleManageWidget titleNewsWidget = TitleManageWidget();
 
-  List<TitleNews> listTitle = [];
-
-  late News news;
+  List<Titles> listTitle = [];
+  bool loading = false;
 
   onDeleteVar(int val) {
     setState(
       () => {
         listTitle = [],
         dynamicList.forEach((element) => {
-              listTitle.add(TitleNews(
+              listTitle.add(Titles(
                   id: element.id!,
                   title: element.titleController.text,
                   content: element.contentController.text,
@@ -62,11 +62,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
     listTitle.clear();
   }
 
-  setDataToDynamic(List<TitleNews> titleList) {
+  setDataToDynamic(List<Titles> titleList) {
     resetList();
     for (int i = 0; i < titleList.length; i++) {
-      dynamicList
-          .add(ContentManageNewsWidget(removeItem: onDeleteVar, index: i));
+      dynamicList.add(ContentManageWidget(removeItem: onDeleteVar, index: i));
       dynamicList[i].id = titleList[i].id!;
       dynamicList[i].titleController.text = titleList[i].title!;
       dynamicList[i].contentController.text = titleList[i].content!;
@@ -86,7 +85,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
 
   addDynamic() {
     setState(() {});
-    dynamicList.add(ContentManageNewsWidget(
+    dynamicList.add(ContentManageWidget(
         index: dynamicList.length, removeItem: onDeleteVar, id: ""));
   }
 
@@ -98,7 +97,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
   checkValidate() {
     listTitle = [];
     dynamicList.forEach((element) => {
-          listTitle.add(TitleNews(
+          listTitle.add(Titles(
               id: element.id!,
               title: element.titleController.text,
               content: element.contentController.text,
@@ -113,21 +112,27 @@ class _UpdateScreenState extends State<UpdateScreen> {
   }
 
   saveScreen() {
+    setState(() {
+      loading = true;
+    });
     if (checkValidate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content:
                 Text('Dữ liệu nhập vào còn thiếu. Vui lòng kiểm tra lại.')),
       );
+      setState(() {
+        loading = false;
+      });
     } else {
-      List<TitleNews> listTitleNews = [];
+      List<Titles> listTitleNews = [];
       List<String> contents = [];
       for (int i = 0; i < dynamicList.length; i++) {
         String idTitle = listTitle[i].id!;
         String titleTitle = listTitle[i].title!;
         String titleContent = listTitle[i].content!;
         String titleImage = listTitle[i].image!;
-        listTitleNews.add(TitleNews(
+        listTitleNews.add(Titles(
             id: idTitle,
             title: titleTitle,
             content: titleContent,
@@ -145,8 +150,12 @@ class _UpdateScreenState extends State<UpdateScreen> {
           image: image,
           listTitle: listTitleNews,
           timeRead: timeRead);
-      FirebaseHandler.updateNew(news)
-          .then((value) => Get.back(result: 'success'));
+      FirebaseHandler.updateNew(news).then((value) {
+        setState(() {
+          loading = false;
+        });
+        Get.back(result: 'success');
+      });
     }
   }
 
@@ -158,98 +167,101 @@ class _UpdateScreenState extends State<UpdateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              Get.back(result: 'success');
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Color(0xffBFBFBF),
-                  borderRadius: BorderRadius.circular(10)),
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
-              child: Icon(
-                Icons.arrow_back,
+    return loading
+        ? LoadingScreen()
+        : Scaffold(
+            appBar: AppBar(
+              leading: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xffBFBFBF),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
+                  child: Icon(
+                    Icons.arrow_back,
+                  ),
+                ),
               ),
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 5),
-            child: Text("Cập nhật tin tức",
-                style: kDefaultTextStyle.copyWith(
-                    fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-                textAlign: TextAlign.center),
-          ),
-          centerTitle: true,
-          actions: <Widget>[
-            GestureDetector(
-              onTap: clearScreen,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Color(0xffBFBFBF),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                child: Icon(MdiIcons.eraser),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 5),
+                child: Text("Cập nhật tin tức",
+                    style: kDefaultTextStyle.copyWith(
+                        fontSize: 24,
+                        color: Color.fromARGB(255, 142, 142, 142)),
+                    textAlign: TextAlign.center),
               ),
+              centerTitle: true,
+              actions: <Widget>[
+                GestureDetector(
+                  onTap: clearScreen,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                        color: Color(0xffBFBFBF),
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(top: 10, bottom: 5),
+                    child: Icon(MdiIcons.eraser),
+                  ),
+                ),
+                horizontalSpaceSmall,
+                GestureDetector(
+                  onTap: saveScreen,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                        color: Color(0xffBFBFBF),
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(top: 10, bottom: 5),
+                    child: Icon(MdiIcons.contentSaveOutline),
+                  ),
+                ),
+                horizontalSpaceTiny
+              ],
             ),
-            horizontalSpaceSmall,
-            GestureDetector(
-              onTap: saveScreen,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Color(0xffBFBFBF),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                child: Icon(MdiIcons.contentSaveOutline),
-              ),
+            // extendBodyBehindAppBar: true,
+            body: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
+                        child: Text("Tiêu đề bài báo",
+                            style: ktsMediumTitleText.copyWith(
+                                color: Colors.black))),
+                    titleNewsWidget,
+                    verticalSpaceTiny,
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 4),
+                        child: Text(
+                            "Người đăng/sửa bài: ${widget.newsPost.source!} \nThời gian: ${widget.newsPost.time}",
+                            style: ktsMediumLabelInputText)),
+                    verticalSpaceTiny,
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
+                        child: Text("Nội dung bài báo",
+                            style: ktsMediumTitleText.copyWith(
+                                color: Colors.black))),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: dynamicList.length,
+                      itemBuilder: (_, index) => dynamicList[index],
+                    )
+                  ]),
             ),
-            horizontalSpaceTiny
-          ],
-        ),
-        // extendBodyBehindAppBar: true,
-        body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                    child: Text("Tiêu đề bài báo",
-                        style:
-                            ktsMediumTitleText.copyWith(color: Colors.black))),
-                titleNewsWidget,
-                verticalSpaceTiny,
-                Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 4),
-                    child: Text(
-                        "Người đăng/sửa bài: ${widget.newsPost.source!} \nThời gian: ${widget.newsPost.time}",
-                        style: ktsMediumLabelInputText)),
-                verticalSpaceTiny,
-                Padding(
-                    padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                    child: Text("Nội dung bài báo",
-                        style:
-                            ktsMediumTitleText.copyWith(color: Colors.black))),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: dynamicList.length,
-                  itemBuilder: (_, index) => dynamicList[index],
-                )
-              ]),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: addDynamic,
-          child: Icon(Icons.add),
-          backgroundColor: Color(0xffBFBFBF),
-        ));
+            floatingActionButton: FloatingActionButton(
+              onPressed: addDynamic,
+              child: Icon(Icons.add),
+              backgroundColor: Color(0xffBFBFBF),
+            ));
   }
 }

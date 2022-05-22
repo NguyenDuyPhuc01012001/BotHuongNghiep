@@ -222,37 +222,21 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: <Widget>[
-                                      Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8.0, bottom: 4.0),
-                                            child: Text(
-                                              "Mục thứ $index.",
-                                              style: kDescription.copyWith(
-                                                  fontWeight: FontWeight.bold),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8.0, bottom: 4.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                "Mục thứ ${index + 1}. ${newsPost.listTitle![index].title}",
+                                                style: kDescription.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
-                                          ),
-                                          newsPost.listTitle![index].title! !=
-                                                  ""
-                                              ? Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0,
-                                                          bottom: 4.0),
-                                                  child: Text(
-                                                      newsPost.listTitle![index]
-                                                          .title!,
-                                                      style:
-                                                          kDescription.copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                      textAlign:
-                                                          TextAlign.justify),
-                                                )
-                                              : SizedBox(),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                       Padding(
                                         padding:

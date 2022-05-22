@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/resources/support_function.dart';
+import 'package:huong_nghiep/screens/other/loading_screen.dart';
 import 'package:huong_nghiep/utils/constants.dart';
-import 'package:huong_nghiep/widgets/home/news/title_manage_news.dart';
+import 'package:huong_nghiep/widgets/home/manage/title_manage_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../models/news.dart';
-import '../../../models/title_news.dart';
+import '../../../models/titles.dart';
 import '../../../utils/styles.dart';
-import '../../../widgets/home/news/content_manage_news.dart';
+import '../../../widgets/home/manage/content_manage_widget.dart';
 
 class AddNewsScreen extends StatefulWidget {
   const AddNewsScreen({Key? key}) : super(key: key);
@@ -21,12 +22,14 @@ class AddNewsScreen extends StatefulWidget {
 }
 
 class _AddNewsScreenState extends State<AddNewsScreen> {
-  List<ContentManageNewsWidget> dynamicList = [];
-  TitleManageNewsWidget titleNewsWidget = TitleManageNewsWidget();
+  List<ContentManageWidget> dynamicList = [];
+  TitleManageWidget titleNewsWidget = TitleManageWidget();
 
   List<String> contents = [];
   List<String> filePaths = [];
   List<String> titles = [];
+
+  bool loading = false;
 
   onDeleteVar(int val) {
     setState(
@@ -58,7 +61,7 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
 
   addDynamic() {
     setState(() {});
-    dynamicList.add(ContentManageNewsWidget(
+    dynamicList.add(ContentManageWidget(
         index: dynamicList.length, removeItem: onDeleteVar));
   }
 
@@ -90,16 +93,22 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
   }
 
   saveScreen() {
+    setState(() {
+      loading = true;
+    });
     if (checkValidate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content:
                 Text('Dữ liệu nhập vào còn thiếu. Vui lòng kiểm tra lại.')),
       );
+      setState(() {
+        loading = false;
+      });
     } else {
-      List<TitleNews> listTitleNews = [];
+      List<Titles> listTitleNews = [];
       for (int i = 0; i < dynamicList.length; i++) {
-        listTitleNews.add(TitleNews(
+        listTitleNews.add(Titles(
             title: titles[i], content: contents[i], image: filePaths[i]));
       }
       String title = titleNewsWidget.titleController.text;
@@ -111,15 +120,19 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
           listTitle: listTitleNews,
           timeRead: timeRead);
       FirebaseHandler.addNews(news).then(
-        (value) => const SnackBar(content: Text('Đã thêm dữ liệu')),
+        (value) {
+          setState(() {
+            loading = false;
+          });
+          Get.back(result: "success");
+        },
       );
-      Get.back(result: "success");
     }
   }
 
   @override
   void initState() {
-    dynamicList.add(ContentManageNewsWidget(
+    dynamicList.add(ContentManageWidget(
         index: dynamicList.length, removeItem: onDeleteVar));
     super.initState();
   }
@@ -132,84 +145,87 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
       itemCount: dynamicList.length,
       itemBuilder: (_, index) => dynamicList[index],
     );
-    return Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Color(0xffBFBFBF),
-                  borderRadius: BorderRadius.circular(10)),
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
-              child: Icon(
-                Icons.arrow_back,
+    return loading
+        ? LoadingScreen()
+        : Scaffold(
+            appBar: AppBar(
+              leading: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xffBFBFBF),
+                      borderRadius: BorderRadius.circular(10)),
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
+                  child: Icon(
+                    Icons.arrow_back,
+                  ),
+                ),
               ),
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 5),
-            child: Text("Thêm tin tức",
-                style: kDefaultTextStyle.copyWith(
-                    fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-                textAlign: TextAlign.center),
-          ),
-          centerTitle: true,
-          actions: <Widget>[
-            GestureDetector(
-              onTap: clearScreen,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Color(0xffBFBFBF),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                child: Icon(MdiIcons.eraser),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 5),
+                child: Text("Thêm tin tức",
+                    style: kDefaultTextStyle.copyWith(
+                        fontSize: 24,
+                        color: Color.fromARGB(255, 142, 142, 142)),
+                    textAlign: TextAlign.center),
               ),
+              centerTitle: true,
+              actions: <Widget>[
+                GestureDetector(
+                  onTap: clearScreen,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                        color: Color(0xffBFBFBF),
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(top: 10, bottom: 5),
+                    child: Icon(MdiIcons.eraser),
+                  ),
+                ),
+                horizontalSpaceSmall,
+                GestureDetector(
+                  onTap: saveScreen,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                        color: Color(0xffBFBFBF),
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(top: 10, bottom: 5),
+                    child: Icon(MdiIcons.contentSaveOutline),
+                  ),
+                ),
+                horizontalSpaceTiny
+              ],
             ),
-            horizontalSpaceSmall,
-            GestureDetector(
-              onTap: saveScreen,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Color(0xffBFBFBF),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(5),
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                child: Icon(MdiIcons.contentSaveOutline),
-              ),
+            body: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
+                        child: Text("Tiêu đề bài báo",
+                            style: ktsMediumTitleText.copyWith(
+                                color: Colors.black))),
+                    titleNewsWidget,
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
+                        child: Text("Nội dung bài báo",
+                            style: ktsMediumTitleText.copyWith(
+                                color: Colors.black))),
+                    dynamicTextField,
+                  ]),
             ),
-            horizontalSpaceTiny
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                    child: Text("Tiêu đề bài báo",
-                        style:
-                            ktsMediumTitleText.copyWith(color: Colors.black))),
-                titleNewsWidget,
-                Padding(
-                    padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                    child: Text("Nội dung bài báo",
-                        style:
-                            ktsMediumTitleText.copyWith(color: Colors.black))),
-                dynamicTextField,
-              ]),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: addDynamic,
-          child: Icon(Icons.add),
-          backgroundColor: Color(0xffBFBFBF),
-        ));
+            floatingActionButton: FloatingActionButton(
+              onPressed: addDynamic,
+              child: Icon(Icons.add),
+              backgroundColor: Color(0xffBFBFBF),
+            ));
   }
 }
