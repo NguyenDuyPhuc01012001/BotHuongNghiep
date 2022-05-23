@@ -58,7 +58,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
 
           return CarouselSlider(
             options: CarouselOptions(
-              height: 250.0,
+              height: 200.0,
             ),
             items: jobsdocs.map((jobs) {
               return Builder(
@@ -74,10 +74,10 @@ class _JobsCarouselState extends State<JobsCarousel> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image(
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                               image: NetworkImage(jobs.image!),
-                              height: 250,
-                              // width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
                             ),
                           ),
                           Container(

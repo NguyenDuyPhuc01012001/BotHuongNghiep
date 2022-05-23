@@ -39,10 +39,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Danh sách yêu thích".capitalize!,
-            style: kDefaultTextStyle.copyWith(
-                fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-            textAlign: TextAlign.center),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text("Danh sách yêu thích".capitalize!,
+              style: kDefaultTextStyle.copyWith(
+                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+              textAlign: TextAlign.center),
+        ),
         centerTitle: true,
         actions: <Widget>[
           GestureDetector(

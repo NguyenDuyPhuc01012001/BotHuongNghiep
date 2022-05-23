@@ -68,12 +68,13 @@ class _AnsweredQuestionScreenState extends State<AnsweredQuestionScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 5),
+            padding: const EdgeInsets.only(top: 4.0),
             child: Text("Giải đáp thắc mắc",
                 style: kDefaultTextStyle.copyWith(
                     fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
                 textAlign: TextAlign.center),
           ),
+          titleSpacing: 0,
           centerTitle: true,
         ),
         body: Column(

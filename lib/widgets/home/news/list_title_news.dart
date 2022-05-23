@@ -14,7 +14,11 @@ import '../../../resources/support_function.dart';
 import '../../../utils/styles.dart';
 
 class ListTitleNews extends StatefulWidget {
-  const ListTitleNews({Key? key}) : super(key: key);
+  final int limited;
+  final bool descending;
+  const ListTitleNews(
+      {Key? key, required this.limited, required this.descending})
+      : super(key: key);
 
   @override
   State<ListTitleNews> createState() => _ListTitleNewsState();
@@ -23,7 +27,9 @@ class ListTitleNews extends StatefulWidget {
 class _ListTitleNewsState extends State<ListTitleNews> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
+    final Stream<QuerySnapshot> newsStream = widget.limited == 0
+        ? newsFR.orderBy('time', descending: widget.descending).snapshots()
+        : newsFR.orderBy('time').limit(widget.limited).snapshots();
 
     return StreamBuilder<QuerySnapshot>(
         stream: newsStream,

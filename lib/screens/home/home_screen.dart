@@ -70,10 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(_listTitle[_currentIndex].capitalize!,
-            style: kDefaultTextStyle.copyWith(
-                fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-            textAlign: TextAlign.center),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text(_listTitle[_currentIndex].capitalize!,
+              style: kDefaultTextStyle.copyWith(
+                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+              textAlign: TextAlign.center),
+        ),
+        titleSpacing: 0,
         centerTitle: true,
       ),
       drawer: NavBarDrawer(),

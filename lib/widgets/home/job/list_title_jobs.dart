@@ -14,7 +14,11 @@ import '../../../resources/support_function.dart';
 import '../../../screens/home/detailpage/jobs_page_screen.dart';
 
 class ListTitleJobs extends StatefulWidget {
-  const ListTitleJobs({Key? key}) : super(key: key);
+  final int limited;
+  final bool descending;
+  const ListTitleJobs(
+      {Key? key, required this.limited, required this.descending})
+      : super(key: key);
 
   @override
   State<ListTitleJobs> createState() => _ListTitleJobsState();
@@ -23,7 +27,9 @@ class ListTitleJobs extends StatefulWidget {
 class _ListTitleJobsState extends State<ListTitleJobs> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> jobsStream = jobsFR.orderBy('time').snapshots();
+    final Stream<QuerySnapshot> jobsStream = widget.limited == 0
+        ? jobsFR.orderBy('time', descending: widget.descending).snapshots()
+        : jobsFR.orderBy('time').limit(widget.limited).snapshots();
 
     return StreamBuilder<QuerySnapshot>(
         stream: jobsStream,
@@ -73,11 +79,11 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
                           ),
                           Expanded(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 10),
                                 Text(getTruncatedTitle(jobsdocs[i].title!, 60),
-                                    style: kItemText.copyWith(
-                                        fontWeight: FontWeight.normal)),
+                                    style: kDefaultTextStyle),
                                 SizedBox(height: 16),
                                 Row(
                                   mainAxisAlignment:

@@ -42,6 +42,23 @@ class Jobs {
     }).toList();
   }
 
+  List<Jobs> listDataFromSnapshot(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs.map((snapshot) {
+      final Map<String, dynamic> dataMap =
+          snapshot.data() as Map<String, dynamic>;
+
+      return Jobs(
+          id: snapshot.id,
+          title: dataMap['title'] ?? "",
+          image: dataMap['image'] ?? "",
+          source: dataMap['source'] ?? "",
+          sourceImage: dataMap['sourceImage'] ?? "",
+          time: readTimestamp(dataMap['time']),
+          timeRead: dataMap['timeRead'] ?? "",
+          description: dataMap['description'] ?? "");
+    }).toList();
+  }
+
   static Jobs fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 

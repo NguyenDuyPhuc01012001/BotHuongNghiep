@@ -39,12 +39,31 @@ class _NewsManageScreenState extends State<NewsManageScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Quản lý tin tức".capitalize!,
-            style: kDefaultTextStyle.copyWith(
-                fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-            textAlign: TextAlign.center),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text("Quản lý tin tức".capitalize!,
+              style: kDefaultTextStyle.copyWith(
+                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+              textAlign: TextAlign.center),
+        ),
+        titleSpacing: 0,
         centerTitle: true,
         actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              setState(() {});
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.1,
+              decoration: BoxDecoration(
+                  color: Color(0xffBFBFBF),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 10, bottom: 5),
+              child: Icon(MdiIcons.refresh),
+            ),
+          ),
+          horizontalSpaceSmall,
           GestureDetector(
             onTap: () {
               setState(() {

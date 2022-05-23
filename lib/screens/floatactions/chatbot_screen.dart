@@ -2,6 +2,9 @@
 
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../utils/styles.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -30,16 +33,34 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       backgroundColor:
           themeValue == Brightness.dark ? Color(0xff262626) : Color(0xffFFFFFF),
       appBar: AppBar(
-        backgroundColor: themeValue == Brightness.dark
-            ? Color(0xff3C3A3A)
-            : Color(0xffBFBFBF),
-        title: Text(
-          'Flutter Bot',
-          style: TextStyle(
-              color:
-                  themeValue == Brightness.dark ? Colors.white : Colors.black),
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                color: Color(0xffBFBFBF),
+                borderRadius: BorderRadius.circular(10)),
+            padding: EdgeInsets.all(5),
+            margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
+            child: Icon(
+              Icons.arrow_back,
+            ),
+          ),
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text("Trò chuyện với Chatbot".capitalize!,
+              style: kDefaultTextStyle.copyWith(
+                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+              textAlign: TextAlign.center),
+        ),
+        titleSpacing: 0,
+        centerTitle: true,
       ),
+      extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Column(
           children: [
