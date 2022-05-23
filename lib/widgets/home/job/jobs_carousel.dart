@@ -5,11 +5,13 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../models/jobs.dart';
 import '../../../resources/firebase_reference.dart';
 import '../../../screens/home/detailpage/jobs_page_screen.dart';
+import '../../../screens/other/error_screen.dart';
 
 class JobsCarousel extends StatefulWidget {
   const JobsCarousel({Key? key}) : super(key: key);
@@ -30,10 +32,11 @@ class _JobsCarouselState extends State<JobsCarousel> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
+            return ErrorScreen();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
             );
           }
           List<Jobs> jobsdocs = [];
@@ -55,7 +58,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
 
           return CarouselSlider(
             options: CarouselOptions(
-              height: 250.0,
+              height: 200.0,
             ),
             items: jobsdocs.map((jobs) {
               return Builder(
@@ -71,10 +74,10 @@ class _JobsCarouselState extends State<JobsCarousel> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image(
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                               image: NetworkImage(jobs.image!),
-                              height: 250,
-                              // width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
                             ),
                           ),
                           Container(

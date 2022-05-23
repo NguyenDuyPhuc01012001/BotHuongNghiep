@@ -2,6 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:huong_nghiep/screens/other/error_screen.dart';
 import 'package:huong_nghiep/widgets/home/answer/post_widget.dart';
 
 import '../../../models/posts.dart';
@@ -29,10 +31,11 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
+            return ErrorScreen();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
             );
           }
 
@@ -42,11 +45,19 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
             postDocs.add(post);
           }).toList();
 
-          return Column(children: [
-            for (var i = 0; i < postDocs.length; i++) ...[
-              PostWidget(post: postDocs[i])
-            ]
-          ]);
+          return Card(
+            elevation: 20,
+            color: Colors.grey[300],
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(children: [
+              for (var i = 0; i < postDocs.length; i++) ...[
+                PostWidget(post: postDocs[i])
+              ]
+            ]),
+          );
         });
   }
 }

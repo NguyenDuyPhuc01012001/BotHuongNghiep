@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
+import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../../models/news.dart';
 import '../../../resources/firebase_handle.dart';
@@ -31,8 +32,8 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          future: newsFR.doc(widget.newsPostID).get(),
+      body: FutureBuilder<News>(
+          future: FirebaseHandler.getNewByID(widget.newsPostID),
           builder: (_, snapshot) {
             if (snapshot.hasError) {
               print('Something Went Wrong');
@@ -42,7 +43,7 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                 child: CircularProgressIndicator(),
               );
             }
-            News newsPost = News.fromSnap(snapshot.data!);
+            News newsPost = snapshot.data!;
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -208,11 +209,57 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                           height: 2,
                           decoration: BoxDecoration(color: Colors.grey[400]),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10),
-                          child: Text(newsPost.description!,
-                              style: kDescription,
-                              textAlign: TextAlign.justify),
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: newsPost.listTitle!.length,
+                                itemBuilder: ((context, index) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8.0, bottom: 4.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                "Mục thứ ${index + 1}. ${newsPost.listTitle![index].title}",
+                                                style: kDescription.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 4.0),
+                                        child: Text(
+                                            newsPost.listTitle![index].content!,
+                                            style: kDescription,
+                                            textAlign: TextAlign.justify),
+                                      ),
+                                      newsPost.listTitle![index].image! != ""
+                                          ? CachedNetworkImage(
+                                              imageUrl: newsPost
+                                                  .listTitle![index].image!,
+                                              fit: BoxFit.contain,
+                                              height: 250)
+                                          : SizedBox(),
+                                    ],
+                                  );
+                                }),
+                              ),
+                              verticalSpaceMedium
+                            ],
+                          ),
                         )
                       ],
                     ),

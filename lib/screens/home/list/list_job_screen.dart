@@ -1,21 +1,21 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../utils/constants.dart';
-import '../../utils/styles.dart';
-import '../../widgets/home/manage/question_manage_body.dart';
+import '../../../utils/constants.dart';
+import '../../../utils/styles.dart';
+import '../../../widgets/home/job/list_title_jobs.dart';
 
-class QuestionSolutionScreen extends StatefulWidget {
-  const QuestionSolutionScreen({Key? key}) : super(key: key);
+class ListJobScreen extends StatefulWidget {
+  const ListJobScreen({Key? key}) : super(key: key);
 
   @override
-  State<QuestionSolutionScreen> createState() => _QuestionSolutionScreenState();
+  State<ListJobScreen> createState() => _ListJobScreenState();
 }
 
-class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
+class _ListJobScreenState extends State<ListJobScreen> {
   bool descending = false;
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
         elevation: 0,
         title: Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: Text("Quản lý giải đáp".capitalize!,
+          child: Text("Danh sách nghề nghiệp".capitalize!,
               style: kDefaultTextStyle.copyWith(
                   fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
               textAlign: TextAlign.center),
@@ -48,21 +48,6 @@ class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
         titleSpacing: 0,
         centerTitle: true,
         actions: <Widget>[
-          GestureDetector(
-            onTap: () {
-              setState(() {});
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.1,
-              decoration: BoxDecoration(
-                  color: Color(0xffBFBFBF),
-                  borderRadius: BorderRadius.circular(10)),
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.only(top: 10, bottom: 5),
-              child: Icon(MdiIcons.refresh),
-            ),
-          ),
-          horizontalSpaceSmall,
           GestureDetector(
             onTap: () {
               setState(() {
@@ -83,8 +68,16 @@ class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
         ],
       ),
       extendBodyBehindAppBar: true,
-      body: QuestionManageBody(
-        descending: false,
+      body: SafeArea(
+        child: SingleChildScrollView(
+            child: Column(children: <Widget>[
+          Container(
+              padding: EdgeInsets.all(10),
+              child: ListTitleJobs(
+                limited: 0,
+                descending: false,
+              )),
+        ])),
       ),
     );
   }

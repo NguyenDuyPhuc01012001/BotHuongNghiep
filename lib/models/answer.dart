@@ -8,8 +8,15 @@ class Answer {
   late String? sourceImage;
   late String? answer;
   late String? time;
+  late String? image;
 
-  Answer({this.id, this.source, this.sourceImage, this.answer, this.time});
+  Answer(
+      {this.id,
+      this.source,
+      this.sourceImage,
+      this.answer,
+      this.time,
+      this.image});
 
   static List<Answer> dataListFromSnapshot(QuerySnapshot querySnapshot) {
     return querySnapshot.docs.map((snapshot) {
@@ -18,9 +25,10 @@ class Answer {
 
       return Answer(
         id: snapshot.id,
-        source: dataMap['source'],
-        sourceImage: dataMap['sourceImage'],
-        answer: dataMap['answer'],
+        source: dataMap['source'] ?? "",
+        sourceImage: dataMap['sourceImage'] ?? "",
+        answer: dataMap['answer'] ?? "",
+        image: dataMap['image'] ?? "",
         time: readTimestamp(dataMap['time']),
       );
     }).toList();
@@ -31,9 +39,10 @@ class Answer {
 
     return Answer(
       id: snap.id,
-      source: snapshot['source'],
-      sourceImage: snapshot['sourceImage'],
-      answer: snapshot['answer'],
+      source: snapshot['source'] ?? "",
+      sourceImage: snapshot['sourceImage'] ?? "",
+      answer: snapshot['answer'] ?? "",
+      image: snapshot['image'] ?? "",
       time: readTimestamp(snapshot['time']),
     );
   }

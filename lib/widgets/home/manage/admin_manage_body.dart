@@ -3,13 +3,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
-import 'package:material_dialogs/material_dialogs.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 
 import '../../../resources/firebase_handle.dart';
+import '../../../screens/other/error_screen.dart';
+import '../../../utils/styles.dart';
+import '../../alert.dart';
 
 class AdminManageBody extends StatefulWidget {
   const AdminManageBody({Key? key}) : super(key: key);
@@ -28,10 +29,11 @@ class _AdminManageBodyState extends State<AdminManageBody> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
+            return ErrorScreen();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
             );
           }
 
@@ -45,163 +47,108 @@ class _AdminManageBodyState extends State<AdminManageBody> {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Table(
-                border: TableBorder.all(),
-                columnWidths: const <int, TableColumnWidth>{
-                  0: FixedColumnWidth(240),
-                  2: FixedColumnWidth(60),
-                },
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: [
-                  TableRow(
-                    children: [
-                      TableCell(
-                        child: Container(
-                          color: Colors.greenAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                'Email',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Container(
-                          color: Colors.greenAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                'Vai trò',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      TableCell(
-                        child: Container(
-                          color: Colors.greenAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                '',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  for (var i = 0; i < userdocs.length; i++) ...[
-                    TableRow(
-                      children: [
-                        TableCell(
+                scrollDirection: Axis.vertical,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: userdocs.length,
+                    itemBuilder: ((context, index) {
+                      return Dismissible(
+                        key: UniqueKey(),
+
+                        // only allows the user swipe from right to left
+                        direction: DismissDirection.endToStart,
+                        confirmDismiss: (direction) async =>
+                            uid != userdocs[index]['id'],
+
+                        // Remove this product from the list
+                        // In production enviroment, you may want to send some request to delete it on server side
+                        onDismissed: (_) {
+                          setState(() {
+                            Alerts().confirm(
+                                userdocs[index]['isAdmin']
+                                    ? "Hiện tại vai trò của người này là Quản trị viên. Bạn có muốn thay đổi vai trò của người dùng?"
+                                    : "Hiện tại vai trò của người này là Người dùng. Bạn có muốn thay đổi vai trò của người dùng?",
+                                'Đồng ý',
+                                'Hủy', () async {
+                              await FirebaseHandler.updateRoleFirestore(
+                                      !userdocs[index]['isAdmin'],
+                                      userdocs[index]['id'])
+                                  .whenComplete(() => Get.back());
+                            }, () => Get.back(), context);
+                          });
+                        },
+
+                        // Display item's title, price...
+                        child: Card(
+                          elevation: 20,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            child: Center(
-                                child: Text(userdocs[i]['email'],
-                                    style: TextStyle(fontSize: 14.0))),
-                          ),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            child: Center(
+                                horizontal: 4, vertical: 8),
+                            child: ListTile(
+                              leading: CircleAvatar(
                                 child: Text(
-                                    userdocs[i]['isAdmin']
-                                        ? "Quản trị viên"
-                                        : "Người dùng",
-                                    style: TextStyle(fontSize: 14.0))),
+                                  "${index + 1}",
+                                  style: kDefaultTextStyle.copyWith(
+                                      color: Colors.white),
+                                ),
+                                backgroundColor: uid == userdocs[index]['id']
+                                    ? Colors.orange
+                                    : Color(0xffBFBFBF),
+                              ),
+                              title: Text(userdocs[index]['email'],
+                                  style: kDefaultTextStyle.copyWith(
+                                      color: uid == userdocs[index]['id']
+                                          ? Colors.orange
+                                          : Colors.black,
+                                      fontWeight: uid == userdocs[index]['id']
+                                          ? FontWeight.bold
+                                          : FontWeight.normal),
+                                  textAlign: TextAlign.justify),
+                              subtitle: Text(
+                                  userdocs[index]['isAdmin']
+                                      ? "Vai trò: Quản trị viên"
+                                      : "Vai trò: Người dùng",
+                                  style: kDefaultTextStyle.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: uid == userdocs[index]['id']
+                                          ? Colors.orange
+                                          : Colors.black),
+                                  textAlign: TextAlign.justify),
+                              trailing: uid == userdocs[index]['id']
+                                  ? Icon(
+                                      Icons.star,
+                                      color: Colors.orange,
+                                    )
+                                  : SizedBox(),
+                            ),
                           ),
                         ),
-                        TableCell(
-                          child: uid == userdocs[i]['id']
-                              ? SizedBox()
-                              : IconButton(
-                                  onPressed: () => {
-                                        Dialogs.materialDialog(
-                                            msg:
-                                                'Bạn có muốn thay đổi quyền của người dùng này không?',
-                                            title: "Vai trò",
-                                            color: Colors.white,
-                                            context: context,
-                                            actions: [
-                                              IconsButton(
-                                                onPressed: () async {
-                                                  await FirebaseHandler
-                                                          .updateRoleFirestore(
-                                                              true,
-                                                              userdocs[i]['id'])
-                                                      .whenComplete(
-                                                          () => Get.back());
-                                                },
-                                                text: 'Admin',
-                                                iconData:
-                                                    Icons.account_box_outlined,
-                                                color: Colors.red,
-                                                textStyle: TextStyle(
-                                                    color: Colors.white),
-                                                iconColor: Colors.white,
-                                              ),
-                                              IconsButton(
-                                                onPressed: () async {
-                                                  await FirebaseHandler
-                                                          .updateRoleFirestore(
-                                                              false,
-                                                              userdocs[i]['id'])
-                                                      .whenComplete(
-                                                          () => Get.back());
-                                                },
-                                                text: 'User',
-                                                iconData:
-                                                    Icons.people_alt_rounded,
-                                                color: Colors.blue,
-                                                textStyle: TextStyle(
-                                                    color: Colors.white),
-                                                iconColor: Colors.white,
-                                              ),
-                                              IconsOutlineButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                text: 'Cancel',
-                                                iconData: Icons.cancel_outlined,
-                                                textStyle: TextStyle(
-                                                    color: Colors.grey),
-                                                iconColor: Colors.grey,
-                                              ),
-                                            ])
-                                      },
-                                  icon: Icon(
-                                    Icons.edit,
-                                    color: Colors.orange,
-                                  )),
+
+                        // This will show up when the user performs dismissal action
+                        // It is a red background and a trash icon
+                        background: Card(
+                          elevation: 20,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
+                          color: Colors.green,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
-            ),
+                      );
+                    }))),
           );
         });
   }

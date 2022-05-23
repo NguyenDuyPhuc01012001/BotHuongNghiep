@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +9,7 @@ import 'package:huong_nghiep/utils/styles.dart';
 import '../../../models/jobs.dart';
 import '../../../resources/firebase_handle.dart';
 import '../../../resources/firebase_reference.dart';
+import '../../../utils/constants.dart';
 
 class JobsPageScreen extends StatefulWidget {
   final String jobsPostID;
@@ -31,8 +32,8 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          future: jobsFR.doc(widget.jobsPostID).get(),
+      body: FutureBuilder<Jobs>(
+          future: FirebaseHandler.getJobsByID(widget.jobsPostID),
           builder: (_, snapshot) {
             if (snapshot.hasError) {
               print('Something Went Wrong');
@@ -42,7 +43,7 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
                 child: CircularProgressIndicator(),
               );
             }
-            Jobs jobsPost = Jobs.fromSnap(snapshot.data!);
+            Jobs jobsPost = snapshot.data!;
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -208,39 +209,58 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
                           height: 2,
                           decoration: BoxDecoration(color: Colors.grey[400]),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text("1. Khái niệm",
-                                style: kDescriptionBoldItalic,
-                                textAlign: TextAlign.justify)),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(jobsPost.define!,
-                                style: kDescription,
-                                textAlign: TextAlign.justify)),
-                        Divider(height: 10),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text("2. Tố chất",
-                                style: kDescriptionBoldItalic,
-                                textAlign: TextAlign.justify)),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(jobsPost.qualities!,
-                                style: kDescription,
-                                textAlign: TextAlign.justify)),
-                        Divider(height: 10),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text("3. Thu nhập",
-                                style: kDescriptionBoldItalic,
-                                textAlign: TextAlign.justify)),
-                        Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text(jobsPost.income!,
-                                style: kDescription,
-                                textAlign: TextAlign.justify)),
-                        Divider(height: 10),
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: jobsPost.listTitle!.length,
+                                itemBuilder: ((context, index) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8.0, bottom: 4.0),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                "Mục thứ ${index + 1}. ${jobsPost.listTitle![index].title}",
+                                                style: kDescription.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 4.0),
+                                        child: Text(
+                                            jobsPost.listTitle![index].content!,
+                                            style: kDescription,
+                                            textAlign: TextAlign.justify),
+                                      ),
+                                      jobsPost.listTitle![index].image! != ""
+                                          ? CachedNetworkImage(
+                                              imageUrl: jobsPost
+                                                  .listTitle![index].image!,
+                                              fit: BoxFit.contain,
+                                              height: 250)
+                                          : SizedBox(),
+                                    ],
+                                  );
+                                }),
+                              ),
+                              verticalSpaceMedium
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )

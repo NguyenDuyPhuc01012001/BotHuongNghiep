@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huong_nghiep/models/answer.dart';
 
 import '../resources/support_function.dart';
 
@@ -11,6 +12,7 @@ class Post {
   late String? question;
   late String? time;
   late int? numAnswer;
+  late List<Answer>? answerList;
 
   Post(
       {this.id,
@@ -20,7 +22,8 @@ class Post {
       this.image,
       this.question,
       this.time,
-      this.numAnswer});
+      this.numAnswer,
+      this.answerList});
 
   static List<Post> dataListFromSnapshot(QuerySnapshot querySnapshot) {
     return querySnapshot.docs.map((snapshot) {

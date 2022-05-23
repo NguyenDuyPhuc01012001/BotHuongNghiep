@@ -48,14 +48,14 @@ class PostTitleWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 transform: Matrix4.rotationY(pi),
                 child: CustomPaint(
-                  painter: CustomShape(Colors.grey[300]!),
+                  painter: CustomShape(Color(0xffFFEFEF)),
                 ),
               ),
               Container(
                 width: size.width * 0.9,
                 padding: EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
+                  color: Color(0xffFFEFEF),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(18),
                     bottomLeft: Radius.circular(18),
@@ -70,7 +70,9 @@ class PostTitleWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(post.question!,
                           style: kContentText.copyWith(
-                              fontWeight: FontWeight.normal)),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 18)),
                     ),
                     SizedBox(height: 4),
                     post.image! == ""
@@ -80,7 +82,7 @@ class PostTitleWidget extends StatelessWidget {
                               imageUrl: post.image!,
                               width: size.width,
                               height: 200,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           )
@@ -93,7 +95,10 @@ class PostTitleWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12, left: 8),
             child: Text(
               "Đã đăng vào lúc ${post.time!}",
-              style: TextStyle(color: Colors.black, fontSize: 14),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontStyle: FontStyle.italic),
             ),
           )
         ],

@@ -3,8 +3,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/home/detailpage/news_page_screen.dart';
+import 'package:huong_nghiep/screens/other/error_screen.dart';
 
 import '../../../models/news.dart';
 import '../../../resources/firebase_reference.dart';
@@ -12,7 +14,11 @@ import '../../../resources/support_function.dart';
 import '../../../utils/styles.dart';
 
 class ListTitleNews extends StatefulWidget {
-  const ListTitleNews({Key? key}) : super(key: key);
+  final int limited;
+  final bool descending;
+  const ListTitleNews(
+      {Key? key, required this.limited, required this.descending})
+      : super(key: key);
 
   @override
   State<ListTitleNews> createState() => _ListTitleNewsState();
@@ -21,17 +27,20 @@ class ListTitleNews extends StatefulWidget {
 class _ListTitleNewsState extends State<ListTitleNews> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> newsStream = newsFR.orderBy('time').snapshots();
+    final Stream<QuerySnapshot> newsStream = widget.limited == 0
+        ? newsFR.orderBy('time', descending: widget.descending).snapshots()
+        : newsFR.orderBy('time').limit(widget.limited).snapshots();
 
     return StreamBuilder<QuerySnapshot>(
         stream: newsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
+            return ErrorScreen();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
             );
           }
 
@@ -81,7 +90,7 @@ class _ListTitleNewsState extends State<ListTitleNews> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "${newsdocs[i].description!.split(' ').length >= 200 ? (newsdocs[i].description!.split(' ').length / 200).floor() : (newsdocs[i].description!.split(' ').length / 200 * 60).floor()} ${newsdocs[i].description!.split(' ').length >= 200 ? "phút" : "giây"} đọc",
+                                      "${newsdocs[i].timeRead!} đọc",
                                       style: kItemText,
                                     ),
                                     Text(

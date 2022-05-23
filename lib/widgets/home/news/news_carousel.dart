@@ -5,7 +5,9 @@ import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/screens/other/error_screen.dart';
 
 import '../../../models/news.dart';
 import '../../../resources/firebase_reference.dart';
@@ -30,10 +32,11 @@ class _NewsCarouselState extends State<NewsCarousel> {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
+            return ErrorScreen();
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: Colors.black),
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
             );
           }
           List<News> newsdocs = [];
@@ -55,7 +58,7 @@ class _NewsCarouselState extends State<NewsCarousel> {
 
           return CarouselSlider(
             options: CarouselOptions(
-              height: 250.0,
+              height: 200.0,
             ),
             items: newsdocs.map((news) {
               return Builder(
@@ -71,10 +74,10 @@ class _NewsCarouselState extends State<NewsCarousel> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image(
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                               image: NetworkImage(news.image!),
-                              height: 250,
-                              // width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              width: MediaQuery.of(context).size.width,
                             ),
                           ),
                           Container(

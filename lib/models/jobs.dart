@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:huong_nghiep/models/titles.dart';
 
 import '../resources/support_function.dart';
 
@@ -9,9 +10,9 @@ class Jobs {
   late String? source;
   late String? sourceImage;
   late String? time;
-  late String? define;
-  late String? income;
-  late String? qualities;
+  late String? description;
+  late String? timeRead;
+  late List<Titles>? listTitle;
 
   Jobs(
       {this.id,
@@ -20,9 +21,9 @@ class Jobs {
       this.source,
       this.sourceImage,
       this.time,
-      this.define,
-      this.income,
-      this.qualities});
+      this.description,
+      this.timeRead,
+      this.listTitle});
 
   static List<Jobs> dataListFromSnapshot(QuerySnapshot querySnapshot) {
     return querySnapshot.docs.map((snapshot) {
@@ -30,16 +31,31 @@ class Jobs {
           snapshot.data() as Map<String, dynamic>;
 
       return Jobs(
-        id: snapshot.id,
-        title: dataMap['title'],
-        image: dataMap['image'],
-        source: dataMap['source'],
-        sourceImage: dataMap['sourceImage'],
-        time: readTimestamp(dataMap['time']),
-        define: dataMap['define'],
-        income: dataMap['income'],
-        qualities: dataMap['qualities'],
-      );
+          id: snapshot.id,
+          title: dataMap['title'] ?? "",
+          image: dataMap['image'] ?? "",
+          source: dataMap['source'] ?? "",
+          sourceImage: dataMap['sourceImage'] ?? "",
+          time: readTimestamp(dataMap['time']),
+          timeRead: dataMap['timeRead'] ?? "",
+          description: dataMap['description'] ?? "");
+    }).toList();
+  }
+
+  List<Jobs> listDataFromSnapshot(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs.map((snapshot) {
+      final Map<String, dynamic> dataMap =
+          snapshot.data() as Map<String, dynamic>;
+
+      return Jobs(
+          id: snapshot.id,
+          title: dataMap['title'] ?? "",
+          image: dataMap['image'] ?? "",
+          source: dataMap['source'] ?? "",
+          sourceImage: dataMap['sourceImage'] ?? "",
+          time: readTimestamp(dataMap['time']),
+          timeRead: dataMap['timeRead'] ?? "",
+          description: dataMap['description'] ?? "");
     }).toList();
   }
 
@@ -47,15 +63,13 @@ class Jobs {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Jobs(
-      id: snap.id,
-      title: snapshot['title'],
-      image: snapshot['image'],
-      source: snapshot['source'],
-      sourceImage: snapshot['sourceImage'],
-      time: readTimestamp(snapshot['time']),
-      define: snapshot['define'],
-      income: snapshot['income'],
-      qualities: snapshot['qualities'],
-    );
+        id: snap.id,
+        title: snapshot['title'] ?? "",
+        image: snapshot['image'] ?? "",
+        source: snapshot['source'] ?? "",
+        sourceImage: snapshot['sourceImage'] ?? "",
+        time: readTimestamp(snapshot['time']),
+        timeRead: snapshot['timeRead'] ?? "",
+        description: snapshot['description'] ?? "");
   }
 }

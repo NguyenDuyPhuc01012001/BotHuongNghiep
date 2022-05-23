@@ -8,25 +8,42 @@ String getTruncatedTitle(String actualString, int maxLetters) {
 }
 
 String readTimestamp(Timestamp timestamp) {
-  var now = DateTime.now();
-  var format = DateFormat('HH:mm a');
-  var date =
-      DateTime.fromMicrosecondsSinceEpoch(timestamp.microsecondsSinceEpoch);
-  var diff = date.difference(now);
-  var time = '';
+  // var now = DateTime.now();
+  // var format = DateFormat('HH:mm a');
+  // var date =
+  //     DateTime.fromMicrosecondsSinceEpoch(timestamp.microsecondsSinceEpoch);
+  // var diff = date.difference(now);
+  // var time = '';
 
-  if (diff.inSeconds <= 0 ||
-      diff.inSeconds > 0 && diff.inMinutes == 0 ||
-      diff.inMinutes > 0 && diff.inHours == 0 ||
-      diff.inHours > 0 && diff.inDays == 0) {
-    time = format.format(date);
-  } else {
-    if (diff.inDays == 1) {
-      time = diff.inDays.toString() + ' ngày trước';
-    } else {
-      time = diff.inDays.toString() + ' ngày trước';
-    }
+  // if (diff.inSeconds <= 0 ||
+  //     diff.inSeconds > 0 && diff.inMinutes == 0 ||
+  //     diff.inMinutes > 0 && diff.inHours == 0 ||
+  //     diff.inHours > 0 && diff.inDays == 0) {
+  //   time = format.format(date);
+  // } else {
+  //   if (diff.inDays == 1) {
+  //     time = diff.inDays.toString() + ' ngày trước';
+  //   } else {
+  //     time = diff.inDays.toString() + ' ngày trước';
+  //   }
+  // }
+
+  DateTime myDateTime = DateTime.parse(timestamp.toDate().toString());
+  String formattedTime = DateFormat('hh:mm a').format(myDateTime);
+  String formattedDate = DateFormat('dd-MM-yyyy').format(myDateTime);
+  String formattedDateTime = "$formattedTime ngày $formattedDate";
+
+  return formattedDateTime;
+}
+
+String getReadTime(List<String> content) {
+  String listContent = "";
+  for (String element in content) {
+    listContent += element + " ";
   }
-
-  return time;
+  int time = listContent.split(' ').length >= 200
+      ? (listContent.split(' ').length / 200).floor()
+      : (listContent.split(' ').length / 200 * 60).floor();
+  String timeUnit = listContent.split(' ').length >= 200 ? "phút" : "giây";
+  return "$time $timeUnit";
 }
