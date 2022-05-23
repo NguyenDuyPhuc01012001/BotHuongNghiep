@@ -39,7 +39,7 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Quản lý bài đăng",
+        title: Text("Quản lý bài đăng".capitalize!,
             style: kDefaultTextStyle.copyWith(
                 fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
             textAlign: TextAlign.center),

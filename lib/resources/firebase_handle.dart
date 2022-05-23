@@ -5,10 +5,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:huong_nghiep/models/answer.dart';
 import 'package:huong_nghiep/models/jobs.dart';
 import 'package:huong_nghiep/models/news.dart';
 import 'package:huong_nghiep/models/titles.dart';
 import 'package:huong_nghiep/models/user.dart';
+import '../models/posts.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
 
@@ -95,87 +97,6 @@ class FirebaseHandler {
     return urlString;
   }
 
-  static Future<void> uploadPostsImage(String filePath, String postID) async {
-    File file = File(filePath);
-
-    try {
-      await firebaseStorage
-          .ref('posts/$postID/post_image.jpg')
-          .putFile(file)
-          .then((taskSnapshot) async {
-        print("posts task done");
-
-        // download url when it is uploaded
-        if (taskSnapshot.state == TaskState.success) {
-          await FirebaseStorage.instance
-              .ref('posts/$postID/post_image.jpg')
-              .getDownloadURL()
-              .then((url) async {
-            print("Here is the URL of Post Image $url");
-
-            await FirebaseHandler.updatePostImageToFirestore(url, postID);
-          }).catchError((onError) {
-            print("Posts Got Error $onError");
-          });
-        }
-      });
-    } on firebase_core.FirebaseException catch (e) {
-      print(e);
-    }
-  }
-
-  static updatePostImageToFirestore(String url, String postID) async {
-    var doc = postsFR.doc(postID);
-    await doc
-        .update({'image': url})
-        .then((value) => print("Post Updated Image"))
-        .catchError((error) => print("Failed to update post: $error"));
-  }
-
-  static addToFavorite(
-      String id, String type, String title, String image) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return await userFR
-        .doc(user.uid)
-        .collection('favorite')
-        .add({
-          'favoriteID': id,
-          'favoriteType': type,
-          'title': title,
-          'image': image,
-          'time': myTimeStamp
-        })
-        .then((value) => print("Add Favorite ${value.id} successfull"))
-        .catchError((error) => print("Failed to update favorite: $error"));
-  }
-
-  static deleteFromFavorite(String id) async {
-    UserData user = await getCurrentUser();
-    CollectionReference favoriteFR =
-        userFR.doc(user.uid).collection('favorite');
-    List<String> listID = [];
-    await favoriteFR
-        .where('favoriteID', isEqualTo: id)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        listID.add(doc.id);
-      }
-    });
-    return favoriteFR.doc(listID.first).delete().then((value) {
-      print("Delete Favorite $id successful");
-    }).catchError((error) => print('Failed to Delete news: $error'));
-  }
-
-  static Stream<QuerySnapshot<Object?>> getListFavorite() async* {
-    UserData user = await getCurrentUser();
-    CollectionReference favoriteFR =
-        userFR.doc(user.uid).collection('favorite');
-    yield* favoriteFR.orderBy('time').snapshots();
-  }
-
   static Stream<QuerySnapshot<Object?>> getListQuiz() async* {
     UserData user = await getCurrentUser();
     CollectionReference quizFR = userFR.doc(user.uid).collection('quiz');
@@ -205,50 +126,6 @@ class FirebaseHandler {
         .set(sc)
         .then((value) async => print("Update successfully"))
         .catchError((error) => print("Failed to update score: $error"));
-  }
-
-  static Future<void> addPost(String question, String filePath) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-    return await postsFR.add({
-      'uid': user.uid,
-      'email': user.email,
-      'userImage': user.image,
-      'question': question,
-      'image': "",
-      'numAnswer': 0,
-      'time': myTimeStamp
-    }).then((value) async {
-      if (filePath != "") {
-        await uploadPostsImage(filePath, value.id);
-      }
-    }).catchError((error) => print('Failed to Add news: $error'));
-  }
-
-  static deletePost(String postID) async {
-    return postsFR.doc(postID).delete().then((value) {
-      FirebaseStorage.instance.ref("posts/$postID").listAll().then((value) {
-        for (var element in value.items) {
-          FirebaseStorage.instance.ref(element.fullPath).delete();
-        }
-      });
-    }).catchError((error) => print('Failed to Delete posts: $error'));
-  }
-
-  static addAnswerPost(String message, String postID) async {
-    UserData user = await getCurrentUser();
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-
-    return await postsFR.doc(postID).collection("answers").add({
-      'source': user.name,
-      'sourceImage': user.image,
-      'answer': message,
-      'time': myTimeStamp
-    }).then((value) async {
-      await postsFR.doc(postID).update({'numAnswer': FieldValue.increment(1)});
-    }).catchError((error) => print('Failed to Add answers: $error'));
   }
 
   // START NEWS
@@ -692,4 +569,254 @@ class FirebaseHandler {
   }
 
   // END JOBS
+
+  // START POST
+
+  // Get Post from FireStore
+  static Future<List<Post>> getPostsList(bool descending) async {
+    List<Post> postList = [];
+    QuerySnapshot postQuerySnapshot =
+        await postsFR.orderBy('time', descending: descending).get();
+    postList = postQuerySnapshot.docs.map((doc) => Post.fromSnap(doc)).toList();
+
+    for (int i = 0; i < postList.length; i++) {
+      List<Answer> answerList = await getListPostAnswer(postList[i].id!);
+      postList[i].answerList = answerList;
+    }
+
+    return postList;
+  }
+
+  // Get Post by ID from FireStore
+  static Future<Post> getPostByID(String id) async {
+    Post post = Post();
+    await jobsFR.doc(id).get().then((value) {
+      post = Post.fromSnap(value);
+    });
+
+    List<Answer> answerList = await getListPostAnswer(post.id!);
+    post.answerList = answerList;
+
+    return post;
+  }
+
+  // Get List Answer from colection(answer) from FireStore
+  static Future<List<Answer>> getListPostAnswer(String postID) async {
+    List<Answer> answerList = [];
+    QuerySnapshot answerQuerySnapshot =
+        await postsFR.doc(postID).collection("answers").get();
+
+    if (answerQuerySnapshot.size > 0) {
+      answerList = Answer.dataListFromSnapshot(answerQuerySnapshot);
+    }
+
+    return answerList;
+  }
+
+  // Add Post to FireStore
+  static Future<void> addPost(String question, String filePath) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await postsFR.add({
+      'uid': user.uid,
+      'email': user.email,
+      'userImage': user.image,
+      'question': question,
+      'image': "",
+      'numAnswer': 0,
+      'time': myTimeStamp
+    }).then((value) async {
+      if (filePath != "") {
+        await uploadPostsImage(filePath, value.id);
+      }
+    }).catchError((error) => print('Failed to Add news: $error'));
+  }
+
+  // Delete Post from FireStore
+  static deletePost(String postID) async {
+    CollectionReference answerRef = postsFR.doc(postID).collection("answers");
+    Future<QuerySnapshot> answers = answerRef.get();
+    return answers
+        .then((value) => value.docs.forEach((element) {
+              answerRef.doc(element.id).delete();
+            }))
+        .then((value) => postsFR.doc(postID).delete().then((value) {
+              FirebaseStorage.instance
+                  .ref("posts/$postID")
+                  .listAll()
+                  .then((value) {
+                for (var element in value.items) {
+                  FirebaseStorage.instance.ref(element.fullPath).delete();
+                }
+              });
+            }).catchError((error) => print('Failed to Delete posts: $error')));
+  }
+
+  // Delete Answer Post from FireStore
+  static deleteAnswerPost(String postID, String answerID) async {
+    return postsFR.doc("$postID/answers/$answerID").delete().then((value) {
+      FirebaseStorage.instance.ref("posts/$postID").listAll().then((value) {
+        for (var element in value.items) {
+          if (element.fullPath.contains(answerID)) {
+            FirebaseStorage.instance.ref(element.fullPath).delete();
+          }
+        }
+      });
+    }).catchError((error) => print('Failed to Delete posts: $error'));
+  }
+
+  // Add answer to post with the same ID in FireStore
+  static addAnswerPost(Answer answer, String postID) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+
+    return await postsFR.doc(postID).collection("answers").add({
+      'source': user.name,
+      'sourceImage': user.image,
+      'answer': answer.answer,
+      'time': myTimeStamp
+    }).then((value) async {
+      await postsFR.doc(postID).update({'numAnswer': FieldValue.increment(1)});
+      if (answer.image != "") {
+        await uploadAnswerPostImage(answer.image!, postID, value.id);
+      }
+    }).catchError((error) => print('Failed to Add answers: $error'));
+  }
+
+  // Upload Post Image to Storage
+  static Future<void> uploadPostsImage(String filePath, String postID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('posts/$postID/post_image.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("posts task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('posts/$postID/post_image.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of Post Image $url");
+
+            await FirebaseHandler.updatePostImageToFirestore(url, postID);
+          }).catchError((onError) {
+            print("Posts Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  // Update Image from Storage to FireStore
+  static updatePostImageToFirestore(String url, String postID) async {
+    var doc = postsFR.doc(postID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("Post Updated Image"))
+        .catchError((error) => print("Failed to update post: $error"));
+  }
+
+  // Upload Answers Post Image to Storage
+  static Future<void> uploadAnswerPostImage(
+      String filePath, String postID, String answerID) async {
+    File file = File(filePath);
+
+    try {
+      await firebaseStorage
+          .ref('posts/$postID/$answerID.jpg')
+          .putFile(file)
+          .then((taskSnapshot) async {
+        print("answer post task done");
+
+        // download url when it is uploaded
+        if (taskSnapshot.state == TaskState.success) {
+          await FirebaseStorage.instance
+              .ref('posts/$postID/$answerID.jpg')
+              .getDownloadURL()
+              .then((url) async {
+            print("Here is the URL of Answer Post Image $url");
+
+            await FirebaseHandler.updateAnswerPostImageToFirestore(
+                url, postID, answerID);
+          }).catchError((onError) {
+            print("Answer Post Got Error $onError");
+          });
+        }
+      });
+    } on firebase_core.FirebaseException catch (e) {
+      print(e);
+    }
+  }
+
+  // Update Answer Post Image From Storage to FireStore
+  static updateAnswerPostImageToFirestore(
+      String url, String postID, String answerID) async {
+    var doc = postsFR.doc(postID).collection("answers").doc(answerID);
+    await doc
+        .update({'image': url})
+        .then((value) => print("Answer Post Updated Image"))
+        .catchError((error) => print("Failed to update answer post: $error"));
+  }
+
+  // END POST
+
+  // START FAVORITE
+
+  // Add favorite to FireStore
+  static addToFavorite(
+      String id, String type, String title, String image) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await userFR
+        .doc(user.uid)
+        .collection('favorite')
+        .add({
+          'favoriteID': id,
+          'favoriteType': type,
+          'title': title,
+          'image': image,
+          'time': myTimeStamp
+        })
+        .then((value) => print("Add Favorite ${value.id} successfull"))
+        .catchError((error) => print("Failed to update favorite: $error"));
+  }
+
+  // Delete Favorite from FireStore
+  static deleteFromFavorite(String id) async {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    List<String> listID = [];
+    await favoriteFR
+        .where('favoriteID', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        listID.add(doc.id);
+      }
+    });
+    return favoriteFR.doc(listID.first).delete().then((value) {
+      print("Delete Favorite $id successful");
+    }).catchError((error) => print('Failed to Delete news: $error'));
+  }
+
+  // Get List Favorite from FireStore
+  static Stream<QuerySnapshot<Object?>> getListFavorite(
+      bool descending) async* {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favorite');
+    yield* favoriteFR.orderBy('time', descending: descending).snapshots();
+  }
+
+  // END FAVORITE
 }

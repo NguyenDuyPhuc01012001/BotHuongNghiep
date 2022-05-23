@@ -3,15 +3,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:huong_nghiep/providers/home/home_provider.dart';
 
 import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
 import 'package:huong_nghiep/widgets/home/quiz/quiz_widget.dart';
-import 'package:provider/provider.dart';
 
 import '../../utils/colors.dart';
+import '../../utils/styles.dart';
 import '../../widgets/home/answer/answers_widget.dart';
 import '../floatactions/chatbot_screen.dart';
 
@@ -51,44 +50,43 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var themeValue = MediaQuery.of(context).platformBrightness;
-
-    final homeProvider = Provider.of<HomeProvider>(context);
     // homeProvider.getCurrentUser();
 
     return Scaffold(
       key: _scaffoldState,
       appBar: AppBar(
-        backgroundColor: themeValue == Brightness.dark
-            ? const Color(0xff3C3A3A)
-            : const Color(0xffBFBFBF),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () => _scaffoldState.currentState!.openDrawer(),
+        leading: GestureDetector(
+          onTap: () => _scaffoldState.currentState!.openDrawer(),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Color(0xffBFBFBF),
+                borderRadius: BorderRadius.circular(10)),
+            padding: EdgeInsets.all(5),
+            margin: EdgeInsets.only(top: 10, left: 10, bottom: 5),
+            child: Icon(
+              Icons.menu,
+            ),
+          ),
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(_listTitle[_currentIndex].capitalize!,
+            style: kDefaultTextStyle.copyWith(
+                fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
+            textAlign: TextAlign.center),
         centerTitle: true,
-        title: Text(
-          _listTitle[_currentIndex],
-          style: TextStyle(
-              color:
-                  themeValue == Brightness.dark ? Colors.white : Colors.black),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () => homeProvider.signOut(),
-              icon: Icon(Icons.logout_outlined))
-        ],
       ),
       drawer: NavBarDrawer(),
       body: _widgetOptions.elementAt(_currentIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(ChatbotScreen()),
         child: const Icon(Icons.chat_bubble_outline),
+        backgroundColor: Color(0xffBFBFBF),
       ),
       bottomNavigationBar: CurvedNavigationBar(
           height: screenSize.height * 0.08,
           key: _bottomNavigationKey,
-          color: kcPrimaryColor,
+          color: Color(0xffBFBFBF),
           backgroundColor: kcWhiteColor,
           items: const <Widget>[
             Icon(Icons.games, color: kcWhiteColor),

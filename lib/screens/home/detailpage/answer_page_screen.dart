@@ -72,7 +72,11 @@ class _AnswerPageScreenState extends State<AnswerPageScreen> {
                       : Column(
                           children: [
                             for (var i = 0; i < answerDocs.length; i++) ...[
-                              AnswerTitleWidget(answer: answerDocs[i])
+                              AnswerTitleWidget(
+                                answer: answerDocs[i],
+                                postID: post.id!,
+                                isAdmin: false,
+                              )
                             ]
                           ],
                         );

@@ -24,7 +24,7 @@ class _NewsManageScreenState extends State<NewsManageScreen> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Get.back(result: 'success');
+            Get.back();
           },
           child: Container(
             decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class _NewsManageScreenState extends State<NewsManageScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Quản lý tin tức",
+        title: Text("Quản lý tin tức".capitalize!,
             style: kDefaultTextStyle.copyWith(
                 fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
             textAlign: TextAlign.center),

@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../../models/jobs.dart';
 import '../../../resources/firebase_handle.dart';
-import '../../../resources/firebase_reference.dart';
 import '../../../screens/home/manage/update_jobs_screen.dart';
 import '../../../screens/other/error_screen.dart';
 import '../../../utils/styles.dart';
@@ -22,7 +20,6 @@ class JobsManageBody extends StatefulWidget {
 }
 
 class _JobsManageBodyState extends State<JobsManageBody> {
-  Stream<QuerySnapshot> jobsStream = jobsFR.orderBy('time').snapshots();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Jobs>>(

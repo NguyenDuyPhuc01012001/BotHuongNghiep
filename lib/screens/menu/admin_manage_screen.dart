@@ -35,7 +35,7 @@ class _AdminManageScreenState extends State<AdminManageScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Quản lý vai trò người dùng",
+        title: Text("Quản lý vai trò người dùng".capitalize!,
             style: kDefaultTextStyle.copyWith(
                 fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
             textAlign: TextAlign.center),
