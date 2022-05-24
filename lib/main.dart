@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Roboto',
             primarySwatch: Colors.blue,
           ),
-          // home: AddScreen(),
+          // home: OnBoardingScreen(),
           home: showHome
               ? FirebaseAuth.instance.currentUser == null
                   ? SignInScreen()
