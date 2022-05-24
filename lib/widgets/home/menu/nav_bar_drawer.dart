@@ -77,35 +77,19 @@ class NavBarDrawer extends StatelessWidget {
                   leading: Icon(Icons.question_answer_outlined),
                   title: Text('Trả lời câu hỏi'),
                   onTap: () => Get.to(QuestionSolutionScreen()),
-                  // trailing: ClipOval(
-                  //   child: Container(
-                  //     color: Colors.red,
-                  //     width: 20,
-                  //     height: 20,
-                  //     child: Center(
-                  //       child: Text(
-                  //         '8',
-                  //         style: TextStyle(
-                  //           color: Colors.white,
-                  //           fontSize: 12,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 )
               : SizedBox(),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Cài đặt'),
-            onTap: () => Get.to(SettingScreen()),
-          ),
-          ListTile(
-            leading: Icon(Icons.description),
-            title: Text('Chính sách ứng dụng'),
-            onTap: () => Get.to(PoliceScreen()),
-          ),
+          // Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.settings),
+          //   title: Text('Cài đặt'),
+          //   onTap: () => Get.to(SettingScreen()),
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.description),
+          //   title: Text('Chính sách ứng dụng'),
+          //   onTap: () => Get.to(PoliceScreen()),
+          // ),
           Divider(),
           ListTile(
             title: Text('Đăng xuất'),
