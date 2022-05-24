@@ -169,13 +169,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-  fancy_on_boarding:
-    dependency: "direct main"
-    description:
-      name: fancy_on_boarding
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.8.0-nullsafety.0"
   ffi:
     dependency: transitive
     description:
