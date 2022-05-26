@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../models/posts.dart';
 import '../../../utils/styles.dart';
@@ -79,11 +80,14 @@ class PostTitleWidget extends StatelessWidget {
                         ? SizedBox()
                         : ClipRRect(
                             child: CachedNetworkImage(
-                              imageUrl: post.image!,
-                              width: size.width,
-                              height: 200,
-                              fit: BoxFit.fitWidth,
-                            ),
+                                imageUrl: post.image!,
+                                width: size.width,
+                                height: 200,
+                                fit: BoxFit.fitWidth,
+                                placeholder: (context, _) => SpinKitChasingDots(
+                                    color: Colors.brown, size: 32),
+                                errorWidget: (context, _, error) =>
+                                    Icon(Icons.error)),
                             borderRadius: BorderRadius.circular(10),
                           )
                   ],

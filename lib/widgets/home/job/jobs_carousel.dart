@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class _JobsCarouselState extends State<JobsCarousel> {
   bool _isFirst = true;
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> jobsStream = jobsFR.snapshots();
+    final Stream<QuerySnapshot> jobsStream =
+        jobsFR.orderBy('time', descending: true).snapshots();
 
     return StreamBuilder<QuerySnapshot>(
         stream: jobsStream,
@@ -73,28 +75,31 @@ class _JobsCarouselState extends State<JobsCarousel> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: Image(
-                              fit: BoxFit.fitWidth,
-                              image: NetworkImage(jobs.image!),
-                              height: 200,
-                              width: MediaQuery.of(context).size.width,
+                            child: ShaderMask(
+                              shaderCallback: (rect) {
+                                return const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.transparent,
+                                      Colors.black54
+                                    ]).createShader(Rect.fromLTRB(
+                                    0, -140, rect.width, rect.height * 0.8));
+                              },
+                              blendMode: BlendMode.darken,
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: CachedNetworkImage(
+                                    imageUrl: jobs.image!,
+                                    fit: BoxFit.fitWidth,
+                                    placeholder: (context, _) =>
+                                        SpinKitChasingDots(
+                                            color: Colors.brown, size: 32),
+                                    errorWidget: (context, _, error) =>
+                                        Icon(Icons.error),
+                                  )),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: const [
-                                    Color(0xCC000000),
-                                    Color(0x00000000),
-                                    Color(0x00000000),
-                                    Color(0xCC000000),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(20)),
                           ),
                           Align(
                               alignment: Alignment.bottomCenter,

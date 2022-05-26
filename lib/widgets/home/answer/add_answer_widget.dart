@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -76,15 +77,14 @@ class _AddAnswerWidgetState extends State<AddAnswerWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: CachedNetworkImage(
-                        height: 100,
-                        width: 180,
-                        fit: BoxFit.fill,
-                        imageUrl: filePath,
-                        placeholder: (context, url) => Center(
-                            child:
-                                CircularProgressIndicator(color: Colors.black)),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
+                          height: 100,
+                          width: 180,
+                          fit: BoxFit.fill,
+                          imageUrl: filePath,
+                          placeholder: (context, _) =>
+                              SpinKitChasingDots(color: Colors.brown, size: 32),
+                          errorWidget: (context, _, error) =>
+                              Icon(Icons.error)),
                     ),
                   ),
                 )

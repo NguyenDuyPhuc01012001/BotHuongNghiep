@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,8 @@ class QuestionSolutionScreen extends StatefulWidget {
 }
 
 class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
-  bool descending = false;
+  bool descending = true;
+  String TITLE_FAQ = "Quản lý giải đáp";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +40,14 @@ class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text("Quản lý giải đáp".capitalize!,
+          padding: EdgeInsets.only(
+              top: 4.0, left: TITLE_FAQ.length.toDouble() * 1.5),
+          child: Text(TITLE_FAQ.capitalize!,
               style: kDefaultTextStyle.copyWith(
                   fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
               textAlign: TextAlign.center),
         ),
         titleSpacing: 0,
-        centerTitle: true,
         actions: <Widget>[
           GestureDetector(
             onTap: () {

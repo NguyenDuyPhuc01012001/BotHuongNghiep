@@ -71,7 +71,7 @@ class NewsWidget extends StatelessWidget {
                       children: [
                         ListTitleNews(
                           limited: 3,
-                          descending: false,
+                          descending: true,
                         )
                       ],
                     ),

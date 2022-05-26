@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 
@@ -67,12 +68,10 @@ class _EditImageWidgetState extends State<EditImageWidget> {
                             height: 250,
                             fit: BoxFit.fill,
                             imageUrl: homeProvider.user.image,
-                            placeholder: (context, url) => Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.black)),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          )
+                            placeholder: (context, _) => SpinKitChasingDots(
+                                color: Colors.brown, size: 32),
+                            errorWidget: (context, _, error) =>
+                                Icon(Icons.error))
                         : Image.file(
                             File(filePath),
                             fit: BoxFit.fill,

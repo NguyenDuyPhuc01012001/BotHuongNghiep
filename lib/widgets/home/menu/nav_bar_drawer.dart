@@ -10,6 +10,7 @@ import 'package:huong_nghiep/screens/menu/jobs_manage_screen.dart';
 import 'package:huong_nghiep/screens/menu/police_screen.dart';
 import 'package:huong_nghiep/screens/menu/question_solution_screen.dart';
 import 'package:huong_nghiep/screens/menu/setting_screen.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/home/home_provider.dart';
@@ -60,14 +61,14 @@ class NavBarDrawer extends StatelessWidget {
               : SizedBox(),
           homeProvider.user.isAdmin
               ? ListTile(
-                  leading: Icon(Icons.info_outline),
+                  leading: Icon(MdiIcons.postOutline),
                   title: Text('Quản lý bài đăng'),
                   onTap: () => Get.to(JobsManageScreen()),
                 )
               : SizedBox(),
           homeProvider.user.isAdmin
               ? ListTile(
-                  leading: Icon(Icons.info_outline),
+                  leading: Icon(MdiIcons.newspaperVariantOutline),
                   title: Text('Quản lý tin tức'),
                   onTap: () => Get.to(NewsManageScreen()),
                 )

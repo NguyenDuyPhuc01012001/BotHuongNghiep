@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +17,9 @@ class NewsManageScreen extends StatefulWidget {
 }
 
 class _NewsManageScreenState extends State<NewsManageScreen> {
-  bool descending = false;
+  bool descending = true;
+  String TITLE_NEWS = "Quản lý tin tức";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +42,14 @@ class _NewsManageScreenState extends State<NewsManageScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text("Quản lý tin tức".capitalize!,
+          padding: EdgeInsets.only(
+              top: 4.0, left: TITLE_NEWS.length.toDouble() * 1.5),
+          child: Text(TITLE_NEWS.capitalize!,
               style: kDefaultTextStyle.copyWith(
                   fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
               textAlign: TextAlign.center),
         ),
         titleSpacing: 0,
-        centerTitle: true,
         actions: <Widget>[
           GestureDetector(
             onTap: () {

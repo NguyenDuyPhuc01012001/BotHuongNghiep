@@ -16,7 +16,7 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  bool descending = false;
+  bool descending = true;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -77,6 +77,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 padding: EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [ListFavouriteWidget(descending: descending)],
                 ),
               ),

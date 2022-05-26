@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart';
@@ -25,6 +26,9 @@ class TitleManageWidget extends StatefulWidget {
 }
 
 class _TitleManageWidgetState extends State<TitleManageWidget> {
+  bool insertUrlShow = false;
+  TextEditingController imageCotroller = TextEditingController();
+
   addImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -36,12 +40,15 @@ class _TitleManageWidgetState extends State<TitleManageWidget> {
     final newImage = await File(image.path).copy(imageFile.path);
     setState(() {
       widget.filePath = newImage.path;
+      insertUrlShow = !insertUrlShow;
     });
   }
 
   clearImage() {
     setState(() {
       widget.filePath = "";
+      imageCotroller.text = "";
+      insertUrlShow = !insertUrlShow;
     });
   }
 
@@ -93,8 +100,20 @@ class _TitleManageWidgetState extends State<TitleManageWidget> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Hình ảnh (bắt buộc)",
-                          style: kDefaultTextStyle.copyWith(color: Colors.red)),
+                      Row(
+                        children: [
+                          Text("Hình ảnh (bắt buộc)",
+                              style: kDefaultTextStyle.copyWith(
+                                  color: Colors.red)),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  insertUrlShow = !insertUrlShow;
+                                });
+                              },
+                              icon: Icon(Icons.arrow_drop_down)),
+                        ],
+                      ),
                       Row(
                         children: [
                           IconButton(
@@ -110,6 +129,33 @@ class _TitleManageWidgetState extends State<TitleManageWidget> {
                       ),
                     ]),
               ),
+              if (insertUrlShow)
+                Container(
+                  padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: null,
+                    onChanged: (value) => {
+                      value.contains("http")
+                          ? setState(() {
+                              widget.filePath = value;
+                            })
+                          : {}
+                    },
+                    controller: imageCotroller,
+                    decoration: const InputDecoration(
+                        labelText: 'Url hình ảnh',
+                        labelStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: h4),
+                        hintText: 'Chèn Url hình ảnh',
+                        border: OutlineInputBorder()),
+                  ),
+                )
+              else
+                SizedBox(),
               if (widget.filePath != "")
                 if (widget.filePath.contains("http"))
                   Padding(
@@ -123,8 +169,9 @@ class _TitleManageWidgetState extends State<TitleManageWidget> {
                           fit: BoxFit.fill,
                           imageUrl: widget.filePath,
                           placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(
-                                  color: Colors.black)),
+                            child: SpinKitChasingDots(
+                                color: Colors.brown, size: 32),
+                          ),
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
