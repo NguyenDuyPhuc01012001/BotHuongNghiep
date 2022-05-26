@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +14,7 @@ class AdminManageScreen extends StatefulWidget {
 }
 
 class _AdminManageScreenState extends State<AdminManageScreen> {
+  String TITLE_ADMIN_MANGEMENT = "Quản lý vai trò người dùng";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +37,14 @@ class _AdminManageScreenState extends State<AdminManageScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text("Quản lý vai trò người dùng".capitalize!,
+          padding: EdgeInsets.only(
+              top: 4.0, left: TITLE_ADMIN_MANGEMENT.length.toDouble() * 0.6),
+          child: Text(TITLE_ADMIN_MANGEMENT.capitalize!,
               style: kDefaultTextStyle.copyWith(
                   fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
               textAlign: TextAlign.center),
         ),
         titleSpacing: 0,
-        centerTitle: true,
       ),
       extendBodyBehindAppBar: true,
       body: AdminManageBody(),

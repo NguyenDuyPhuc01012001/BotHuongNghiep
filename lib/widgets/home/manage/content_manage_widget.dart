@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart';
@@ -34,6 +35,9 @@ class ContentManageWidget extends StatefulWidget {
 }
 
 class _ContentManageWidgetState extends State<ContentManageWidget> {
+  bool insertUrlShow = false;
+  TextEditingController imageCotroller = TextEditingController();
+
   addImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -45,12 +49,15 @@ class _ContentManageWidgetState extends State<ContentManageWidget> {
     final newImage = await File(image.path).copy(imageFile.path);
     setState(() {
       widget.filePath = newImage.path;
+      insertUrlShow = !insertUrlShow;
     });
   }
 
   clearImage() {
     setState(() {
       widget.filePath = "";
+      imageCotroller.text = "";
+      insertUrlShow = !insertUrlShow;
     });
   }
 
@@ -132,7 +139,18 @@ class _ContentManageWidgetState extends State<ContentManageWidget> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Hình ảnh (nếu có)", style: kDefaultTextStyle),
+                      Row(
+                        children: [
+                          Text("Hình ảnh (nếu có)", style: kDefaultTextStyle),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  insertUrlShow = !insertUrlShow;
+                                });
+                              },
+                              icon: Icon(Icons.arrow_drop_down)),
+                        ],
+                      ),
                       Row(
                         children: [
                           IconButton(
@@ -148,6 +166,31 @@ class _ContentManageWidgetState extends State<ContentManageWidget> {
                       ),
                     ]),
               ),
+              if (insertUrlShow)
+                Container(
+                  padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: null,
+                    onChanged: (value) => {
+                      value.contains("http")
+                          ? setState(() {
+                              widget.filePath = value;
+                            })
+                          : {}
+                    },
+                    controller: imageCotroller,
+                    decoration: const InputDecoration(
+                        labelText: 'Url hình ảnh',
+                        labelStyle: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: h4),
+                        hintText: 'Chèn Url hình ảnh',
+                        border: OutlineInputBorder()),
+                  ),
+                )
+              else
+                SizedBox(),
               if (widget.filePath != "")
                 if (widget.filePath.contains("http"))
                   Padding(
@@ -157,15 +200,13 @@ class _ContentManageWidgetState extends State<ContentManageWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
                         child: CachedNetworkImage(
-                          height: 250,
-                          fit: BoxFit.fill,
-                          imageUrl: widget.filePath,
-                          placeholder: (context, url) => Center(
-                              child: CircularProgressIndicator(
-                                  color: Colors.black)),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                        ),
+                            height: 250,
+                            fit: BoxFit.fill,
+                            imageUrl: widget.filePath,
+                            placeholder: (context, _) => SpinKitChasingDots(
+                                color: Colors.brown, size: 32),
+                            errorWidget: (context, _, error) =>
+                                Icon(Icons.error)),
                       ),
                     ),
                   )

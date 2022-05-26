@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/resources/firebase_reference.dart';
 import 'package:huong_nghiep/utils/constants.dart';
@@ -251,7 +252,14 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                                               imageUrl: newsPost
                                                   .listTitle![index].image!,
                                               fit: BoxFit.contain,
-                                              height: 250)
+                                              height: 250,
+                                              placeholder: (context, _) =>
+                                                  SpinKitChasingDots(
+                                                      color: Colors.brown,
+                                                      size: 32),
+                                              errorWidget:
+                                                  (context, _, error) =>
+                                                      Icon(Icons.error))
                                           : SizedBox(),
                                     ],
                                   );

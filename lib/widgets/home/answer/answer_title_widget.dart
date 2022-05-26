@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/models/answer.dart';
 
@@ -94,13 +95,17 @@ class _AnswerTitleWidgetState extends State<AnswerTitleWidget> {
                               ? SizedBox()
                               : ClipRRect(
                                   child: CachedNetworkImage(
-                                    imageUrl: widget.answer.image!,
-                                    width: widget.answer.answer!.length > 50
-                                        ? 320
-                                        : 150,
-                                    height: 150,
-                                    fit: BoxFit.fitWidth,
-                                  ),
+                                      imageUrl: widget.answer.image!,
+                                      width: widget.answer.answer!.length > 50
+                                          ? 320
+                                          : 150,
+                                      height: 150,
+                                      fit: BoxFit.fitWidth,
+                                      placeholder: (context, _) =>
+                                          SpinKitChasingDots(
+                                              color: Colors.brown, size: 32),
+                                      errorWidget: (context, _, error) =>
+                                          Icon(Icons.error)),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                         ],

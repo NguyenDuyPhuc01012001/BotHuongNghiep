@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:huong_nghiep/models/favorite.dart';
 import 'package:huong_nghiep/resources/firebase_handle.dart';
 import 'package:huong_nghiep/screens/home/detailpage/jobs_page_screen.dart';
+import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../../resources/support_function.dart';
 import '../../../screens/home/detailpage/news_page_screen.dart';
@@ -48,12 +49,12 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
             favoriteDocs.add(favorite);
           }).toList();
 
-          return Card(
-            elevation: 30,
-            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Column(children: [
-              for (var i = 0; i < favoriteDocs.length; i++) ...[
-                InkWell(
+          return Column(children: [
+            for (var i = 0; i < favoriteDocs.length; i++) ...[
+              Card(
+                elevation: 30,
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                child: InkWell(
                     onTap: () {
                       if (favoriteDocs[i].favoriteType! == "news") {
                         Get.to(NewsPageScreen(
@@ -73,11 +74,15 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
                           children: [
                             ClipRRect(
                               child: CachedNetworkImage(
-                                imageUrl: favoriteDocs[i].image!,
-                                width: 100,
-                                height: 80,
-                                fit: BoxFit.cover,
-                              ),
+                                  imageUrl: favoriteDocs[i].image!,
+                                  width: 100,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, _) =>
+                                      SpinKitChasingDots(
+                                          color: Colors.brown, size: 32),
+                                  errorWidget: (context, _, error) =>
+                                      Icon(Icons.error)),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             SizedBox(
@@ -85,33 +90,32 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
                             ),
                             Expanded(
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 10),
-                                  Text(
-                                      getTruncatedTitle(
-                                          favoriteDocs[i].title!, 60),
-                                      style: kItemText.copyWith(
-                                          fontWeight: FontWeight.normal)),
+                                  verticalSpaceSmall,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 4.0),
+                                    child: Text(
+                                        getTruncatedTitle(
+                                            favoriteDocs[i].title!, 60),
+                                        style: kItemText.copyWith(
+                                            fontWeight: FontWeight.normal)),
+                                  ),
                                   SizedBox(height: 16),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Đã yêu thích vào " +
-                                            favoriteDocs[i].time!,
-                                        style: kItemText,
-                                      ),
-                                    ],
+                                  Text(
+                                    "Đã yêu thích vào\n" +
+                                        favoriteDocs[i].time!,
+                                    style: kItemText,
                                   )
                                 ],
                               ),
                             ),
                           ],
-                        )))
-              ]
-            ]),
-          );
+                        ))),
+              )
+            ]
+          ]);
         });
   }
 }

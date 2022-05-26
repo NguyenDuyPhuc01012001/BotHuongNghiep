@@ -29,7 +29,10 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> jobsStream = widget.limited == 0
         ? jobsFR.orderBy('time', descending: widget.descending).snapshots()
-        : jobsFR.orderBy('time').limit(widget.limited).snapshots();
+        : jobsFR
+            .orderBy('time', descending: widget.descending)
+            .limit(widget.limited)
+            .snapshots();
 
     return StreamBuilder<QuerySnapshot>(
         stream: jobsStream,
@@ -71,6 +74,10 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
                               width: 100,
                               height: 80,
                               fit: BoxFit.cover,
+                              placeholder: (context, _) => SpinKitChasingDots(
+                                  color: Colors.brown, size: 32),
+                              errorWidget: (context, _, error) =>
+                                  Icon(Icons.error),
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),

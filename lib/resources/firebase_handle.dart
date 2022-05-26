@@ -141,16 +141,20 @@ class FirebaseHandler {
       'source': user.name,
       'sourceImage': user.image,
       'time': myTimeStamp,
-      'timeRead': news.timeRead
+      'timeRead': news.timeRead,
+      'image': news.image!.contains("http") ? news.image : ""
     }).then((fNews) async {
-      await uploadNewsImage(news.image!, fNews.id);
+      if (!news.image!.contains("http")) {
+        await uploadNewsImage(news.image!, fNews.id);
+      }
+
       for (Titles element in news.listTitle!) {
-        await newsFR
-            .doc(fNews.id)
-            .collection("titles")
-            .add({'title': element.title, 'content': element.content}).then(
-                (fTitle) async {
-          if (element.image!.isNotEmpty) {
+        await newsFR.doc(fNews.id).collection("titles").add({
+          'title': element.title,
+          'content': element.content,
+          'image': element.image
+        }).then((fTitle) async {
+          if (element.image!.isNotEmpty && !element.image!.contains("http")) {
             await uploadNewsTitleImage(element.image!, fNews.id, fTitle.id);
           }
         });
@@ -443,16 +447,20 @@ class FirebaseHandler {
       'source': user.name,
       'sourceImage': user.image,
       'time': myTimeStamp,
-      'timeRead': jobs.timeRead
+      'timeRead': jobs.timeRead,
+      'image': jobs.image!.contains("http") ? jobs.image : ""
     }).then((fJobs) async {
-      await uploadJobsImage(jobs.image!, fJobs.id);
+      if (!jobs.image!.contains("http")) {
+        await uploadJobsImage(jobs.image!, fJobs.id);
+      }
+
       for (Titles element in jobs.listTitle!) {
-        await jobsFR
-            .doc(fJobs.id)
-            .collection("titles")
-            .add({'title': element.title, 'content': element.content}).then(
-                (fTitle) async {
-          if (element.image!.isNotEmpty) {
+        await jobsFR.doc(fJobs.id).collection("titles").add({
+          'title': element.title,
+          'content': element.content,
+          'image': element.image!.contains("http") ? element.image : ""
+        }).then((fTitle) async {
+          if (element.image!.isNotEmpty && !element.image!.contains("http")) {
             await uploadJobsTitleImage(element.image!, fJobs.id, fTitle.id);
           }
         });
@@ -611,6 +619,21 @@ class FirebaseHandler {
     }
 
     return answerList;
+  }
+
+  static Stream<List<Answer>> getStreamListPostAnswer(String postID) {
+    List<Answer> answerList = [];
+    Stream<QuerySnapshot> answerQuerySnapshot =
+        postsFR.doc(postID).collection("answers").snapshots();
+
+    return answerQuerySnapshot
+        .map((qShot) => qShot.docs.map((e) => Answer.fromSnap(e)).toList());
+
+    // if (answerQuerySnapshot.size > 0) {
+    //   answerList = Answer.dataListFromSnapshot(answerQuerySnapshot);
+    // }
+
+    // return answerList;
   }
 
   // Add Post to FireStore

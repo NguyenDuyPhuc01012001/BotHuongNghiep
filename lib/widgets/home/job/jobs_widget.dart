@@ -70,7 +70,7 @@ class JobsWidget extends StatelessWidget {
                       children: const [
                         ListTitleJobs(
                           limited: 3,
-                          descending: false,
+                          descending: true,
                         )
                       ],
                     ),
