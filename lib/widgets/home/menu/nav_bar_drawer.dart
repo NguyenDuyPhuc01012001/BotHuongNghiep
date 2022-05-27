@@ -7,9 +7,9 @@ import 'package:huong_nghiep/screens/menu/profile_screen.dart';
 import 'package:huong_nghiep/screens/menu/admin_manage_screen.dart';
 import 'package:huong_nghiep/screens/menu/favorite_screen.dart';
 import 'package:huong_nghiep/screens/menu/jobs_manage_screen.dart';
-import 'package:huong_nghiep/screens/menu/police_screen.dart';
+// import 'package:huong_nghiep/screens/menu/police_screen.dart';
+// import 'package:huong_nghiep/screens/menu/setting_screen.dart';
 import 'package:huong_nghiep/screens/menu/question_solution_screen.dart';
-import 'package:huong_nghiep/screens/menu/setting_screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
