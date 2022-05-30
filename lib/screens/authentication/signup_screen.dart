@@ -42,6 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _isClose = false;
 
   bool _isValid = true;
+
   @override
   Widget build(BuildContext context) {
     final signUpProvider = Provider.of<SignUpProvider>(context);

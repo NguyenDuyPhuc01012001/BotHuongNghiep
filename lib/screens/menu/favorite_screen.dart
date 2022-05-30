@@ -17,6 +17,7 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   bool descending = true;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

@@ -17,6 +17,7 @@ import '../../../utils/styles.dart';
 
 class ListFavouriteWidget extends StatefulWidget {
   final bool descending;
+
   const ListFavouriteWidget({Key? key, required this.descending})
       : super(key: key);
 
@@ -26,6 +27,7 @@ class ListFavouriteWidget extends StatefulWidget {
 
 class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
   bool loading = true;
+
   @override
   Widget build(BuildContext context) {
     final favoriteStream = FirebaseHandler.getListFavorite(widget.descending);

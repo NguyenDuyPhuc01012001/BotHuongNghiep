@@ -8,14 +8,17 @@ import '../../screens/authentication/emailverify_screen.dart';
 
 class SignUpProvider extends ChangeNotifier {
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
 
   bool _isValid = true;
+
   bool get isValid => _isValid;
 
   set isValid(bool value) => _isValid = value;
 
   String _errorMessage = "";
+
   String get errorMessage => _errorMessage;
 
   Future<String> signUp(

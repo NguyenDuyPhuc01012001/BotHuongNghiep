@@ -1,156 +1,156 @@
 {
-   "MBTI": [
-      {
-         "id": "E",
-         "title": "Extroversion",
-         "explanation": "Ưa thích hướng ngoại, cảm giác được thúc đẩy và giàu năng lượng dành cho những người xunh quanh"
-      },
-      {
-         "id": "I",
-         "title": "Introversion",
-         "explanation": "Ưa thích hướng nội nên thường có xu hướng thích sự yên tĩnh, chỉ thích tương tác với những người bạn thân thiết. Việc tiếp xúc xã hội với những người không quen khiến họ tổn thất nhiều năng lượng"
-      },
-      {
-         "id": "S",
-         "title": "Sensing",
-         "explanation": "Dùng cảm nhận cụ thể nhiều hơn là trực giác, vì vậy họ tập trung sự chú ý vào những chi tiết nhỏ nhặt hơn là bức tranh toàn cảnh, cũng như là những điều xảy ra ngay tại thực tại hơn là những thứ có thể đến trong tương lai"
-      },
-      {
-         "id": "N",
-         "title": "iNtuition",
-         "explanation": "Dùng trực giác nhiều hơn là cảm nhận cụ thể, vì vậy họ tập trung sự chú ý vào bức tranh toàn cảnh hơn là những chi tiết nhỏ nhặt, cũng như là những điều có thể xảy ra trong tương lai hơn là chú ý vào thực tại"
-      },
-      {
-         "id": "T",
-         "title": "Thinking",
-         "explanation": "Suy nghĩ lý trí hơn là cảm xúc, xu hướng coi trọng các tiêu chí khách quan hơn là sở thích cá nhân. Khi đưa ra một quyết định thì thường dựa vào sự logic hơn là yếu tố xã hội"
-      },
-      {
-         "id": "F",
-         "title": "Feeling",
-         "explanation": "Đưa ra quyết định dựa vào cảm nhận, trạng thái cảm xúc tình cảm, giá trị cá nhân hơn là dựa vào các yếu tố khách quan hoặc quy luật logic"
-      },
-      {
-         "id": "J",
-         "title": "Judgement",
-         "explanation": "Họ đánh giá một cách rất nguyên tắc và khả năng dự đoán của mình, sớm lập kế hoặch và tuân thủ theo nó thay vì là những quyết định tự phát, linh hoạt"
-      },
-      {
-         "id": "P",
-         "title": "Perception",
-         "explanation": "Họ không vội đánh giá hay sớm ra một quyết định phán xét quan trọng nào đó , thay vào đó luôn nhìn nhận một cách linh hoạt vấn đề và có thể thay đổi tùy hoàn cảnh"
-      },
-      {
-         "id": "ENFJ",
-         "title": "ENFJ – The Teacher – Người chỉ dạy",
-         "explanation": "ENFJ là những nhà tổ chức lý tưởng, định hướng và thực hiện những tầm nhìn tốt nhất của họ cho tập thể, nhân loại. Họ vượt trội nhờ khả năng chọn ra các giá trị và khả năng của người khác, những giá trị chia sẻ từ tập thể và áp dụng nó cho một nhóm xã hội tập thể để tạo nên sự hài hòa.\nENFJ là những người giàu năng lượng, có định hướng và rất nhiều khả năng sâu bên trong. Họ có khả năng tự điều chỉnh theo nhu cầu của nhiều người khác trong tập thể, bằng sự dự đoán và nhận thức, cảm giác sâu sắc và sự đồng cảm về những vấn đề của người khác. Và bằng trực giác cũng như xu hướng lạc quan nên luôn suy nghĩ về tương lai để cải thiện chúng. ENFJ luôn muốn kết nối chặt chẽ với mọi người, hỗ trợ và hợp tác với họ trong công việc. ENFJ cũng rất tham vọng, nhưng tham vọng của họ không phải cá nhân mà luôn hướng tới cộng đồng để giúp mọi người cùng tốt hơn. Chính vì vậy ENFJ còn được gọi là The Givers – Người cho đi\nENFJ phù hợp với các nhóm ngành:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên hôn nhân gia đình,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế;\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Pháp luật (Luật sư,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Văn phòng và hành chính."
-      },
-      {
-         "id": "ENFP",
-         "title": "ENFP - The Inspirers - Người truyền cảm hứng",
-         "explanation": "ENFP là những người sáng tạo, giàu năng lượng, đam mê  hứng thú với mọi người và khả năng của họ. ENFP luôn mang đến những ý tưởng, sinh lực và kích thích người khác phát triển bằng sự nhiệt tình trong những hơi thở của họ. ENFP thích những sự khởi đầu của một dự án nào đó hoặc là một mối quan hệ mới, họ có khả năng giao tiếp thông minh, óc phán đoán nhanh nhạy để biết được nhu cầu của người khác để có thể đưa ra những giúp đỡ, tư vấn cần thiết. Họ không thích tập trung quá vào chi tiết và lặp đi lăp lại các quá trình cũ kỹ. ENFP thích sự mới lạ, luôn lạc quan, hang hái và cảm xúc mạnh mẽ. Ho khát khao dành chiến thắng và chia sẻ kinh nghiệm của họ đến những người khác.\nENFP phù hợp với các nhóm ngành:\n- Nghệ thuật, thiết kế và giải trí (Diễn viên, nhạc sĩ, ca sĩ,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Thợ cắt tóc…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên hôn nhân gia đình,…)."
-      },
-      {
-         "id": "ENTJ",
-         "title": "ENTJ - The Executives - Nhà điều hành",
-         "explanation": "ENTJ có tố chức để trở thành một nhà lãnh đạo, thiết lập chiến lược và tạo ra động lực cho tổ chức đạt được sự tiến bộ. Họ nổi bật trong việc phân tích, lý luận logic và đầu óc tư duy xuất sắc. Ngoài ra, họ còn rất quyết đoán, bộc trực và luôn thích chịu trách nhiệm khi phát sinh vấn đề lỗi. ENTJ tự tin về khả năng của mình, áp đảo người khác bởi đầu óc lập luận sắc bén và ngôn từ sắc sảo. Tuy nhiên họ cũng rất khách quan và không bị ảnh hưởng bởi các vấn đề xung đột hoặc sự chỉ trích xung quanh. Đôi lúc, một vài người có thể cho rằng ENTJ kiêu ngạo, vô cảm nhưng đó là bản năng của họ, suy cho cùng thì họ vẫn muốn tập trung vào kết quả của công việc với năng suất cao nhất.\nENTJ phù hợp với các nhóm ngành:\n- Kinh doanh và tài chính (Quản lý kinh doanh, chuyên gia tài chính , giám đốc điều hành,…);\n- Lãnh đạo và quản lý (Quản lý nhân sự, Chủ tịch hội đồng,…);\n- Kiến trúc và kỹ thuật (Kỹ sư, Kiến trúc sư, Kiểm soát viên, Nhà thầu xây dựng…);\n- Khoa học và đời sống (Nhà kinh tế, Nhà tâm lý, Nhà khoa học,…);\n- Nghệ thuật và truyền thông (Quan hệ công chúng, Giám đốc sản xuất nghệ thuật,…);\n- Chăm sóc sức khỏe (Bác sĩ, quản lý dịch vụ y tế,…);\n- Giáo dục và đào tạo (Giảng viên, Giáo sư tiến sĩ,…);\n- Giải trí và thể thao (Huấn luyện viên, Nhà sản xuất,..);\n- Nhóm ngàng IT;\n- Pháp luật (Thanh tra, Luật sư, Cảnh sát điều tra,…)."
-      },
-      {
-         "id": "ENTP",
-         "title": "ENTP - The Visionaries - Người có tầm nhìn xa",
-         "explanation": "ENTP được mô tả là những người thông minh, lanh lợi, hướng ngoại, sáng tạo, linh hoạt và tháo vát. Họ luôn xuất sắc trong việc đưa ra các giải pháp mới mẻ và độc đáo trước các vấn đề khó khăn, thường thì họ không lên kế hoặch trước cho một dự án. ENTP cũng có một sự hiểu biết sâu sắc về cách mà mọi thứ cũng như các mối quan hệ hoạt động và làm cách nào để cải thiện chúng. Họ không thích phán xét, cởi mở, khéo léo trong giao tiếp với đầu óc thông minh và khả năng ngôn ngữ linh hoạt. Với sự sáng tạo không ngừng và kỹ năng giao tiếp xã hội tuyệt vời, họ hoàn toàn xứng đáng với vai trò của một người lãnh đạo trong một tổ chức hay tập thể.\nENTP phù hợp với các nhóm ngành:\n- Kinh doanh và lãnh đạo (Quản lý kinh doanh, quản trị nhân sự, giám đốc điều hành,…);\n- Nghệ thuật và thiết kế (Kiến trúc sư, Nhà sản xuất nghệ thuật,….);\n- Khoa học và kỹ thuật (Nhà khoa học, kỹ sư, giáo sư tiến sĩ,…)."
-      },
-      {
-         "id": "ESFJ",
-         "title": "ESFJ - The Caregivers -Người quan tâm",
-         "explanation": "ESFJ có xu hướng tập trung vào thế giới bên ngoài nhiều và đánh giá những kinh nghiệm của họ một cách chủ quan. Phần lớn đánh giá của họ dựa trên hệ thống niềm tin. ESFJ rất thích sự cụ thể, tin tưởng vào những thông tin chi tiết, thực tế được thu thập dựa trên các giác quan sinh lý. ESFJ ấm áp và thích quan tâm đến hạnh phúc của người khác, hài lòng khi chứng người khác được hạnh phúc Họ coi trọng giá trị truyền thống và sự đảm bảo nó mang lại. Cũng gần giống ENFJ, giá trị của các ESFJ tập trung nhiều hơn vào các tổ chức xã hội. Họ vượt trội trong môi trường tiêu chuẩn đạo đức cao vì có xu hướng thể hiện được sự rộng lượng và sự tốt bụng tử tế. Họ cũng đánh giá cao các quy tắc luật lệ và mong muốn người khác cũng vậy. ESFJ có thể ít quan tâm đến các khái niệm đằng sau các quy tắc, né tránh sự trừu tượng và nhân hóa.\nESFJ phù hợp với các nhóm ngành:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế;\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Pháp luật (Cảnh sát, tòa án…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá…);\n- Văn phòng và hành chính."
-      },
-      {
-         "id": "ESFP",
-         "title": "ESFP - The Performers - Người trình diễn",
-         "explanation": "ESFP luôn hoạt bát, quyến rũ và thu hút những người xung quanh khiến họ cảm thấy vui vẻ. Họ rất ấm áp, hài hước và thích được là trung tâm của sự chú ý. ESFP sống trong những khoảnh khắc của hiện tại và muốn tận hưởng tối đa những gì mà cuộc sống mang lại. Họ đặc biệt giỏi trong việc quan sát, cảm nhận, giúp đỡ và huy động thuyết phục mọi người để cùng giải quyết vấn đề theo những cách rất thực tế. ESFP thích một cuộc sống tự nhiên mà không cần phải lên kế hoặch trước, muốn thoải mái vui vẻ cũng các hoạt động, sở thích với bạn bè mà không cần các nguyên tắc, quy ước can thiệp vào. Tính tình rộng lượng, lạc quan và giỏi thuyết phục, họ là những người tương tác cá nhân tuyệt vời.\nESFP phù hợp với các nhóm ngành sau đây:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế (Ca sĩ, Nhạc sĩ, Thiết kế thời trang,…);\n- Dịch vụ sức khỏe và chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Y tá…);\n- Cảnh sát, lính cứu hỏa."
-      },
-      {
-         "id": "ESTJ",
-         "title": "ESTJ - The Guardians - Người giám sát",
-         "explanation": "ESTJ là những người lễ nghi, thực tế, chăm chỉ và trách nhiệm cao với một bộ óc nhạy bén trong việc kinh doanh, tổ chức quản lý cũng như con mắt nhìn người. Họ làm việc có trật tự, quy tắc và một hệ thống phương pháp rõ ràng. ESTJ luôn muốn mang đến một cấu trúc được tổ chức hoàn hảo và các hoạt động được vận hành một cách trơn tru cho môi trường xung quanh. Họ đặc biệt giỏi với vai trò của một người quản lý, giám sát với. Với khả năng giao tiếp đối ngoại tốt, họ không khó khăn để truyền đạt ý kiến, hướng dẫn, giúp đợ và thiết lập được một quy trình làm việc có hiệu suất tốt nhất cho mọi người cũng như hệ thống xã hội.\nESTJ phù hợp với các nhóm ngành sau đây:\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Kế toán, Quản lý kinh doanh,…);\n- Văn phòng và hành chính;\n- Quản lý;\n- Kiến trúc sư, kỹ thuật viên và kỹ sư kỹ thuật;\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Nông lâm nghiệp;\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Vận chuyển;\n- Sản xuất;\n- Giải trí, thể thao;\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên, nhân viên xã hội…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá, Điều dưỡng…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Cảnh sát, vệ sĩ, lính cứu hỏa, quân đội;\n- Pháp luật (Tòa án, luật sư…)."
-      },
-      {
-         "id": "ESTP",
-         "title": "ESTP - The Doers - Người thực thi",
-         "explanation": "ESTP là những người tích cực, có xu hướng thực hành để giải quyết vấn đề hơn là chỉ thảo luận về chúng. Họ còn lão làng một cách nghệ thuật trong việc thúc đẩy, tạo sức ảnh hưởng để người khác cùng hành động. Cụ thể trong lời nói và thực dụng trong hành động, họ luôn mang đến một nguồn năng lượng dồi dào cho tập thể. ESTP thích tập trung vào các kết quả rõ ràng trước mắt hơn là suy nghĩ về những mục tiêu dài hạn. Họ có khả năng tháo nút thắt cho các vấn đề để mang người khác đồng hành với mình qua đó đem lại những điều tốt đẹp cho cuộc sống. Vì thế mà ESTP được gọi là những Promoter – Người đề xướng.\nESTP phù hợp với các nhóm ngành:\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Giáo dục (Giáo viên dạy nghề, Quản trị viên,…);\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Sản xuất (Thợ mộc, thợ làm bánh, thanh tra giám sát chất lượng);\n- Kiến trúc sư và kỹ sư kỹ thuật;\n- Cảnh sát, vệ sĩ, lính cứu hỏa, sĩ quan quân đội, phi công;\n- Xây dựng."
-      },
-      {
-         "id": "INFJ",
-         "title": "INFJ - The Protectors - Người che chở",
-         "explanation": "INFJ là những người rất tận tâm và có định hướng rõ ràng, họ luôn tìm kiếm các ý nghĩa trong các mối quan hệ, ý tưởng và các sự kiện để mong muốn hiểu được bản thân và những người xung quanh. Bằng các kỹ năng trực quan, tầm nhìn và sự tự tin để phát triển cải thiện cuộc sống của mọi người. Cũng khá tương tự với đối tác INTJ, INFJ luôn nhìn nhận các vấn đê gặp phải như là cơ hội để thách thức sự phát triển, sáng tạo. Tuy là một người hướng nội thật sự nhưng INFJ vẫn có đủ những kiến thức để thích ứng tốt trong các tình huống xã hội. Họ quan tâm đến sự hạnh phúc của người khác, có thể hợp tác và sáng tạo để giải quyết những sự khác biệt. Nhìn chung INFJ là người sống nội tâm phong phú, sống động nhưng cũng rất cởi mở và quan tâm mọi người. Đặc biệt, INFJ có những khả năng độc đáo để truyền cảm xúc và động lực cho người khác.\nINFJ phù hợp với các nhóm ngành sau đây:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên hôn nhân gia đình,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Pháp luật (Luật sư,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Giải trí, nghệ thuật và thiết kế;\n- Nhân sự."
-      },
-      {
-         "id": "INFP",
-         "title": "INFP - The Idealists - Người duy tâm",
-         "explanation": "INFP là những nhà lý tưởng giàu trí tưởng tượng được dẫn dắt bởi chính niềm tin và các giá trị cốt lõi của họ. Họ tập trung nhiều năng lượng vào các cảm giác mãnh liệt và các giá trị đạo đức sâu sắc. INFP thường rất nhạy cảm, đồng cảm, có lòng vị tha và quan tâm đến sự phát triển của bản thân cũng như những người khác, và mong đợi mọi người cũng làm như vậy. Mang tư tưởng cá nhân nhưng cũng rất sáng tạo, linh hoạt và có hơi hướng nghệ thuật, và không hề phán xét trong việc đối xử với người khác vì họ biết rằng mỗi người có một con đường riêng của bản thân. INFP thật chất là những người có thể trao đổi cởi mở, hợp tác hỗ trợ nhưng có thể sẽ không thích khi các giá trị riêng của bản thân bị vi phạm.\nINFP phù hợp với các nhóm ngành:\n- Nghệ thuật và thiết kế (thiết kế thời trang, thiết kế mỹ thuật,…);\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, quản lý dịch vụ cộng đồng,…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…)."
-      },
-      {
-         "id": "INTJ",
-         "title": "INTJ - The Scientists - Nhà khoa học",
-         "explanation": "INTJ có một niềm đam mê mạnh mẽ với việc phân tích, giải quyết vấn đề, cải thiện các hệ thống và quy trình bằng các ý tưởng sáng tạo của họ. Họ luôn khát khao nâng cao kiến thức và cố gắng không ngừng nghỉ, luôn cầu toàn với tiêu chuẩn hiệu suất cực cao dành cho bản thân và cả những người đồng nghiệp. Sự độc lập trong tính cách và tư tưởng đôi khi khiến INTJ bị xa cách nhưng họ luôn là những đối tác trung thành. INTJ nhận thức về các hệ thống và lên chiến lược cho nó, và thông thường thì mọi thứ sẽ được định hướng rõ ràng như trên một bàn cờ. Với khả năng tư duy logic, sự tự tin và tài năng, họ hoàn toàn có thể đảm nhận vai trò lãnh đạo, cố vấn chiến lược tài ba.\nINTJ phù hợp với các nhóm ngành:\n- Kinh doanh và tài chính (Kế toán, Chuyên gia phân tích tài chính , giám đốc điều hành,…);\n- Toán học ( Nhà toán học, Nhà thống kê, phân tích nghiên cứu hoạt động,…);\n- Kiến trúc và kỹ thuật (Kỹ sư, Kiến trúc sư, Kiểm soát viên, Nhà thầu xây dựng…);\n- Khoa học và đời sống (Nhà kinh tế, Nhà tâm lý, Nhà khoa học,…);\n- Nghệ thuật và truyền thông (Quan hệ công chúng, Giám đốc sản xuất nghệ thuật,…);\n- Chăm sóc sức khỏe (Bác sĩ, quản lý dịch vụ y tế,…);\n- Giáo dục và đào tạo (Giảng viên, Giáo sư tiến sĩ,…);\n- Giải trí và thể thao (Huấn luyện viên, Nhà sản xuất,..);\n- Nhóm ngành IT;\n- Pháp luật (Thẩm phán, Luật sư, Cảnh sát điều tra,…)."
-      },
-      {
-         "id": "INTP",
-         "title": "INTP - The Thinkers - Nhà tư duy",
-         "explanation": "INTP là những cá nhân trầm tính, chu đáo, có niềm đam mê mãnh liệt với phân tích logic, hệ thống phức tạp và thiết kế. Họ thường tò mò và thích tìm hiểu về các hệ thống, lý thuyết phức tạp và cách mọi thứ hoạt động. INTP thông thường không phải kiểu người truyền thống, họ có những suy nghĩ riêng và không chạy theo đám đông. Do tính chất độc lập nên họ thích làm việc tách biệt hơn là trong một nhóm, tuy nhiên họ có thể thể hiện kỹ năng vượt trội trong việc giải thích các khái niệm, ý tưởng phức tạp cho người khác. Đối với những người này, cuộc sống là một hành trình khám phá những bí ẩn của vũ trụ.\nHọ phù hợp với các nhóm ngành sau đây:\n- Nhóm ngành công nghệ IT (Phát triển phần mềm, nhà phát triển web,…);\n- Kỹ sư kỹ thuật;\n- Khoa học (Nhà khoa học, nhà tâm lý học, giáo sư tiến sĩ,…);\n- Kinh doanh và tài chính (chuyên gia tài chính, kỹ sư bán hàng, Nghiên cứu thị trường,..);\n- Giải trí và nghệ thuật (Nhiếp ảnh gia, Biên tập viên, Nhạc sĩ,…)."
-      },
-      {
-         "id": "ISFJ",
-         "title": "ISFJ - The Nurturers - Người nuôi dưỡng",
-         "explanation": "ISFJ thật sự đề cao đến việc duy trì trật tự và sự hài hòa trong mọi khía cạnh của cuộc sống, họ là những người kiên định, tỉ mỉ và có trách nhiệm trong công việc. Mặc dù là người sống hướng nội nhưng họ rất giỏi trong việc quan sát và định hướng con người, họ không chỉ nhớ rõ các chi tiết của những người xung quanh mà con nhạy bén trong việc theo dõi cảm xúc của người khác. Mọi người thường mô tả ISFJ là dạng người chu đáo, có lòng thương cảm quan tâm người khác và đáng tin cậy, luôn quan tâm chăm sóc cho mọi người để giữ họ luôn an toàn bằng những hành động thực tế. Đôi khi bản chất hướng nội khiến cho người khác hiểu lầm về ISFJ nhưng nếu đã là bạn bè và gia đình thì sẽ hoàn toàn ngược lại.\nISFJ phù hợp với các nhóm ngành:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên, nhân viên xã hội…);\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá, Điều dưỡng…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Văn phòng và hành chính;\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Thợ làm móng…);\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Sản xuất (Thợ mộc, thợ làm bánh, thanh tra giám sát chất lượng);\n- Kiến trúc sư và kỹ sư kỹ thuật;\n- Vận chuyển;\n- Cảnh sát, vệ sĩ, lính cứu hỏa; - Pháp luật (Tòa án, luật sư…)."
-      },
-      {
-         "id": "ISFP",
-         "title": "ISFP - The Artists - Người nghệ sĩ",
-         "explanation": "ISFP là những người hòa bình, thân thiện, dễ tính. Với phương châm sống là để tận hưởng những khoảnh khắc của cuộc sống, họ luôn lạc quan, vui vẻ và linh hoạt một cách tự phát với dòng chảy  để tận hưởng những gì cuộc sống mang lại. ISFP có tính thẩm mỹ cao, luôn tìm kiếm cái đẹp, họ đặc biệt xuất sắc trong việc sử dụng sự sáng tạo, tài năng tự nhiên trong nghệ thuật. ISFP mặc dù yên tĩnh, khiêm tốn, dễ chịu nhưng vẫn có giá trị đóng góp riêng của mình. Họ không thích là tâm điểm của sự chú ý và thích đóng vai trò hỗ trợ, chia sẻ kinh nghiệm trong cuộc sống.\nISFP phù hợp với các nhóm ngành sau đây:\n- Giáo dục (Giáo viên mầm non, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế (Ca sĩ, Nhạc sĩ, Thiết kế thời trang,…);\n- Dịch vụ sức khỏe và chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Y tá…);\n- Cảnh sát, lính cứu hỏa;\n- Kiến trúc sư, thợ mộc, thợ may, đầu bếp, thợ kim hoàn."
-      },
-      {
-         "id": "ISTJ",
-         "title": "ISTJ - The Duty Fullfillers - Người trách nhiệm",
-         "explanation": "ISTJ là mẫu người của sự logic, có tổ chức, hợp lý và nghiêm túc, thích giữ cho cuộc sống và môi trường làm việc của họ được điều tiết tốt. Họ sống khá dè dặt và nghiêm nghị, thành công đến với họ nhờ sự thấu đáo và đáng tin cậy. ISTJ sống rất thực tế và luôn có trách nhiệm, họ như một con ong thợ chăm chỉ và luôn cố gắng phấn đấu cho mục tiêu của mình. Là dạng người sống hướng nội nên cũng dễ hiểu khi các ISTJ gặp khó khăn trong việc đáp ứng nhu cầu chia sẻ cảm xúc với mọi người xung quanh nhưng không phải là dạng cô lập hoặc tách biệt hẳn với người khác. Nhìn chung, ISTJ là dạng người truyền thống, quy tắc, luôn quan tâm đến việc duy trì trật tự xã hội và các tiêu chuẩn.\nISTJ phù hợp với một số nhóm ngành:\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Kế toán, Quản lý kinh doanh,…);\n- Văn phòng và hành chính;\n- Quản lý;\n- Kiến trúc sư, kỹ thuật viên và kỹ sư kỹ thuật;\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Nông lâm nghiệp;\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Vận chuyển;\n- Sản xuất;\n- Giải trí, thể thao;\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên, nhân viên xã hội…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá, Điều dưỡng…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Cảnh sát, vệ sĩ, lính cứu hỏa, quân đội;\n- Pháp luật (Tòa án, luật sư…)."
-      },
-      {
-         "id": "ISTP",
-         "title": "ISTP - The Mechanics - Nhà cơ học",
-         "explanation": "ISTP rất giỏi về các vấn đề cơ khí, sửa chữa, khắc phục sự cố và có xu hướng nghiên cứu cách mọi thứ hoạt động. Họ độc lập, logic, linh hoạt và dễ thích nghi, vì vậy họ rất giỏi ứng phó và tìm kiếm các giải pháp thực tế cho các vấn đề trong tầm tay cũng như các tình huống khẩn cấp. ISTP thích hành động, chú ý đến các chi tiết và tương tác với thế giới xung quanh theo cách tự định hướng, tự phát. Họ làm việc khá độc lập, tách rời và có phần khép kín, họ muốn được làm việc một cách tự do trong một không gian cá nhân để có thể đi theo sự dẫn dắt của chính bản thân mình.\nISTP phù hợp với một số nhóm ngành sau đây:\n- Phân tích tài chính, chứng khoán, nhà kinh tế;\n- Nhà sinh vật học, nhà địa chất;\n- Dịch vụ sức khỏe và chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Y tá…);\n- Cảnh sát, lính cứu hỏa, sĩ quan quân đội, hình sự;\n- Kiến trúc sư, thợ mộc, thợ may, đầu bếp, thợ kim hoàn;\n- Phi công, thuyền trưởng;\n- IT (Phát triển phần mềm, quản trị cơ sở dữ liệu,….)."
-      }
-   ],
-   "Holland": [
-      {
-         "id": "R",
-         "title": "Realistic - Người thực tế",
-         "explanation": "Khả năng: kỹ thuật, công nghệ, hệ thống; ưa thích làm việc với đồ vật, máy móc, động thực vật; thích làm các công việc ngoài trời.\nNgành nghề phù hợp: Các nghề về kiến trúc, an toàn lao động, nghề mộc, xây dựng, thủy sản, kỹ thuật, máy tàu thủy, lái xe, huấn luyện viên, nông – lâm nghiệp (quản lý trang trại, nhân giống cá, lâmnghiệp…), cơ khí (chế tạo máy, bảo trì và sữa chữa thiết bị, luyện kim, cơ khí ứng dụng, tự động...), điện - điện tử, địa lý - địa chất (đo đạc, vẽ bản đồ địa chính), dầu khí, hải dương học, quản lý công nghiệp..."
-      },
-      {
-         "id": "I",
-         "title": "Realistic - Người thực tế",
-         "explanation": "Khả năng: quan sát, khám phá, phân tích đánh giá và giải quyết các vấn đề.\nNgành nghề phù hợp: Các ngành thuộc lĩnh vực khoa học tự nhiên (toán, lý, hóa, sinh, địa lý, địa chất, thống kê…); khoa học xã hội (nhân học, tâm lý, địa lý…); y - dược (bác sĩ gây mê, hồi sức, bác sĩ phẫu thuật, nha sĩ…); khoa học công nghệ (công nghệ thông tin, môi trường, điện, vật lý kỹ thuật, xây dựng…); nông lâm (nông học, thú y…)"
-      },
-      {
-         "id": "A",
-         "title": "Artistic - Người có tính nghệ sĩ",
-         "explanation": "Khả năng: nghệ thuật, khả năng về trực giác, khả năng tưởng tượng cao, thích làm việc trong các môi trường mang tính ngẫu hứng, không khuôn mẫu.\nNgành nghề phù hợp: Các ngành về văn chương; báo chí (bình luận viên, dẫn chương trình…); điện ảnh, sân khấu, mỹ thuật, ca nhạc, múa, kiến trúc, thời trang, hội họa, giáo viên dạy sử/Anh văn, bảo tàng, bảo tồn..."
-      },
-      {
-         "id": "S",
-         "title": "Social - Người có tính xã hội",
-         "explanation": "Khả năng: ngôn ngữ, giảng giải, thích làm những việc như giảng dạy, cung cấp thông tin, sự chăm sóc, giúp đỡ, hoặc huấn luyện cho người khác.\nNgành nghề phù hợp: sư phạm; giảng viên; huấn luyện viên điền kinh; tư vấn - hướng nghiệp; công tác xã hội, sức khỏe cộng đồng, thuyền trưởng, thầy tu, thư viện, bác sĩ chuyên khoa, thẩm định giá, nghiên cứu quy hoạch đô thị, kinh tế gia đình, tuyển dụng nhân sự, cảnh sát, xã hội học, bà đỡ, chuyên gia về X-quang, chuyên gia dinh dưỡng…"
-      },
-      {
-         "id": "E",
-         "title": "Enterprising - Dám nghĩ, dám làm",
-         "explanation": "Khả năng: kinh doanh, mạnh bạo, dám nghĩ dám làm, có thể gây ảnh hưởng, thuyết phục Người khác, có khả năng quản lý.\nNgành nghề phù hợp: Các ngành về quản trị kinh doanh (quản lý khách sạn, quản trị nhân sự,…), thương mại, marketing, kế toán – tài chính, luật sư, dịch vụ khách hàng, tiếp viên hàng không, thông dịch viên, pha chế rượu, kỹ sư công nghiệp (ngành kỹ thuật hệ thống công nghiệp), bác sĩ cấp cứu, quy hoạch đô thị, bếp trưởng (nấu ăn), báo chí (phóng viên, biên tập viên…)"
-      },
-      {
-         "id": "C",
-         "title": "Conventional - Người công chức",
-         "explanation": "Khả năng: số học, thích thực hiện những công việc chi tiết, thích làm việc với những số liệu, theo chỉ dẫn của người khác hoặc các công việc văn phòng.\nNgành nghề phù hợp: Các ngành nghề về hành chính, thống kê, thanh tra ngành, người giữ trẻ, điện thoại viên..."
-      }
-   ]
+  "MBTI": [
+    {
+      "id": "E",
+      "title": "Extroversion",
+      "explanation": "Ưa thích hướng ngoại, cảm giác được thúc đẩy và giàu năng lượng dành cho những người xunh quanh"
+    },
+    {
+      "id": "I",
+      "title": "Introversion",
+      "explanation": "Ưa thích hướng nội nên thường có xu hướng thích sự yên tĩnh, chỉ thích tương tác với những người bạn thân thiết. Việc tiếp xúc xã hội với những người không quen khiến họ tổn thất nhiều năng lượng"
+    },
+    {
+      "id": "S",
+      "title": "Sensing",
+      "explanation": "Dùng cảm nhận cụ thể nhiều hơn là trực giác, vì vậy họ tập trung sự chú ý vào những chi tiết nhỏ nhặt hơn là bức tranh toàn cảnh, cũng như là những điều xảy ra ngay tại thực tại hơn là những thứ có thể đến trong tương lai"
+    },
+    {
+      "id": "N",
+      "title": "iNtuition",
+      "explanation": "Dùng trực giác nhiều hơn là cảm nhận cụ thể, vì vậy họ tập trung sự chú ý vào bức tranh toàn cảnh hơn là những chi tiết nhỏ nhặt, cũng như là những điều có thể xảy ra trong tương lai hơn là chú ý vào thực tại"
+    },
+    {
+      "id": "T",
+      "title": "Thinking",
+      "explanation": "Suy nghĩ lý trí hơn là cảm xúc, xu hướng coi trọng các tiêu chí khách quan hơn là sở thích cá nhân. Khi đưa ra một quyết định thì thường dựa vào sự logic hơn là yếu tố xã hội"
+    },
+    {
+      "id": "F",
+      "title": "Feeling",
+      "explanation": "Đưa ra quyết định dựa vào cảm nhận, trạng thái cảm xúc tình cảm, giá trị cá nhân hơn là dựa vào các yếu tố khách quan hoặc quy luật logic"
+    },
+    {
+      "id": "J",
+      "title": "Judgement",
+      "explanation": "Họ đánh giá một cách rất nguyên tắc và khả năng dự đoán của mình, sớm lập kế hoặch và tuân thủ theo nó thay vì là những quyết định tự phát, linh hoạt"
+    },
+    {
+      "id": "P",
+      "title": "Perception",
+      "explanation": "Họ không vội đánh giá hay sớm ra một quyết định phán xét quan trọng nào đó , thay vào đó luôn nhìn nhận một cách linh hoạt vấn đề và có thể thay đổi tùy hoàn cảnh"
+    },
+    {
+      "id": "ENFJ",
+      "title": "ENFJ – The Teacher – Người chỉ dạy",
+      "explanation": "ENFJ là những nhà tổ chức lý tưởng, định hướng và thực hiện những tầm nhìn tốt nhất của họ cho tập thể, nhân loại. Họ vượt trội nhờ khả năng chọn ra các giá trị và khả năng của người khác, những giá trị chia sẻ từ tập thể và áp dụng nó cho một nhóm xã hội tập thể để tạo nên sự hài hòa.\nENFJ là những người giàu năng lượng, có định hướng và rất nhiều khả năng sâu bên trong. Họ có khả năng tự điều chỉnh theo nhu cầu của nhiều người khác trong tập thể, bằng sự dự đoán và nhận thức, cảm giác sâu sắc và sự đồng cảm về những vấn đề của người khác. Và bằng trực giác cũng như xu hướng lạc quan nên luôn suy nghĩ về tương lai để cải thiện chúng. ENFJ luôn muốn kết nối chặt chẽ với mọi người, hỗ trợ và hợp tác với họ trong công việc. ENFJ cũng rất tham vọng, nhưng tham vọng của họ không phải cá nhân mà luôn hướng tới cộng đồng để giúp mọi người cùng tốt hơn. Chính vì vậy ENFJ còn được gọi là The Givers – Người cho đi\nENFJ phù hợp với các nhóm ngành:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên hôn nhân gia đình,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế;\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Pháp luật (Luật sư,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Văn phòng và hành chính."
+    },
+    {
+      "id": "ENFP",
+      "title": "ENFP - The Inspirers - Người truyền cảm hứng",
+      "explanation": "ENFP là những người sáng tạo, giàu năng lượng, đam mê  hứng thú với mọi người và khả năng của họ. ENFP luôn mang đến những ý tưởng, sinh lực và kích thích người khác phát triển bằng sự nhiệt tình trong những hơi thở của họ. ENFP thích những sự khởi đầu của một dự án nào đó hoặc là một mối quan hệ mới, họ có khả năng giao tiếp thông minh, óc phán đoán nhanh nhạy để biết được nhu cầu của người khác để có thể đưa ra những giúp đỡ, tư vấn cần thiết. Họ không thích tập trung quá vào chi tiết và lặp đi lăp lại các quá trình cũ kỹ. ENFP thích sự mới lạ, luôn lạc quan, hang hái và cảm xúc mạnh mẽ. Ho khát khao dành chiến thắng và chia sẻ kinh nghiệm của họ đến những người khác.\nENFP phù hợp với các nhóm ngành:\n- Nghệ thuật, thiết kế và giải trí (Diễn viên, nhạc sĩ, ca sĩ,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Thợ cắt tóc…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên hôn nhân gia đình,…)."
+    },
+    {
+      "id": "ENTJ",
+      "title": "ENTJ - The Executives - Nhà điều hành",
+      "explanation": "ENTJ có tố chức để trở thành một nhà lãnh đạo, thiết lập chiến lược và tạo ra động lực cho tổ chức đạt được sự tiến bộ. Họ nổi bật trong việc phân tích, lý luận logic và đầu óc tư duy xuất sắc. Ngoài ra, họ còn rất quyết đoán, bộc trực và luôn thích chịu trách nhiệm khi phát sinh vấn đề lỗi. ENTJ tự tin về khả năng của mình, áp đảo người khác bởi đầu óc lập luận sắc bén và ngôn từ sắc sảo. Tuy nhiên họ cũng rất khách quan và không bị ảnh hưởng bởi các vấn đề xung đột hoặc sự chỉ trích xung quanh. Đôi lúc, một vài người có thể cho rằng ENTJ kiêu ngạo, vô cảm nhưng đó là bản năng của họ, suy cho cùng thì họ vẫn muốn tập trung vào kết quả của công việc với năng suất cao nhất.\nENTJ phù hợp với các nhóm ngành:\n- Kinh doanh và tài chính (Quản lý kinh doanh, chuyên gia tài chính , giám đốc điều hành,…);\n- Lãnh đạo và quản lý (Quản lý nhân sự, Chủ tịch hội đồng,…);\n- Kiến trúc và kỹ thuật (Kỹ sư, Kiến trúc sư, Kiểm soát viên, Nhà thầu xây dựng…);\n- Khoa học và đời sống (Nhà kinh tế, Nhà tâm lý, Nhà khoa học,…);\n- Nghệ thuật và truyền thông (Quan hệ công chúng, Giám đốc sản xuất nghệ thuật,…);\n- Chăm sóc sức khỏe (Bác sĩ, quản lý dịch vụ y tế,…);\n- Giáo dục và đào tạo (Giảng viên, Giáo sư tiến sĩ,…);\n- Giải trí và thể thao (Huấn luyện viên, Nhà sản xuất,..);\n- Nhóm ngàng IT;\n- Pháp luật (Thanh tra, Luật sư, Cảnh sát điều tra,…)."
+    },
+    {
+      "id": "ENTP",
+      "title": "ENTP - The Visionaries - Người có tầm nhìn xa",
+      "explanation": "ENTP được mô tả là những người thông minh, lanh lợi, hướng ngoại, sáng tạo, linh hoạt và tháo vát. Họ luôn xuất sắc trong việc đưa ra các giải pháp mới mẻ và độc đáo trước các vấn đề khó khăn, thường thì họ không lên kế hoặch trước cho một dự án. ENTP cũng có một sự hiểu biết sâu sắc về cách mà mọi thứ cũng như các mối quan hệ hoạt động và làm cách nào để cải thiện chúng. Họ không thích phán xét, cởi mở, khéo léo trong giao tiếp với đầu óc thông minh và khả năng ngôn ngữ linh hoạt. Với sự sáng tạo không ngừng và kỹ năng giao tiếp xã hội tuyệt vời, họ hoàn toàn xứng đáng với vai trò của một người lãnh đạo trong một tổ chức hay tập thể.\nENTP phù hợp với các nhóm ngành:\n- Kinh doanh và lãnh đạo (Quản lý kinh doanh, quản trị nhân sự, giám đốc điều hành,…);\n- Nghệ thuật và thiết kế (Kiến trúc sư, Nhà sản xuất nghệ thuật,….);\n- Khoa học và kỹ thuật (Nhà khoa học, kỹ sư, giáo sư tiến sĩ,…)."
+    },
+    {
+      "id": "ESFJ",
+      "title": "ESFJ - The Caregivers -Người quan tâm",
+      "explanation": "ESFJ có xu hướng tập trung vào thế giới bên ngoài nhiều và đánh giá những kinh nghiệm của họ một cách chủ quan. Phần lớn đánh giá của họ dựa trên hệ thống niềm tin. ESFJ rất thích sự cụ thể, tin tưởng vào những thông tin chi tiết, thực tế được thu thập dựa trên các giác quan sinh lý. ESFJ ấm áp và thích quan tâm đến hạnh phúc của người khác, hài lòng khi chứng người khác được hạnh phúc Họ coi trọng giá trị truyền thống và sự đảm bảo nó mang lại. Cũng gần giống ENFJ, giá trị của các ESFJ tập trung nhiều hơn vào các tổ chức xã hội. Họ vượt trội trong môi trường tiêu chuẩn đạo đức cao vì có xu hướng thể hiện được sự rộng lượng và sự tốt bụng tử tế. Họ cũng đánh giá cao các quy tắc luật lệ và mong muốn người khác cũng vậy. ESFJ có thể ít quan tâm đến các khái niệm đằng sau các quy tắc, né tránh sự trừu tượng và nhân hóa.\nESFJ phù hợp với các nhóm ngành:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế;\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Pháp luật (Cảnh sát, tòa án…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá…);\n- Văn phòng và hành chính."
+    },
+    {
+      "id": "ESFP",
+      "title": "ESFP - The Performers - Người trình diễn",
+      "explanation": "ESFP luôn hoạt bát, quyến rũ và thu hút những người xung quanh khiến họ cảm thấy vui vẻ. Họ rất ấm áp, hài hước và thích được là trung tâm của sự chú ý. ESFP sống trong những khoảnh khắc của hiện tại và muốn tận hưởng tối đa những gì mà cuộc sống mang lại. Họ đặc biệt giỏi trong việc quan sát, cảm nhận, giúp đỡ và huy động thuyết phục mọi người để cùng giải quyết vấn đề theo những cách rất thực tế. ESFP thích một cuộc sống tự nhiên mà không cần phải lên kế hoặch trước, muốn thoải mái vui vẻ cũng các hoạt động, sở thích với bạn bè mà không cần các nguyên tắc, quy ước can thiệp vào. Tính tình rộng lượng, lạc quan và giỏi thuyết phục, họ là những người tương tác cá nhân tuyệt vời.\nESFP phù hợp với các nhóm ngành sau đây:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế (Ca sĩ, Nhạc sĩ, Thiết kế thời trang,…);\n- Dịch vụ sức khỏe và chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Y tá…);\n- Cảnh sát, lính cứu hỏa."
+    },
+    {
+      "id": "ESTJ",
+      "title": "ESTJ - The Guardians - Người giám sát",
+      "explanation": "ESTJ là những người lễ nghi, thực tế, chăm chỉ và trách nhiệm cao với một bộ óc nhạy bén trong việc kinh doanh, tổ chức quản lý cũng như con mắt nhìn người. Họ làm việc có trật tự, quy tắc và một hệ thống phương pháp rõ ràng. ESTJ luôn muốn mang đến một cấu trúc được tổ chức hoàn hảo và các hoạt động được vận hành một cách trơn tru cho môi trường xung quanh. Họ đặc biệt giỏi với vai trò của một người quản lý, giám sát với. Với khả năng giao tiếp đối ngoại tốt, họ không khó khăn để truyền đạt ý kiến, hướng dẫn, giúp đợ và thiết lập được một quy trình làm việc có hiệu suất tốt nhất cho mọi người cũng như hệ thống xã hội.\nESTJ phù hợp với các nhóm ngành sau đây:\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Kế toán, Quản lý kinh doanh,…);\n- Văn phòng và hành chính;\n- Quản lý;\n- Kiến trúc sư, kỹ thuật viên và kỹ sư kỹ thuật;\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Nông lâm nghiệp;\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Vận chuyển;\n- Sản xuất;\n- Giải trí, thể thao;\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên, nhân viên xã hội…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá, Điều dưỡng…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Cảnh sát, vệ sĩ, lính cứu hỏa, quân đội;\n- Pháp luật (Tòa án, luật sư…)."
+    },
+    {
+      "id": "ESTP",
+      "title": "ESTP - The Doers - Người thực thi",
+      "explanation": "ESTP là những người tích cực, có xu hướng thực hành để giải quyết vấn đề hơn là chỉ thảo luận về chúng. Họ còn lão làng một cách nghệ thuật trong việc thúc đẩy, tạo sức ảnh hưởng để người khác cùng hành động. Cụ thể trong lời nói và thực dụng trong hành động, họ luôn mang đến một nguồn năng lượng dồi dào cho tập thể. ESTP thích tập trung vào các kết quả rõ ràng trước mắt hơn là suy nghĩ về những mục tiêu dài hạn. Họ có khả năng tháo nút thắt cho các vấn đề để mang người khác đồng hành với mình qua đó đem lại những điều tốt đẹp cho cuộc sống. Vì thế mà ESTP được gọi là những Promoter – Người đề xướng.\nESTP phù hợp với các nhóm ngành:\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Giáo dục (Giáo viên dạy nghề, Quản trị viên,…);\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Sản xuất (Thợ mộc, thợ làm bánh, thanh tra giám sát chất lượng);\n- Kiến trúc sư và kỹ sư kỹ thuật;\n- Cảnh sát, vệ sĩ, lính cứu hỏa, sĩ quan quân đội, phi công;\n- Xây dựng."
+    },
+    {
+      "id": "INFJ",
+      "title": "INFJ - The Protectors - Người che chở",
+      "explanation": "INFJ là những người rất tận tâm và có định hướng rõ ràng, họ luôn tìm kiếm các ý nghĩa trong các mối quan hệ, ý tưởng và các sự kiện để mong muốn hiểu được bản thân và những người xung quanh. Bằng các kỹ năng trực quan, tầm nhìn và sự tự tin để phát triển cải thiện cuộc sống của mọi người. Cũng khá tương tự với đối tác INTJ, INFJ luôn nhìn nhận các vấn đê gặp phải như là cơ hội để thách thức sự phát triển, sáng tạo. Tuy là một người hướng nội thật sự nhưng INFJ vẫn có đủ những kiến thức để thích ứng tốt trong các tình huống xã hội. Họ quan tâm đến sự hạnh phúc của người khác, có thể hợp tác và sáng tạo để giải quyết những sự khác biệt. Nhìn chung INFJ là người sống nội tâm phong phú, sống động nhưng cũng rất cởi mở và quan tâm mọi người. Đặc biệt, INFJ có những khả năng độc đáo để truyền cảm xúc và động lực cho người khác.\nINFJ phù hợp với các nhóm ngành sau đây:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên hôn nhân gia đình,…);\n- Giáo dục (Giáo viên, Quản trị viên,…);\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…);\n- Pháp luật (Luật sư,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Giải trí, nghệ thuật và thiết kế;\n- Nhân sự."
+    },
+    {
+      "id": "INFP",
+      "title": "INFP - The Idealists - Người duy tâm",
+      "explanation": "INFP là những nhà lý tưởng giàu trí tưởng tượng được dẫn dắt bởi chính niềm tin và các giá trị cốt lõi của họ. Họ tập trung nhiều năng lượng vào các cảm giác mãnh liệt và các giá trị đạo đức sâu sắc. INFP thường rất nhạy cảm, đồng cảm, có lòng vị tha và quan tâm đến sự phát triển của bản thân cũng như những người khác, và mong đợi mọi người cũng làm như vậy. Mang tư tưởng cá nhân nhưng cũng rất sáng tạo, linh hoạt và có hơi hướng nghệ thuật, và không hề phán xét trong việc đối xử với người khác vì họ biết rằng mỗi người có một con đường riêng của bản thân. INFP thật chất là những người có thể trao đổi cởi mở, hợp tác hỗ trợ nhưng có thể sẽ không thích khi các giá trị riêng của bản thân bị vi phạm.\nINFP phù hợp với các nhóm ngành:\n- Nghệ thuật và thiết kế (thiết kế thời trang, thiết kế mỹ thuật,…);\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, quản lý dịch vụ cộng đồng,…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ vật lý trị liệu,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Phương tiện – truyền thông (Biên tập viên, Quan hệ công chúng, Tác giả,…);\n- Khoa học (Nhà tâm lý học, nhà xã hội học,…)."
+    },
+    {
+      "id": "INTJ",
+      "title": "INTJ - The Scientists - Nhà khoa học",
+      "explanation": "INTJ có một niềm đam mê mạnh mẽ với việc phân tích, giải quyết vấn đề, cải thiện các hệ thống và quy trình bằng các ý tưởng sáng tạo của họ. Họ luôn khát khao nâng cao kiến thức và cố gắng không ngừng nghỉ, luôn cầu toàn với tiêu chuẩn hiệu suất cực cao dành cho bản thân và cả những người đồng nghiệp. Sự độc lập trong tính cách và tư tưởng đôi khi khiến INTJ bị xa cách nhưng họ luôn là những đối tác trung thành. INTJ nhận thức về các hệ thống và lên chiến lược cho nó, và thông thường thì mọi thứ sẽ được định hướng rõ ràng như trên một bàn cờ. Với khả năng tư duy logic, sự tự tin và tài năng, họ hoàn toàn có thể đảm nhận vai trò lãnh đạo, cố vấn chiến lược tài ba.\nINTJ phù hợp với các nhóm ngành:\n- Kinh doanh và tài chính (Kế toán, Chuyên gia phân tích tài chính , giám đốc điều hành,…);\n- Toán học ( Nhà toán học, Nhà thống kê, phân tích nghiên cứu hoạt động,…);\n- Kiến trúc và kỹ thuật (Kỹ sư, Kiến trúc sư, Kiểm soát viên, Nhà thầu xây dựng…);\n- Khoa học và đời sống (Nhà kinh tế, Nhà tâm lý, Nhà khoa học,…);\n- Nghệ thuật và truyền thông (Quan hệ công chúng, Giám đốc sản xuất nghệ thuật,…);\n- Chăm sóc sức khỏe (Bác sĩ, quản lý dịch vụ y tế,…);\n- Giáo dục và đào tạo (Giảng viên, Giáo sư tiến sĩ,…);\n- Giải trí và thể thao (Huấn luyện viên, Nhà sản xuất,..);\n- Nhóm ngành IT;\n- Pháp luật (Thẩm phán, Luật sư, Cảnh sát điều tra,…)."
+    },
+    {
+      "id": "INTP",
+      "title": "INTP - The Thinkers - Nhà tư duy",
+      "explanation": "INTP là những cá nhân trầm tính, chu đáo, có niềm đam mê mãnh liệt với phân tích logic, hệ thống phức tạp và thiết kế. Họ thường tò mò và thích tìm hiểu về các hệ thống, lý thuyết phức tạp và cách mọi thứ hoạt động. INTP thông thường không phải kiểu người truyền thống, họ có những suy nghĩ riêng và không chạy theo đám đông. Do tính chất độc lập nên họ thích làm việc tách biệt hơn là trong một nhóm, tuy nhiên họ có thể thể hiện kỹ năng vượt trội trong việc giải thích các khái niệm, ý tưởng phức tạp cho người khác. Đối với những người này, cuộc sống là một hành trình khám phá những bí ẩn của vũ trụ.\nHọ phù hợp với các nhóm ngành sau đây:\n- Nhóm ngành công nghệ IT (Phát triển phần mềm, nhà phát triển web,…);\n- Kỹ sư kỹ thuật;\n- Khoa học (Nhà khoa học, nhà tâm lý học, giáo sư tiến sĩ,…);\n- Kinh doanh và tài chính (chuyên gia tài chính, kỹ sư bán hàng, Nghiên cứu thị trường,..);\n- Giải trí và nghệ thuật (Nhiếp ảnh gia, Biên tập viên, Nhạc sĩ,…)."
+    },
+    {
+      "id": "ISFJ",
+      "title": "ISFJ - The Nurturers - Người nuôi dưỡng",
+      "explanation": "ISFJ thật sự đề cao đến việc duy trì trật tự và sự hài hòa trong mọi khía cạnh của cuộc sống, họ là những người kiên định, tỉ mỉ và có trách nhiệm trong công việc. Mặc dù là người sống hướng nội nhưng họ rất giỏi trong việc quan sát và định hướng con người, họ không chỉ nhớ rõ các chi tiết của những người xung quanh mà con nhạy bén trong việc theo dõi cảm xúc của người khác. Mọi người thường mô tả ISFJ là dạng người chu đáo, có lòng thương cảm quan tâm người khác và đáng tin cậy, luôn quan tâm chăm sóc cho mọi người để giữ họ luôn an toàn bằng những hành động thực tế. Đôi khi bản chất hướng nội khiến cho người khác hiểu lầm về ISFJ nhưng nếu đã là bạn bè và gia đình thì sẽ hoàn toàn ngược lại.\nISFJ phù hợp với các nhóm ngành:\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên, nhân viên xã hội…);\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá, Điều dưỡng…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Văn phòng và hành chính;\n- Dịch vụ chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Thợ làm móng…);\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Sản xuất (Thợ mộc, thợ làm bánh, thanh tra giám sát chất lượng);\n- Kiến trúc sư và kỹ sư kỹ thuật;\n- Vận chuyển;\n- Cảnh sát, vệ sĩ, lính cứu hỏa; - Pháp luật (Tòa án, luật sư…)."
+    },
+    {
+      "id": "ISFP",
+      "title": "ISFP - The Artists - Người nghệ sĩ",
+      "explanation": "ISFP là những người hòa bình, thân thiện, dễ tính. Với phương châm sống là để tận hưởng những khoảnh khắc của cuộc sống, họ luôn lạc quan, vui vẻ và linh hoạt một cách tự phát với dòng chảy  để tận hưởng những gì cuộc sống mang lại. ISFP có tính thẩm mỹ cao, luôn tìm kiếm cái đẹp, họ đặc biệt xuất sắc trong việc sử dụng sự sáng tạo, tài năng tự nhiên trong nghệ thuật. ISFP mặc dù yên tĩnh, khiêm tốn, dễ chịu nhưng vẫn có giá trị đóng góp riêng của mình. Họ không thích là tâm điểm của sự chú ý và thích đóng vai trò hỗ trợ, chia sẻ kinh nghiệm trong cuộc sống.\nISFP phù hợp với các nhóm ngành sau đây:\n- Giáo dục (Giáo viên mầm non, Quản trị viên,…);\n- Kinh doanh, quản lý và bán hàng (Marketing, Quản trị nhân sự, Quản lý kinh doanh,…);\n- Giải trí, nghệ thuật và thiết kế (Ca sĩ, Nhạc sĩ, Thiết kế thời trang,…);\n- Dịch vụ sức khỏe và chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Y tá…);\n- Cảnh sát, lính cứu hỏa;\n- Kiến trúc sư, thợ mộc, thợ may, đầu bếp, thợ kim hoàn."
+    },
+    {
+      "id": "ISTJ",
+      "title": "ISTJ - The Duty Fullfillers - Người trách nhiệm",
+      "explanation": "ISTJ là mẫu người của sự logic, có tổ chức, hợp lý và nghiêm túc, thích giữ cho cuộc sống và môi trường làm việc của họ được điều tiết tốt. Họ sống khá dè dặt và nghiêm nghị, thành công đến với họ nhờ sự thấu đáo và đáng tin cậy. ISTJ sống rất thực tế và luôn có trách nhiệm, họ như một con ong thợ chăm chỉ và luôn cố gắng phấn đấu cho mục tiêu của mình. Là dạng người sống hướng nội nên cũng dễ hiểu khi các ISTJ gặp khó khăn trong việc đáp ứng nhu cầu chia sẻ cảm xúc với mọi người xung quanh nhưng không phải là dạng cô lập hoặc tách biệt hẳn với người khác. Nhìn chung, ISTJ là dạng người truyền thống, quy tắc, luôn quan tâm đến việc duy trì trật tự xã hội và các tiêu chuẩn.\nISTJ phù hợp với một số nhóm ngành:\n- Kinh doanh, bán hàng và tài chính (Cố vấn tài chính, Kế toán, Quản lý kinh doanh,…);\n- Văn phòng và hành chính;\n- Quản lý;\n- Kiến trúc sư, kỹ thuật viên và kỹ sư kỹ thuật;\n- Khoa học và đời sống (Kỹ thuật viên nông lâm nghiệp, nhà sinh học môi trường,…);\n- Nông lâm nghiệp;\n- Kỹ thuật bảo trì và sửa chữa (Cơ khí ô tô, nhân viên điện lạnh, điện tử,…);\n- Vận chuyển;\n- Sản xuất;\n- Giải trí, thể thao;\n- Dịch vụ cộng đồng và xã hội (Giáo dục sức khỏe, Tư vấn viên, nhân viên xã hội…);\n- Chăm sóc sức khỏe (Chuyên gia dinh dưỡng, Bác sĩ, Y tá, Điều dưỡng…);\n- Giáo dục (Giáo viên, Quản trị viên, Thủ thư…);\n- Cảnh sát, vệ sĩ, lính cứu hỏa, quân đội;\n- Pháp luật (Tòa án, luật sư…)."
+    },
+    {
+      "id": "ISTP",
+      "title": "ISTP - The Mechanics - Nhà cơ học",
+      "explanation": "ISTP rất giỏi về các vấn đề cơ khí, sửa chữa, khắc phục sự cố và có xu hướng nghiên cứu cách mọi thứ hoạt động. Họ độc lập, logic, linh hoạt và dễ thích nghi, vì vậy họ rất giỏi ứng phó và tìm kiếm các giải pháp thực tế cho các vấn đề trong tầm tay cũng như các tình huống khẩn cấp. ISTP thích hành động, chú ý đến các chi tiết và tương tác với thế giới xung quanh theo cách tự định hướng, tự phát. Họ làm việc khá độc lập, tách rời và có phần khép kín, họ muốn được làm việc một cách tự do trong một không gian cá nhân để có thể đi theo sự dẫn dắt của chính bản thân mình.\nISTP phù hợp với một số nhóm ngành sau đây:\n- Phân tích tài chính, chứng khoán, nhà kinh tế;\n- Nhà sinh vật học, nhà địa chất;\n- Dịch vụ sức khỏe và chăm sóc cá nhân (Huấn luyện viên cá nhân, bảo mẫu, Y tá…);\n- Cảnh sát, lính cứu hỏa, sĩ quan quân đội, hình sự;\n- Kiến trúc sư, thợ mộc, thợ may, đầu bếp, thợ kim hoàn;\n- Phi công, thuyền trưởng;\n- IT (Phát triển phần mềm, quản trị cơ sở dữ liệu,….)."
+    }
+  ],
+  "Holland": [
+    {
+      "id": "R",
+      "title": "Realistic - Người thực tế",
+      "explanation": "Khả năng: kỹ thuật, công nghệ, hệ thống; ưa thích làm việc với đồ vật, máy móc, động thực vật; thích làm các công việc ngoài trời.\nNgành nghề phù hợp: Các nghề về kiến trúc, an toàn lao động, nghề mộc, xây dựng, thủy sản, kỹ thuật, máy tàu thủy, lái xe, huấn luyện viên, nông – lâm nghiệp (quản lý trang trại, nhân giống cá, lâmnghiệp…), cơ khí (chế tạo máy, bảo trì và sữa chữa thiết bị, luyện kim, cơ khí ứng dụng, tự động...), điện - điện tử, địa lý - địa chất (đo đạc, vẽ bản đồ địa chính), dầu khí, hải dương học, quản lý công nghiệp..."
+    },
+    {
+      "id": "I",
+      "title": "Realistic - Người thực tế",
+      "explanation": "Khả năng: quan sát, khám phá, phân tích đánh giá và giải quyết các vấn đề.\nNgành nghề phù hợp: Các ngành thuộc lĩnh vực khoa học tự nhiên (toán, lý, hóa, sinh, địa lý, địa chất, thống kê…); khoa học xã hội (nhân học, tâm lý, địa lý…); y - dược (bác sĩ gây mê, hồi sức, bác sĩ phẫu thuật, nha sĩ…); khoa học công nghệ (công nghệ thông tin, môi trường, điện, vật lý kỹ thuật, xây dựng…); nông lâm (nông học, thú y…)"
+    },
+    {
+      "id": "A",
+      "title": "Artistic - Người có tính nghệ sĩ",
+      "explanation": "Khả năng: nghệ thuật, khả năng về trực giác, khả năng tưởng tượng cao, thích làm việc trong các môi trường mang tính ngẫu hứng, không khuôn mẫu.\nNgành nghề phù hợp: Các ngành về văn chương; báo chí (bình luận viên, dẫn chương trình…); điện ảnh, sân khấu, mỹ thuật, ca nhạc, múa, kiến trúc, thời trang, hội họa, giáo viên dạy sử/Anh văn, bảo tàng, bảo tồn..."
+    },
+    {
+      "id": "S",
+      "title": "Social - Người có tính xã hội",
+      "explanation": "Khả năng: ngôn ngữ, giảng giải, thích làm những việc như giảng dạy, cung cấp thông tin, sự chăm sóc, giúp đỡ, hoặc huấn luyện cho người khác.\nNgành nghề phù hợp: sư phạm; giảng viên; huấn luyện viên điền kinh; tư vấn - hướng nghiệp; công tác xã hội, sức khỏe cộng đồng, thuyền trưởng, thầy tu, thư viện, bác sĩ chuyên khoa, thẩm định giá, nghiên cứu quy hoạch đô thị, kinh tế gia đình, tuyển dụng nhân sự, cảnh sát, xã hội học, bà đỡ, chuyên gia về X-quang, chuyên gia dinh dưỡng…"
+    },
+    {
+      "id": "E",
+      "title": "Enterprising - Dám nghĩ, dám làm",
+      "explanation": "Khả năng: kinh doanh, mạnh bạo, dám nghĩ dám làm, có thể gây ảnh hưởng, thuyết phục Người khác, có khả năng quản lý.\nNgành nghề phù hợp: Các ngành về quản trị kinh doanh (quản lý khách sạn, quản trị nhân sự,…), thương mại, marketing, kế toán – tài chính, luật sư, dịch vụ khách hàng, tiếp viên hàng không, thông dịch viên, pha chế rượu, kỹ sư công nghiệp (ngành kỹ thuật hệ thống công nghiệp), bác sĩ cấp cứu, quy hoạch đô thị, bếp trưởng (nấu ăn), báo chí (phóng viên, biên tập viên…)"
+    },
+    {
+      "id": "C",
+      "title": "Conventional - Người công chức",
+      "explanation": "Khả năng: số học, thích thực hiện những công việc chi tiết, thích làm việc với những số liệu, theo chỉ dẫn của người khác hoặc các công việc văn phòng.\nNgành nghề phù hợp: Các ngành nghề về hành chính, thống kê, thanh tra ngành, người giữ trẻ, điện thoại viên..."
+    }
+  ]
 }

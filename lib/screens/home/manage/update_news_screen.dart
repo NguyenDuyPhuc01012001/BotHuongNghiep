@@ -16,6 +16,7 @@ import '../../../widgets/home/manage/title_manage_widget.dart';
 
 class UpdateNewsScreen extends StatefulWidget {
   final News newsPost;
+
   const UpdateNewsScreen({Key? key, required this.newsPost}) : super(key: key);
 
   @override

@@ -9,6 +9,7 @@ import 'package:huong_nghiep/widgets/home/quiz/body.dart';
 
 class QuizScreen extends StatelessWidget {
   final String type;
+
   const QuizScreen({Key? key, required this.type}) : super(key: key);
 
   @override

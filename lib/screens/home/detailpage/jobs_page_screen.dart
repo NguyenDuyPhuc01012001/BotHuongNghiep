@@ -14,6 +14,7 @@ import '../../../utils/constants.dart';
 
 class JobsPageScreen extends StatefulWidget {
   final String jobsPostID;
+
   const JobsPageScreen({Key? key, required this.jobsPostID}) : super(key: key);
 
   @override

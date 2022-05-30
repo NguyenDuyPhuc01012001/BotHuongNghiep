@@ -3,7 +3,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
@@ -47,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     NewsWidget(),
     QuestionAnswerWidget(),
   ];
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;

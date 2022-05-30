@@ -9,6 +9,7 @@ import '../../../utils/colors.dart';
 class ExplanationContainer extends StatelessWidget {
   final String type;
   final String resultKey;
+
   const ExplanationContainer({
     Key? key,
     required this.type,

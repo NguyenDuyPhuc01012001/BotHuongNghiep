@@ -2,17 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/controllers/question_controller.dart';
+import 'package:huong_nghiep/models/tests/question.dart';
 import 'package:huong_nghiep/providers/quiz/quiz_provider.dart';
 import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
-import 'package:huong_nghiep/controllers/question_controller.dart';
-import 'package:huong_nghiep/models/tests/question.dart';
 
 // import 'progress_bar.dart';
 import 'question_card.dart';
 
 class Body extends StatefulWidget {
   final String type;
+
   const Body({
     Key? key,
     required this.type,

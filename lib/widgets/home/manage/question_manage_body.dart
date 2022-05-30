@@ -13,6 +13,7 @@ import '../../alert.dart';
 
 class QuestionManageBody extends StatefulWidget {
   final bool descending;
+
   const QuestionManageBody({Key? key, required this.descending})
       : super(key: key);
 
@@ -94,7 +95,10 @@ class _QuestionManageBodyState extends State<QuestionManageBody> {
                                     ),
                                     backgroundColor: Color(0xffBFBFBF),
                                   ),
-                                  title: Text(postdocs[index].question!,
+                                  title: Text(
+                                      postdocs[index]
+                                          .question!
+                                          .capitalizeFirst!,
                                       style: kDefaultTextStyle,
                                       textAlign: TextAlign.justify),
                                   subtitle: Column(
@@ -102,37 +106,52 @@ class _QuestionManageBodyState extends State<QuestionManageBody> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("Đăng bởi ${postdocs[index].email!}",
-                                          style: kDefaultTextStyle.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                          textAlign: TextAlign.justify),
-                                      Text("Đăng vào ${postdocs[index].time!}",
-                                          style: kDefaultTextStyle.copyWith(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                          textAlign: TextAlign.justify),
+                                      RichText(
+                                          text: TextSpan(
+                                        text: 'Số câu trả lời: ',
+                                        style: kDefaultTextStyle.copyWith(
+                                            fontSize: 16,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.normal),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text:
+                                                  "${postdocs[index].numAnswer}",
+                                              style: kDefaultTextStyle.copyWith(
+                                                  fontSize: 16,
+                                                  color: Colors.green,
+                                                  fontWeight: FontWeight.bold)),
+                                        ],
+                                      )),
+                                      RichText(
+                                          text: TextSpan(
+                                        text: 'Đăng bởi ',
+                                        style: kDefaultTextStyle.copyWith(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: postdocs[index].email!,
+                                              style: kDefaultTextStyle.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold)),
+                                        ],
+                                      )),
+                                      RichText(
+                                          text: TextSpan(
+                                        text: 'Đăng vào ',
+                                        style: kDefaultTextStyle.copyWith(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: postdocs[index].time!,
+                                              style: kDefaultTextStyle.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold)),
+                                        ],
+                                      )),
                                     ],
-                                  ),
-                                  trailing: CircleAvatar(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "${postdocs[index].numAnswer}",
-                                          style: kDefaultTextStyle.copyWith(
-                                              color: Colors.white),
-                                        ),
-                                        Text(
-                                          "TL",
-                                          style: kDefaultTextStyle.copyWith(
-                                              color: Colors.white,
-                                              fontSize: 10),
-                                        ),
-                                      ],
-                                    ),
-                                    backgroundColor: Colors.green,
                                   ),
                                 ),
                               ),

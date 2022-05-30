@@ -16,6 +16,7 @@ import '../../../utils/styles.dart';
 
 class AnsweredQuestionScreen extends StatefulWidget {
   final Post post;
+
   const AnsweredQuestionScreen({Key? key, required this.post})
       : super(key: key);
 

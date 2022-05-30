@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
-import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 
 import '../../../providers/home/home_provider.dart';
 
@@ -18,6 +18,7 @@ class EditNameWidget extends StatefulWidget {
 class _EditNameWidgetState extends State<EditNameWidget> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
+
   @override
   void dispose() {
     nameController.dispose();

@@ -17,6 +17,7 @@ class ListJobScreen extends StatefulWidget {
 
 class _ListJobScreenState extends State<ListJobScreen> {
   bool descending = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

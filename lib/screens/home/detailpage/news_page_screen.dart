@@ -14,6 +14,7 @@ import '../../../utils/styles.dart';
 
 class NewsPageScreen extends StatefulWidget {
   final String newsPostID;
+
   const NewsPageScreen({Key? key, required this.newsPostID}) : super(key: key);
 
   @override

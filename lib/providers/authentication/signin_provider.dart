@@ -7,10 +7,14 @@ import '../../resources/auth_methods.dart';
 class SignInProvider extends ChangeNotifier {
   bool _isValid = true;
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
+
   bool get isValid => _isValid;
   String _errorMessage = "";
+
   String get errorMessage => _errorMessage;
+
   Future<String> loginUser(
       {required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {

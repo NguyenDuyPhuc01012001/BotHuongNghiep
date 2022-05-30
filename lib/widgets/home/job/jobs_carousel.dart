@@ -24,6 +24,7 @@ class JobsCarousel extends StatefulWidget {
 class _JobsCarouselState extends State<JobsCarousel> {
   final _random = Random();
   bool _isFirst = true;
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> jobsStream =

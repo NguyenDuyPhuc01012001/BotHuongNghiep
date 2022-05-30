@@ -16,6 +16,7 @@ import '../../../utils/styles.dart';
 class ListTitleNews extends StatefulWidget {
   final int limited;
   final bool descending;
+
   const ListTitleNews(
       {Key? key, required this.limited, required this.descending})
       : super(key: key);

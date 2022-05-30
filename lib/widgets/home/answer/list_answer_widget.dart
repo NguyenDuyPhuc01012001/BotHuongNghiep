@@ -18,6 +18,7 @@ class ListAnswerWidget extends StatefulWidget {
 
 class _ListAnswerWidgetState extends State<ListAnswerWidget> {
   late Stream<QuerySnapshot> postsStream;
+
   @override
   void initState() {
     postsStream = postsFR.orderBy('time', descending: true).snapshots();

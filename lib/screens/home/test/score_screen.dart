@@ -14,6 +14,7 @@ class ScoreScreen extends StatelessWidget {
   String resultKey = "";
   int resultValue = 0;
   final String type;
+
   ScoreScreen({Key? key, required this.type}) : super(key: key);
 
   void getScore(String type, Map<String, dynamic> sc) {

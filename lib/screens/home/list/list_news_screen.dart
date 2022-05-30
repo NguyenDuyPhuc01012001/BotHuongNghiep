@@ -17,6 +17,7 @@ class ListNewsScreen extends StatefulWidget {
 
 class _ListNewsScreenState extends State<ListNewsScreen> {
   bool descending = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/firebase_options.dart';
 import 'package:huong_nghiep/providers/authentication/emailverify_provider.dart';
 import 'package:huong_nghiep/providers/authentication/signin_provider.dart';
 import 'package:huong_nghiep/providers/authentication/signup_provider.dart';
@@ -13,7 +14,6 @@ import 'package:huong_nghiep/screens/other/error_screen.dart';
 import 'package:huong_nghiep/screens/other/on_boarding_screen.dart';
 import 'package:huong_nghiep/screens/other/slashing_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:huong_nghiep/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.showHome}) : super(key: key);
 
   final bool showHome;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

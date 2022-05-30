@@ -15,37 +15,48 @@ class QuestionController extends GetxController
 
   late AnimationController _animationController;
   late Animation _animation;
+
   // so that we can access our animation outside
   Animation get animation => _animation;
 
   late PageController _pageController;
+
   PageController get pageController => _pageController;
 
   String _type = "";
+
   String get type => _type;
+
   set type(String value) => _type = value;
 
   // late List<Question> _questions;
   // List<Question> _questions = <Question>[];
   // List<Question> get questions => this._questions;
   int _qLength = -1;
+
   int get qLength => _qLength;
+
   set qLength(int value) => _qLength = value;
 
   bool _isAnswered = false;
+
   bool get isAnswered => _isAnswered;
 
   late int _correctAns;
+
   int get correctAns => _correctAns;
 
   late int _selectedAns;
+
   int get selectedAns => _selectedAns;
 
   // for more about obs please check documentation
   RxInt _questionNumber = 1.obs;
+
   RxInt get questionNumber => _questionNumber;
 
   List<int> _lAnswers = <int>[];
+
   List<int> get lAnswers => _lAnswers;
 
   // int _numOfCorrectAns = 0;

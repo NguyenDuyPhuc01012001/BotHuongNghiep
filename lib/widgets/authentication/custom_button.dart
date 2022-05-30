@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPress;
   final String content;
   final bool isLoading;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
