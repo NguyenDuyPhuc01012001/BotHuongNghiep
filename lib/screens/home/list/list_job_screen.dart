@@ -6,6 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../../../utils/constants.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/home/job/custom_search_jobs_delegate.dart';
 import '../../../widgets/home/job/list_title_jobs.dart';
 
 class ListJobScreen extends StatefulWidget {
@@ -49,6 +50,26 @@ class _ListJobScreenState extends State<ListJobScreen> {
         titleSpacing: 0,
         centerTitle: true,
         actions: <Widget>[
+          horizontalSpaceTiny,
+          GestureDetector(
+            onTap: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchJobsDelegate(),
+              );
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.1,
+              decoration: BoxDecoration(
+                  color: Color(0xffBFBFBF),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 10, bottom: 5, right: 10),
+              child: Icon(
+                Icons.search,
+              ),
+            ),
+          ),
           GestureDetector(
             onTap: () {
               setState(() {
@@ -65,7 +86,7 @@ class _ListJobScreenState extends State<ListJobScreen> {
               child: Icon(MdiIcons.sort),
             ),
           ),
-          horizontalSpaceSmall
+          horizontalSpaceTiny
         ],
       ),
       extendBodyBehindAppBar: true,

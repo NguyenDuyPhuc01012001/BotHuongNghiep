@@ -143,6 +143,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': news.timeRead,
+      'type': "news",
       'image': news.image!.contains("http") ? news.image : ""
     }).then((fNews) async {
       if (!news.image!.contains("http")) {
@@ -297,6 +298,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': news.timeRead,
+      'type': "news",
       'image': news.image!.contains("http") ? news.image : ""
     }).then((result) async {
       if (!news.image!.contains("http") && news.image!.isNotEmpty) {
@@ -449,6 +451,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': jobs.timeRead,
+      'type': "jobs",
       'image': jobs.image!.contains("http") ? jobs.image : ""
     }).then((fJobs) async {
       if (!jobs.image!.contains("http")) {
@@ -481,6 +484,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': jobs.timeRead,
+      'type': "jobs",
       'image': jobs.image!.contains("http") ? jobs.image : ""
     }).then((result) async {
       if (!jobs.image!.contains("http") && jobs.image!.isNotEmpty) {
