@@ -13,6 +13,7 @@ import '../../alert.dart';
 
 class JobsManageBody extends StatefulWidget {
   final bool descending;
+
   const JobsManageBody({Key? key, required this.descending}) : super(key: key);
 
   @override
@@ -96,12 +97,20 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                                 title: Text(jobsdocs[index].title!,
                                     style: kDefaultTextStyle,
                                     textAlign: TextAlign.justify),
-                                subtitle: Text(
-                                    "Đã đăng vào ${jobsdocs[index].time!}",
-                                    style: kDefaultTextStyle.copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal),
-                                    textAlign: TextAlign.justify),
+                                subtitle: RichText(
+                                    text: TextSpan(
+                                      text: 'Đăng vào ',
+                                      style: kDefaultTextStyle.copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: jobsdocs[index].time!,
+                                            style: kDefaultTextStyle.copyWith(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold)),
+                                      ],
+                                    )),
                               ),
                             ),
                           ),

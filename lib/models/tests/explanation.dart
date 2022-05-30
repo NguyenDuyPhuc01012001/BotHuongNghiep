@@ -17,6 +17,7 @@ class Explanation {
 // Explanation List Model
 class ExplanationList {
   final List<Explanation> explanations;
+
   ExplanationList(this.explanations);
 
   ExplanationList.fromJson(List<dynamic> explanationsJson)

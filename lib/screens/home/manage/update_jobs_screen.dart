@@ -16,6 +16,7 @@ import '../../other/loading_screen.dart';
 
 class UpdateJobsScreen extends StatefulWidget {
   final Jobs jobsPost;
+
   const UpdateJobsScreen({Key? key, required this.jobsPost}) : super(key: key);
 
   @override

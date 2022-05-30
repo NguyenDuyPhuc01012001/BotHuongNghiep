@@ -21,9 +21,13 @@ class UserData {
   }
 
   String get email => _email;
+
   String get name => _name;
+
   String get uid => _uid;
+
   String get image => _image;
+
   bool get isAdmin => _isAdmin;
 
   setName(String name) {

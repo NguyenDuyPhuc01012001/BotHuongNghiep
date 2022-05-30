@@ -16,6 +16,7 @@ import '../../../widgets/home/answer/post_title_widget.dart';
 
 class AnswerPageScreen extends StatefulWidget {
   final String postID;
+
   const AnswerPageScreen({Key? key, required this.postID}) : super(key: key);
 
   @override

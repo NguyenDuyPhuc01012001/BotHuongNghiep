@@ -55,6 +55,7 @@ class QuizWidget extends StatelessWidget {
 class QuizContainer extends StatelessWidget {
   final List<String> lQuiz;
   final String type;
+
   const QuizContainer({Key? key, required this.lQuiz, required this.type})
       : super(key: key);
 

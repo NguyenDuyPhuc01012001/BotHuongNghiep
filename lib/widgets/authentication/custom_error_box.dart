@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomErrorBox extends StatelessWidget {
   final String message;
+
   const CustomErrorBox({Key? key, required this.message}) : super(key: key);
 
   @override

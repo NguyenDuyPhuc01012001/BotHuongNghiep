@@ -16,6 +16,7 @@ import '../../../resources/firebase_handle.dart';
 
 class AddAnswerWidget extends StatefulWidget {
   final String postID;
+
   const AddAnswerWidget({Key? key, required this.postID}) : super(key: key);
 
   @override
@@ -25,6 +26,7 @@ class AddAnswerWidget extends StatefulWidget {
 class _AddAnswerWidgetState extends State<AddAnswerWidget> {
   final TextEditingController answerController = TextEditingController();
   String filePath = "";
+
   addImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 

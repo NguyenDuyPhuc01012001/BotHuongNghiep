@@ -18,6 +18,7 @@ class CustomInputField extends StatefulWidget {
 
 class _CustomInputFieldState extends State<CustomInputField> {
   bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

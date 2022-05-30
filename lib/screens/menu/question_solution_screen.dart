@@ -18,6 +18,7 @@ class QuestionSolutionScreen extends StatefulWidget {
 class _QuestionSolutionScreenState extends State<QuestionSolutionScreen> {
   bool descending = true;
   String TITLE_FAQ = "Quản lý giải đáp";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

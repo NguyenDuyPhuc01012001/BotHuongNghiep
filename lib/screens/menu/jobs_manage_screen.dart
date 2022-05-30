@@ -19,6 +19,7 @@ class JobsManageScreen extends StatefulWidget {
 class _JobsManageScreenState extends State<JobsManageScreen> {
   bool descending = true;
   String TITLE_JOBS = "Quản lý bài đăng";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

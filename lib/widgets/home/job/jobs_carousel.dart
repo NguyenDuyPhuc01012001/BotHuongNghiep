@@ -24,6 +24,7 @@ class JobsCarousel extends StatefulWidget {
 class _JobsCarouselState extends State<JobsCarousel> {
   final _random = Random();
   bool _isFirst = true;
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> jobsStream =
@@ -93,9 +94,13 @@ class _JobsCarouselState extends State<JobsCarousel> {
                                   child: CachedNetworkImage(
                                     imageUrl: jobs.image!,
                                     fit: BoxFit.fitWidth,
-                                    placeholder: (context, _) =>
-                                        SpinKitChasingDots(
-                                            color: Colors.brown, size: 32),
+                                    placeholder: (context, _) => SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      child: SpinKitChasingDots(
+                                          color: Colors.brown, size: 32),
+                                    ),
                                     errorWidget: (context, _, error) =>
                                         Icon(Icons.error),
                                   )),

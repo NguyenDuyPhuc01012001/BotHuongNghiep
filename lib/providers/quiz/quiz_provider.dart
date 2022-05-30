@@ -10,6 +10,7 @@ import 'package:huong_nghiep/models/tests/question.dart';
 class LoadDataFromJson {
   static String _dataPath = "assets/data.json";
   List<Question> _questions = <Question>[];
+
   List<Question> get questions => _questions;
 
   // Load data, convert to List of Model
@@ -27,6 +28,7 @@ class LoadDataFromJson {
 class LoadExplanationFromJson {
   static String _dataPath = "assets/explanation.json";
   List<Explanation> _explanations = <Explanation>[];
+
   List<Explanation> get questions => _explanations;
 
   // Load data, convert to List of Model

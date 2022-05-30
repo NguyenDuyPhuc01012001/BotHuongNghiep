@@ -12,6 +12,7 @@ class Jobs {
   late String? time;
   late String? description;
   late String? timeRead;
+  late String? type;
   late List<Titles>? listTitle;
 
   Jobs(
@@ -23,6 +24,7 @@ class Jobs {
       this.time,
       this.description,
       this.timeRead,
+        this.type,
       this.listTitle});
 
   static List<Jobs> dataListFromSnapshot(QuerySnapshot querySnapshot) {
@@ -38,6 +40,7 @@ class Jobs {
           sourceImage: dataMap['sourceImage'] ?? "",
           time: readTimestamp(dataMap['time']),
           timeRead: dataMap['timeRead'] ?? "",
+          type: dataMap['type'] ?? "",
           description: dataMap['description'] ?? "");
     }).toList();
   }
@@ -55,6 +58,7 @@ class Jobs {
           sourceImage: dataMap['sourceImage'] ?? "",
           time: readTimestamp(dataMap['time']),
           timeRead: dataMap['timeRead'] ?? "",
+          type: dataMap['type'] ?? "",
           description: dataMap['description'] ?? "");
     }).toList();
   }
@@ -70,6 +74,7 @@ class Jobs {
         sourceImage: snapshot['sourceImage'] ?? "",
         time: readTimestamp(snapshot['time']),
         timeRead: snapshot['timeRead'] ?? "",
+        type: snapshot['type'] ?? "",
         description: snapshot['description'] ?? "");
   }
 }

@@ -88,7 +88,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           )),
                       child: TextFormField(
                         keyboardType: TextInputType.multiline,
-                        minLines: 1, //Normal textInputField will be displayed
+                        minLines: 1,
+                        //Normal textInputField will be displayed
                         maxLines: 4,
                         controller: messageController,
                         style: TextStyle(

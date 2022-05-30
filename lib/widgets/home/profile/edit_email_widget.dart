@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:provider/provider.dart';

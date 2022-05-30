@@ -13,6 +13,7 @@ import '../../../resources/firebase_handle.dart';
 
 class NewsManageBody extends StatefulWidget {
   final bool descending;
+
   const NewsManageBody({Key? key, required this.descending}) : super(key: key);
 
   @override
@@ -98,12 +99,20 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                                 title: Text(newsdocs[index].title!,
                                     style: kDefaultTextStyle,
                                     textAlign: TextAlign.justify),
-                                subtitle: Text(
-                                    "Đã đăng vào ${newsdocs[index].time!}",
-                                    style: kDefaultTextStyle.copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal),
-                                    textAlign: TextAlign.justify),
+                                subtitle: RichText(
+                                    text: TextSpan(
+                                      text: 'Đăng vào ',
+                                      style: kDefaultTextStyle.copyWith(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: newsdocs[index].time!,
+                                            style: kDefaultTextStyle.copyWith(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold)),
+                                      ],
+                                    )),
                               ),
                             ),
                           ),

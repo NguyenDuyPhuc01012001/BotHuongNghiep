@@ -3,13 +3,14 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:huong_nghiep/models/answer.dart';
 import 'package:huong_nghiep/models/jobs.dart';
 import 'package:huong_nghiep/models/news.dart';
 import 'package:huong_nghiep/models/titles.dart';
 import 'package:huong_nghiep/models/user.dart';
+
 import '../models/posts.dart';
 import 'auth_methods.dart';
 import 'firebase_reference.dart';
@@ -142,6 +143,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': news.timeRead,
+      'type': "news",
       'image': news.image!.contains("http") ? news.image : ""
     }).then((fNews) async {
       if (!news.image!.contains("http")) {
@@ -296,6 +298,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': news.timeRead,
+      'type': "news",
       'image': news.image!.contains("http") ? news.image : ""
     }).then((result) async {
       if (!news.image!.contains("http") && news.image!.isNotEmpty) {
@@ -448,6 +451,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': jobs.timeRead,
+      'type': "jobs",
       'image': jobs.image!.contains("http") ? jobs.image : ""
     }).then((fJobs) async {
       if (!jobs.image!.contains("http")) {
@@ -480,6 +484,7 @@ class FirebaseHandler {
       'sourceImage': user.image,
       'time': myTimeStamp,
       'timeRead': jobs.timeRead,
+      'type': "jobs",
       'image': jobs.image!.contains("http") ? jobs.image : ""
     }).then((result) async {
       if (!jobs.image!.contains("http") && jobs.image!.isNotEmpty) {
@@ -841,5 +846,5 @@ class FirebaseHandler {
     yield* favoriteFR.orderBy('time', descending: descending).snapshots();
   }
 
-  // END FAVORITE
+// END FAVORITE
 }

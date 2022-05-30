@@ -16,6 +16,7 @@ import '../../../screens/home/detailpage/jobs_page_screen.dart';
 class ListTitleJobs extends StatefulWidget {
   final int limited;
   final bool descending;
+
   const ListTitleJobs(
       {Key? key, required this.limited, required this.descending})
       : super(key: key);

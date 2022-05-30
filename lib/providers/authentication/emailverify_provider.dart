@@ -14,12 +14,15 @@ class EmailVerifyProvider extends ChangeNotifier {
   /// It is "false" if current state is when the user haven't click the send email button yet,
   /// and it will is "true" if the user clicked the send email button
   bool _currentState = false;
+
   get currentState => _currentState;
+
   get isLoading => _isLoading;
   String title = "Chỉ một bước nữa";
   String description =
       "Chúng tôi đã gửi một liên kết xác minh đến email này. Vui lòng kiểm tra email của bạn và xác nhận";
   String buttonContent = "Đi đến đăng nhập";
+
   void setIsLoading(value) {
     _isLoading = value;
     notifyListeners();

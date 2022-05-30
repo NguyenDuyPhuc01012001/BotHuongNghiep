@@ -24,6 +24,7 @@ class NewsCarousel extends StatefulWidget {
 class _NewsCarouselState extends State<NewsCarousel> {
   final _random = Random();
   bool _isFirst = true;
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> newsStream =

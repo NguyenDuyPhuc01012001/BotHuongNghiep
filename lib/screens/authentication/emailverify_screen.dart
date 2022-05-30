@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:huong_nghiep/screens/authentication/signin_screen.dart';
 
 import '../../utils/colors.dart';
@@ -18,6 +18,7 @@ class EmailVerifyScreen extends StatelessWidget {
   String description =
       "Chúng tôi đã gửi một liên kết xác minh đến email này. Vui lòng kiểm tra email của bạn và xác nhận";
   String buttonContent = "Đi đến đăng nhập";
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;

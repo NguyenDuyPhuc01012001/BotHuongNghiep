@@ -3,12 +3,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
 import 'package:huong_nghiep/widgets/home/quiz/quiz_widget.dart';
 
+// import 'package:huong_nghiep/utils/constants.dart';
+// import 'package:huong_nghiep/widgets/home/job/custom_search_jobs_delegate.dart';
+// import '../../widgets/home/news/custom_search_news_delegate.dart';
 import '../../utils/colors.dart';
 import '../../utils/styles.dart';
 import '../../widgets/home/answer/answers_widget.dart';
@@ -47,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     NewsWidget(),
     QuestionAnswerWidget(),
   ];
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -79,6 +82,49 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         titleSpacing: 0,
         centerTitle: true,
+        // actions: <Widget>[
+        //   if (_currentIndex == 2)
+        //     GestureDetector(
+        //       onTap: () {
+        //         showSearch(
+        //           context: context,
+        //           delegate: CustomSearchNewsDelegate(),
+        //         );
+        //       },
+        //       child: Container(
+        //         width: MediaQuery.of(context).size.width * 0.12,
+        //         decoration: BoxDecoration(
+        //             color: Color(0xffBFBFBF),
+        //             borderRadius: BorderRadius.circular(10)),
+        //         padding: EdgeInsets.all(5),
+        //         margin: EdgeInsets.only(top: 10, bottom: 5, right: 10),
+        //         child: Icon(
+        //           Icons.search,
+        //         ),
+        //       ),
+        //     )
+        //   else if (_currentIndex == 1)
+        //     GestureDetector(
+        //       onTap: () {
+        //         showSearch(
+        //           context: context,
+        //           delegate: CustomSearchJobsDelegate(),
+        //         );
+        //       },
+        //       child: Container(
+        //         width: MediaQuery.of(context).size.width * 0.12,
+        //         decoration: BoxDecoration(
+        //             color: Color(0xffBFBFBF),
+        //             borderRadius: BorderRadius.circular(10)),
+        //         padding: EdgeInsets.all(5),
+        //         margin: EdgeInsets.only(top: 10, bottom: 5, right: 10),
+        //         child: Icon(
+        //           Icons.search,
+        //         ),
+        //       ),
+        //     ),
+        //   horizontalSpaceTiny
+        // ],
       ),
       drawer: NavBarDrawer(),
       body: _widgetOptions.elementAt(_currentIndex),
