@@ -61,6 +61,14 @@ class _ContentManageWidgetState extends State<ContentManageWidget> {
   }
 
   @override
+  void initState() {
+    if (widget.filePath.contains("http")) {
+      imageCotroller.text = widget.filePath;
+    }
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // widget.titleController.dispose();
     // widget.contentController.dispose();

@@ -18,7 +18,7 @@ class JobsManageScreen extends StatefulWidget {
 
 class _JobsManageScreenState extends State<JobsManageScreen> {
   bool descending = true;
-  String TITLE_JOBS = "Quản lý bài đăng";
+  String TITLE_JOBS = "Quản lý nghề nghiệp";
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
           horizontalSpaceSmall
         ],
       ),
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       body: JobsManageBody(descending: descending),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20),

@@ -256,7 +256,8 @@ class _UpdateNewsScreenState extends State<UpdateNewsScreen> {
                       shrinkWrap: true,
                       itemCount: dynamicList.length,
                       itemBuilder: (_, index) => dynamicList[index],
-                    )
+                    ),
+                    verticalSpaceLarge,
                   ]),
             ),
             floatingActionButton: FloatingActionButton(

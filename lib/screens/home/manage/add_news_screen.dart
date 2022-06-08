@@ -220,6 +220,7 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     dynamicTextField,
+                    verticalSpaceLarge,
                   ]),
             ),
             floatingActionButton: FloatingActionButton(

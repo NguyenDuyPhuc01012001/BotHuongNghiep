@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../../models/jobs.dart';
 import '../../../resources/firebase_handle.dart';
@@ -45,8 +46,11 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: jobsdocs.length,
+                    itemCount: jobsdocs.length + 1,
                     itemBuilder: ((context, index) {
+                      if (index == jobsdocs.length) {
+                        return verticalSpaceLarge;
+                      }
                       return Dismissible(
                         key: UniqueKey(),
 
@@ -99,18 +103,18 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                                     textAlign: TextAlign.justify),
                                 subtitle: RichText(
                                     text: TextSpan(
-                                      text: 'Đăng vào ',
-                                      style: kDefaultTextStyle.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: jobsdocs[index].time!,
-                                            style: kDefaultTextStyle.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold)),
-                                      ],
-                                    )),
+                                  text: 'Đăng vào ',
+                                  style: kDefaultTextStyle.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: jobsdocs[index].time!,
+                                        style: kDefaultTextStyle.copyWith(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                )),
                               ),
                             ),
                           ),

@@ -61,62 +61,62 @@ class _JobsCarouselState extends State<JobsCarousel> {
 
           return CarouselSlider(
             options: CarouselOptions(
-              height: 200.0,
+              // height: 200.0,
+              autoPlay: false,
+              enlargeCenterPage: true,
+              viewportFraction: 0.9,
+              aspectRatio: 1.6,
+              initialPage: 1,
             ),
             items: jobsdocs.map((jobs) {
               return Builder(
                 builder: (BuildContext context) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(JobsPageScreen(jobsPostID: jobs.id!));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: ShaderMask(
-                              shaderCallback: (rect) {
-                                return const LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Colors.transparent,
-                                      Colors.black54
-                                    ]).createShader(Rect.fromLTRB(
-                                    0, -140, rect.width, rect.height * 0.8));
-                              },
-                              blendMode: BlendMode.darken,
+                  return Card(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(JobsPageScreen(jobsPostID: jobs.id!));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
                               child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20)),
                                   child: CachedNetworkImage(
+                                    height: 200,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
                                     imageUrl: jobs.image!,
-                                    fit: BoxFit.fitWidth,
-                                    placeholder: (context, _) => SizedBox(
-                                      width: MediaQuery.of(context).size.width,
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      child: SpinKitChasingDots(
-                                          color: Colors.brown, size: 32),
-                                    ),
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, _) =>
+                                        SpinKitChasingDots(
+                                            color: Colors.brown, size: 32),
                                     errorWidget: (context, _, error) =>
                                         Icon(Icons.error),
                                   )),
                             ),
-                          ),
-                          Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                padding: EdgeInsets.all(20),
-                                child: Text(
-                                  jobs.title!,
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.white),
-                                ),
-                              ))
-                        ],
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 2, horizontal: 4),
+                              child: Text(
+                                jobs.title!,
+                                overflow: TextOverflow.visible,
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );

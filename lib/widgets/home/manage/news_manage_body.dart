@@ -10,6 +10,7 @@ import 'package:huong_nghiep/widgets/alert.dart';
 
 import '../../../models/news.dart';
 import '../../../resources/firebase_handle.dart';
+import '../../../utils/constants.dart';
 
 class NewsManageBody extends StatefulWidget {
   final bool descending;
@@ -47,8 +48,11 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: newsdocs.length,
+                    itemCount: newsdocs.length + 1,
                     itemBuilder: ((context, index) {
+                      if (index == newsdocs.length) {
+                        return verticalSpaceLarge;
+                      }
                       return Dismissible(
                         key: UniqueKey(),
 
@@ -101,18 +105,18 @@ class _NewsManageBodyState extends State<NewsManageBody> {
                                     textAlign: TextAlign.justify),
                                 subtitle: RichText(
                                     text: TextSpan(
-                                      text: 'Đăng vào ',
-                                      style: kDefaultTextStyle.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: newsdocs[index].time!,
-                                            style: kDefaultTextStyle.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold)),
-                                      ],
-                                    )),
+                                  text: 'Đăng vào ',
+                                  style: kDefaultTextStyle.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: newsdocs[index].time!,
+                                        style: kDefaultTextStyle.copyWith(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                )),
                               ),
                             ),
                           ),

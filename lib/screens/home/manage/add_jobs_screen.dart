@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, avoid_function_literals_in_foreach_calls
+// ignore_for_file: prefer_const_constructors, avoid_print, avoid_function_literals_in_foreach_calls, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +24,7 @@ class AddJobsScreen extends StatefulWidget {
 class _AddJobsScreenState extends State<AddJobsScreen> {
   List<ContentManageWidget> dynamicList = [];
   TitleManageWidget titleJobsWidget = TitleManageWidget();
+  String TITLE_JOBS = "Thêm nghề nghiệp";
 
   List<String> contents = [];
   List<String> filePaths = [];
@@ -167,14 +168,15 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 5),
-                child: Text("Thêm tin tức",
+                padding: EdgeInsets.only(
+                    top: 10, bottom: 5, left: TITLE_JOBS.length.toDouble() * 2),
+                child: Text(TITLE_JOBS,
                     style: kDefaultTextStyle.copyWith(
                         fontSize: 24,
                         color: Color.fromARGB(255, 142, 142, 142)),
                     textAlign: TextAlign.center),
               ),
-              centerTitle: true,
+              titleSpacing: 0,
               actions: <Widget>[
                 GestureDetector(
                   onTap: clearScreen,
@@ -210,16 +212,17 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                        child: Text("Tiêu đề bài báo",
+                        child: Text("Tiêu đề nghề nghiệp",
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     titleJobsWidget,
                     Padding(
                         padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                        child: Text("Nội dung bài báo",
+                        child: Text("Nội dungnghề nghiệp",
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     dynamicTextField,
+                    verticalSpaceLarge,
                   ]),
             ),
             floatingActionButton: FloatingActionButton(
