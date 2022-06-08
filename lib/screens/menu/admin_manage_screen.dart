@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,15 +6,10 @@ import 'package:get/get.dart';
 import '../../utils/styles.dart';
 import '../../widgets/home/manage/admin_manage_body.dart';
 
-class AdminManageScreen extends StatefulWidget {
-  const AdminManageScreen({Key? key}) : super(key: key);
-
-  @override
-  State<AdminManageScreen> createState() => _AdminManageScreenState();
-}
-
-class _AdminManageScreenState extends State<AdminManageScreen> {
+class AdminManageScreen extends StatelessWidget {
   String TITLE_ADMIN_MANGEMENT = "Quản lý vai trò người dùng";
+
+  AdminManageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

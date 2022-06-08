@@ -52,6 +52,14 @@ class _TitleManageWidgetState extends State<TitleManageWidget> {
   }
 
   @override
+  void initState() {
+    if (widget.filePath.contains("http")) {
+      imageCotroller.text = widget.filePath;
+    }
+    super.initState();
+  }
+
+  @override
   void dispose() {
     // widget.titleController.dispose();
     super.dispose();

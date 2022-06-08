@@ -33,9 +33,7 @@ class NewsWidget extends StatelessWidget {
                     ),
                   ),
                   NewsCarousel(),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  verticalSpaceSmall,
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 16.0, right: 16.0, top: 8.0),
@@ -75,7 +73,8 @@ class NewsWidget extends StatelessWidget {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  verticalSpaceLarge
                 ],
               ),
             )),
