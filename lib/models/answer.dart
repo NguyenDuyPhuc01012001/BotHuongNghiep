@@ -4,6 +4,7 @@ import '../resources/support_function.dart';
 
 class Answer {
   late String? id;
+  late String? sourceID;
   late String? source;
   late String? sourceImage;
   late String? answer;
@@ -12,6 +13,7 @@ class Answer {
 
   Answer(
       {this.id,
+      this.sourceID,
       this.source,
       this.sourceImage,
       this.answer,
@@ -25,6 +27,7 @@ class Answer {
 
       return Answer(
         id: snapshot.id,
+        sourceID: dataMap['sourceID'] ?? "",
         source: dataMap['source'] ?? "",
         sourceImage: dataMap['sourceImage'] ?? "",
         answer: dataMap['answer'] ?? "",
@@ -39,6 +42,7 @@ class Answer {
 
     return Answer(
       id: snap.id,
+      sourceID: snapshot['sourceID'] ?? "",
       source: snapshot['source'] ?? "",
       sourceImage: snapshot['sourceImage'] ?? "",
       answer: snapshot['answer'] ?? "",

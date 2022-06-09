@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:huong_nghiep/providers/home/home_provider.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
 import 'package:huong_nghiep/widgets/home/profile/display_image_widget.dart';
-import 'package:huong_nghiep/widgets/home/profile/edit_email_widget.dart';
+import 'package:huong_nghiep/widgets/home/profile/edit_password_widget.dart';
 import 'package:huong_nghiep/widgets/home/profile/edit_image_widget.dart';
 import 'package:huong_nghiep/widgets/home/profile/edit_name_widget.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               )),
           buildUserInfoDisplay(homeProvider.user.name, 'Tên', EditNameWidget()),
           buildUserInfoDisplay(
-              homeProvider.user.email, 'Email', EditEmailWidget()),
+              "Thay đổi mật khẩu", 'Mật khẩu', EditPasswordWidget()),
         ],
       ),
     );

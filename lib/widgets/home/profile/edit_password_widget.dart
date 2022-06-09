@@ -1,33 +1,45 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
-import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/utils/constants.dart';
 import 'package:huong_nghiep/widgets/home/profile/app_bar_profile_widget.dart';
-import 'package:provider/provider.dart';
+import '../../../utils/styles.dart';
 
-import '../../../providers/home/home_provider.dart';
-
-class EditEmailWidget extends StatefulWidget {
-  const EditEmailWidget({Key? key}) : super(key: key);
+class EditPasswordWidget extends StatefulWidget {
+  const EditPasswordWidget({Key? key}) : super(key: key);
 
   @override
-  State<EditEmailWidget> createState() => _EditEmailWidgetState();
+  State<EditPasswordWidget> createState() => _EditPasswordWidgetState();
 }
 
-class _EditEmailWidgetState extends State<EditEmailWidget> {
+class _EditPasswordWidgetState extends State<EditPasswordWidget> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final String rule = "*Độ dài mật khẩu tối thiểu 6 ký tự*";
 
   @override
   void dispose() {
-    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
+  }
+
+  void changePassword(String password) async {
+    //Create an instance of the current user.
+    User user = FirebaseAuth.instance.currentUser!;
+
+    //Pass in the password to updatePassword.
+    user.updatePassword(password).then((_) {
+      print("Successfully changed password");
+    }).catchError((error) {
+      print("Password can't be changed" + error.toString());
+      //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
     return Scaffold(
         appBar: AppBarProfileWidget(context),
         body: Form(
@@ -39,7 +51,7 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                 SizedBox(
                     width: 320,
                     child: const Text(
-                      "Email của bạn",
+                      "Password của bạn",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
@@ -47,22 +59,24 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                 Padding(
                     padding: EdgeInsets.only(top: 40),
                     child: SizedBox(
-                        height: 100,
                         width: 320,
                         child: TextFormField(
                           // Handles Form Validation
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Vui lòng nhập email của bạn';
-                            } else if (!EmailValidator.validate(value)) {
-                              return 'Vui lòng nhập đúng đinh dạng email';
+                              return 'Vui lòng nhập mật khẩu của bạn';
+                            } else if (value.length < 6) {
+                              return 'Mật khẩu phải tối thiểu 6 ký tự';
                             }
                             return null;
                           },
                           decoration:
-                              const InputDecoration(labelText: 'Địa chỉ email'),
-                          controller: emailController,
+                              const InputDecoration(labelText: 'Mật khẩu'),
+                          controller: passwordController,
                         ))),
+                verticalSpaceRegular,
+                Text(rule, style: ktsMediumInputText),
+                verticalSpaceLarge,
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: SizedBox(
@@ -71,12 +85,8 @@ class _EditEmailWidgetState extends State<EditEmailWidget> {
                       child: ElevatedButton(
                         onPressed: () {
                           // Validate returns true if the form is valid, or false otherwise.
-                          if (_formKey.currentState!.validate() &&
-                              EmailValidator.validate(emailController.text) &&
-                              emailController.text
-                                      .compareTo(homeProvider.user.email) !=
-                                  0) {
-                            homeProvider.updateUserEmail(emailController.text);
+                          if (_formKey.currentState!.validate()) {
+                            changePassword(passwordController.text);
                             Get.back();
                           }
                         },

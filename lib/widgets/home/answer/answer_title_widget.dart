@@ -1,15 +1,19 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:huong_nghiep/models/answer.dart';
 
+import '../../../models/user.dart';
 import '../../../resources/firebase_handle.dart';
+import '../../../resources/firebase_reference.dart';
+import '../../../screens/other/error_screen.dart';
 import '../../../utils/styles.dart';
 import '../../alert.dart';
-import '../../custom/custom_shape.dart';
 
 class AnswerTitleWidget extends StatefulWidget {
   const AnswerTitleWidget({
@@ -30,14 +34,20 @@ class AnswerTitleWidget extends StatefulWidget {
 class _AnswerTitleWidgetState extends State<AnswerTitleWidget> {
   @override
   Widget build(BuildContext context) {
+    bool isUserMessage = FirebaseAuth.instance.currentUser!.displayName!
+        .contains(widget.answer.source!);
+    var size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.only(right: 18.0, left: 50, top: 15, bottom: 5),
+      padding: EdgeInsets.only(right: 12.0, left: 12, top: 12, bottom: 4),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment:
+            isUserMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment:
+            isUserMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment:
+                isUserMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               ClipOval(
                 child: Image.network(
@@ -48,12 +58,45 @@ class _AnswerTitleWidgetState extends State<AnswerTitleWidget> {
                 ),
               ),
               SizedBox(width: 8),
-              Text(widget.answer.source!, style: kItemText),
+              FutureBuilder(
+                  future: userFR.doc(widget.answer.sourceID!).get(),
+                  builder:
+                      ((context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      print('Something went Wrong');
+                      Get.to(ErrorScreen());
+                      return SizedBox();
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child:
+                            SpinKitChasingDots(color: Colors.brown, size: 16),
+                      );
+                    }
+                    UserData userData = UserData.fromSnap(snapshot.data!);
+                    return userData.isAdmin
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(widget.answer.source!, style: kItemText),
+                              Icon(Icons.star,
+                                  color: Color.fromARGB(255, 234, 214, 40)),
+                              Text("Admin",
+                                  style: kItemText.copyWith(
+                                      color: Color.fromARGB(255, 234, 214, 40),
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          )
+                        : Text(widget.answer.source!, style: kItemText);
+                  })),
+              // Text(widget.answer.source!, style: kItemText),
             ],
           ),
           Dismissible(
             key: UniqueKey(),
-            direction: DismissDirection.endToStart,
+            direction: isUserMessage
+                ? DismissDirection.endToStart
+                : DismissDirection.startToEnd,
             onDismissed: (_) {
               setState(() {
                 Alerts().confirm(
@@ -66,61 +109,56 @@ class _AnswerTitleWidgetState extends State<AnswerTitleWidget> {
               });
             },
             confirmDismiss: (direction) async => widget.isAdmin,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Color(0xffFEF8E8),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(18),
-                      bottomLeft: Radius.circular(18),
-                      bottomRight: Radius.circular(18),
+            child: Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Color(0xffFEF8E8),
+                borderRadius: BorderRadius.all(Radius.circular(18)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  mainAxisAlignment: isUserMessage
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: widget.answer.answer!.length > 50
+                          ? size.width * 0.7
+                          : size.width * 0.6,
+                      child: Text(widget.answer.answer!,
+                          textAlign: TextAlign.justify,
+                          style: kContentText.copyWith(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black)),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 320),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(widget.answer.answer!,
-                              style: kContentText.copyWith(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black)),
-                          widget.answer.image! == ""
-                              ? SizedBox()
-                              : ClipRRect(
-                                  child: CachedNetworkImage(
-                                      imageUrl: widget.answer.image!,
-                                      width: widget.answer.answer!.length > 50
-                                          ? 320
-                                          : 150,
-                                      height: 150,
-                                      fit: BoxFit.fitWidth,
-                                      placeholder: (context, _) =>
-                                          SpinKitChasingDots(
-                                              color: Colors.brown, size: 32),
-                                      errorWidget: (context, _, error) =>
-                                          Icon(Icons.error)),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
+                    widget.answer.image! == ""
+                        ? SizedBox()
+                        : ClipRRect(
+                            child: CachedNetworkImage(
+                                imageUrl: widget.answer.image!,
+                                width: widget.answer.answer!.length > 50
+                                    ? size.width * 0.7
+                                    : size.width * 0.6,
+                                height: 150,
+                                fit: BoxFit.fitWidth,
+                                placeholder: (context, _) => SpinKitChasingDots(
+                                    color: Colors.brown, size: 32),
+                                errorWidget: (context, _, error) =>
+                                    Icon(Icons.error)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                  ],
                 ),
-                CustomPaint(painter: CustomShape(Color(0xffFEF8E8))),
-              ],
+              ),
             ),
             background: Card(
               elevation: 20,
               color: widget.isAdmin ? Colors.red : Colors.green,
               child: Container(
-                alignment: Alignment.centerRight,
+                alignment: isUserMessage
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: widget.isAdmin

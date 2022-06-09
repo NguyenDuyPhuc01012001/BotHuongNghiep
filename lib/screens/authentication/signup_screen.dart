@@ -19,10 +19,11 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
   final String welcome = "Đăng ký tài khoản";
-  final String rule = "- Độ dài mật khẩu nên từ 8 đến 20 ký tự\n" +
-      "- Mật khẩu nên có ký tự in thường\n" +
-      "- Mật khẩu nên có ký tự in hoa\n" +
-      "- Mật khẩu nên có một số hoặc ký tự chấp nhận được";
+  // final String rule = "- Độ dài mật khẩu nên từ 8 đến 20 ký tự\n" +
+  //     "- Mật khẩu nên có ký tự in thường\n" +
+  //     "- Mật khẩu nên có ký tự in hoa\n" +
+  //     "- Mật khẩu nên có một số hoặc ký tự chấp nhận được";
+  final String rule = "Độ dài mật khẩu tối thiểu 6 ký tự";
   late bool _passwordVisible;
   late bool _confirmPasswordVisible;
 
@@ -122,11 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   obscureText: !_passwordVisible,
                   validator: (val) {
                     if (val!.isEmpty) return 'Không được để trống mật khẩu';
-                    if (!(RegExp(
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$')
-                            .hasMatch(val) ||
-                        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$')
-                            .hasMatch(val))) return 'Password is wrong format.';
+                    if (val.length < 6) return 'Mật khẩu cần tối thiểu 6 ký tự';
                     return null;
                   },
                   onSaved: (val) => _pass.text = val!,

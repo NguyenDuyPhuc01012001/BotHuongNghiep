@@ -128,10 +128,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: NavBarDrawer(),
       body: _widgetOptions.elementAt(_currentIndex),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Get.to(ChatbotScreen()),
-        child: const Icon(Icons.chat_bubble_outline),
+        icon: Icon(Icons.chat_bubble_outline),
         backgroundColor: Color(0xffBFBFBF),
+        label: Text(
+          'Trò chuyện ChatBot',
+          style: kContentText.copyWith(color: Colors.white),
+        ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
           height: screenSize.height * 0.08,

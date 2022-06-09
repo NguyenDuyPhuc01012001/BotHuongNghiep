@@ -65,7 +65,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
               autoPlay: false,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 1.6,
+              aspectRatio: 1.5,
               initialPage: 1,
             ),
             items: jobsdocs.map((jobs) {
@@ -90,8 +90,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
                                       borderRadius: BorderRadius.circular(20)),
                                   child: CachedNetworkImage(
                                     height: 200,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
+                                    width: MediaQuery.of(context).size.width,
                                     imageUrl: jobs.image!,
                                     fit: BoxFit.cover,
                                     placeholder: (context, _) =>
