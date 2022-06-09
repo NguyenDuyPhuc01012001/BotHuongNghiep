@@ -11,6 +11,7 @@ import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../../models/posts.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/home/answer/add_answer_widget.dart';
 import '../../../widgets/home/answer/answer_title_widget.dart';
 import '../../../widgets/home/answer/post_title_widget.dart';
 
@@ -28,13 +29,16 @@ class _AnswerPageScreenState extends State<AnswerPageScreen> {
 
   @override
   void initState() {
-    answerStream = postsFR.doc(widget.postID).collection('answers').snapshots();
+    answerStream = postsFR
+        .doc(widget.postID)
+        .collection('answers')
+        .orderBy('time')
+        .snapshots();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Answer> answerDocs = [];
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -63,65 +67,77 @@ class _AnswerPageScreenState extends State<AnswerPageScreen> {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-          future: postsFR.doc(widget.postID).get(),
-          builder: (_, snapshot) {
-            if (snapshot.hasError) {
-              print('Something Went Wrong');
-              return ErrorScreen();
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: SpinKitChasingDots(color: Colors.brown, size: 32),
-              );
-            }
-            Post post = Post.fromSnap(snapshot.data!);
-            return SingleChildScrollView(
-                child: Column(children: [
-              PostTitleWidget(post: post),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Divider(thickness: 2)),
-              StreamBuilder(
-                stream: answerStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
+      body: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                future: postsFR.doc(widget.postID).get(),
+                builder: (_, snapshot) {
                   if (snapshot.hasError) {
-                    print('Something went Wrong');
+                    print('Something Went Wrong');
+                    return ErrorScreen();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: CircularProgressIndicator(color: Colors.black),
+                      child: SpinKitChasingDots(color: Colors.brown, size: 32),
                     );
                   }
+                  Post post = Post.fromSnap(snapshot.data!);
+                  return SingleChildScrollView(
+                      child: Column(children: [
+                    PostTitleWidget(post: post),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Divider(thickness: 2)),
+                    StreamBuilder(
+                      stream: answerStream,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          print('Something went Wrong');
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child:
+                                CircularProgressIndicator(color: Colors.black),
+                          );
+                        }
 
-                  snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Answer answer = Answer.fromSnap(document);
-                    answerDocs.add(answer);
-                  }).toList();
+                        List<Answer> answerDocs = [];
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                          Answer answer = Answer.fromSnap(document);
+                          answerDocs.add(answer);
+                        }).toList();
 
-                  return answerDocs.isEmpty
-                      ? Center(
-                          child: Text(
-                          "Hiện tại chưa có câu trả lời",
-                          style: kDefaultTextStyle,
-                        ))
-                      : Column(
-                          children: [
-                            for (var i = 0; i < answerDocs.length; i++) ...[
-                              AnswerTitleWidget(
-                                answer: answerDocs[i],
-                                postID: post.id!,
-                                isAdmin: false,
-                              )
-                            ],
-                            verticalSpaceMedium
-                          ],
-                        );
-                },
-              )
-            ]));
-          }),
+                        return answerDocs.isEmpty
+                            ? Center(
+                                child: Text(
+                                "Hiện tại chưa có câu trả lời",
+                                style: kDefaultTextStyle,
+                              ))
+                            : Column(
+                                children: [
+                                  for (var i = 0;
+                                      i < answerDocs.length;
+                                      i++) ...[
+                                    AnswerTitleWidget(
+                                      answer: answerDocs[i],
+                                      postID: post.id!,
+                                      isAdmin: false,
+                                    )
+                                  ],
+                                  verticalSpaceMedium
+                                ],
+                              );
+                      },
+                    ),
+                  ]));
+                }),
+          ),
+          AddAnswerWidget(postID: widget.postID),
+        ],
+      ),
     );
   }
 }

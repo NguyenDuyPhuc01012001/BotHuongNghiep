@@ -39,7 +39,7 @@ class PostTitleWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 8),
-              Text(post.email!, style: kItemText),
+              Text(post.name!, style: kItemText),
             ],
           ),
           Row(

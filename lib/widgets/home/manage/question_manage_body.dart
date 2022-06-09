@@ -108,7 +108,7 @@ class _QuestionManageBodyState extends State<QuestionManageBody> {
                                     children: [
                                       RichText(
                                           text: TextSpan(
-                                        text: 'Số câu trả lời: ',
+                                        text: 'Số lượng phản hồi: ',
                                         style: kDefaultTextStyle.copyWith(
                                             fontSize: 16,
                                             color: Colors.green,
@@ -131,7 +131,7 @@ class _QuestionManageBodyState extends State<QuestionManageBody> {
                                             fontWeight: FontWeight.normal),
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: postdocs[index].email!,
+                                              text: postdocs[index].name!,
                                               style: kDefaultTextStyle.copyWith(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold)),

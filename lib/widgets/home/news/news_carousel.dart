@@ -65,7 +65,7 @@ class _NewsCarouselState extends State<NewsCarousel> {
               autoPlay: false,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 1.6,
+              aspectRatio: 1.5,
               initialPage: 1,
             ),
             items: newsdocs.map((news) {
@@ -89,6 +89,7 @@ class _NewsCarouselState extends State<NewsCarousel> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20)),
                                   child: CachedNetworkImage(
+                                    width: MediaQuery.of(context).size.width,
                                     height: 200,
                                     imageUrl: news.image!,
                                     fit: BoxFit.cover,

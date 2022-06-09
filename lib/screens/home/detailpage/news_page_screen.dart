@@ -150,58 +150,42 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                             ),
                             Container(
                               margin: EdgeInsets.only(right: 30),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  StreamBuilder(
-                                    stream: userFR
-                                        .doc(FirebaseAuth
-                                            .instance.currentUser!.uid)
-                                        .collection("favorite")
-                                        .where("favoriteID",
-                                            isEqualTo: newsPost.id)
-                                        .snapshots(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot snapshot) {
-                                      if (snapshot.data == null) {
-                                        return Text("");
-                                      }
-                                      return Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8),
-                                        child: CircleAvatar(
-                                          backgroundColor: Colors.red,
-                                          child: IconButton(
-                                            onPressed: () => snapshot
-                                                        .data.docs.length ==
-                                                    0
+                              child: StreamBuilder(
+                                stream: userFR
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection("favorite")
+                                    .where("favoriteID", isEqualTo: newsPost.id)
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.data == null) {
+                                    return Text("");
+                                  }
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      child: IconButton(
+                                        onPressed: () =>
+                                            snapshot.data.docs.length == 0
                                                 ? addToFavorite(
                                                     newsPost.id!,
                                                     newsPost.title!,
                                                     newsPost.image!)
                                                 : deleteFavorite(newsPost.id!),
-                                            icon: snapshot.data.docs.length == 0
-                                                ? Icon(
-                                                    Icons.favorite_outline,
-                                                    color: Colors.white,
-                                                  )
-                                                : Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.white,
-                                                  ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.share,
-                                        color: Colors.blue, size: 30),
-                                    onPressed: () {},
-                                  ),
-                                ],
+                                        icon: snapshot.data.docs.length == 0
+                                            ? Icon(
+                                                Icons.favorite_outline,
+                                                color: Colors.white,
+                                              )
+                                            : Icon(
+                                                Icons.favorite,
+                                                color: Colors.white,
+                                              ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             )
                           ],

@@ -277,7 +277,6 @@ class FirebaseHandler {
     QuerySnapshot newsQuerySnapshot =
         await newsFR.orderBy('time', descending: descending).get();
     newsList = newsQuerySnapshot.docs.map((doc) => News.fromSnap(doc)).toList();
-
     for (int i = 0; i < newsList.length; i++) {
       List<Titles> listTitle = await getListNewsTitle(newsList[i].id!);
       newsList[i].listTitle = listTitle;
@@ -648,7 +647,7 @@ class FirebaseHandler {
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
     return await postsFR.add({
       'uid': user.uid,
-      'email': user.email,
+      'name': user.name,
       'userImage': user.image,
       'question': question,
       'image': "",
@@ -683,7 +682,11 @@ class FirebaseHandler {
 
   // Delete Answer Post from FireStore
   static deleteAnswerPost(String postID, String answerID) async {
-    return postsFR.doc("$postID/answers/$answerID").delete().then((value) {
+    return postsFR
+        .doc("$postID/answers/$answerID")
+        .delete()
+        .then((value) async {
+      await postsFR.doc(postID).update({'numAnswer': FieldValue.increment(-1)});
       FirebaseStorage.instance.ref("posts/$postID").listAll().then((value) {
         for (var element in value.items) {
           if (element.fullPath.contains(answerID)) {
@@ -701,6 +704,7 @@ class FirebaseHandler {
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
 
     return await postsFR.doc(postID).collection("answers").add({
+      'sourceID': user.uid,
       'source': user.name,
       'sourceImage': user.image,
       'answer': answer.answer,
@@ -844,6 +848,40 @@ class FirebaseHandler {
     CollectionReference favoriteFR =
         userFR.doc(user.uid).collection('favorite');
     yield* favoriteFR.orderBy('time', descending: descending).snapshots();
+  }
+
+  // Add favorite Post to FireStore
+  static addToFavoritePost(String id) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await userFR
+        .doc(user.uid)
+        .collection('favoritePost')
+        .add({'favoriteID': id, 'time': myTimeStamp}).then((value) async {
+      print("Add Favorite ${value.id} successfull");
+      await postsFR.doc(id).update({'numFavorite': FieldValue.increment(1)});
+    }).catchError((error) => print("Failed to update favorite: $error"));
+  }
+
+  // Delete Favorite Post from FireStore
+  static deleteFromFavoritePost(String id) async {
+    UserData user = await getCurrentUser();
+    CollectionReference favoriteFR =
+        userFR.doc(user.uid).collection('favoritePost');
+    List<String> listID = [];
+    await favoriteFR
+        .where('favoriteID', isEqualTo: id)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        listID.add(doc.id);
+      }
+    });
+    return favoriteFR.doc(listID.first).delete().then((value) async {
+      await postsFR.doc(id).update({'numFavorite': FieldValue.increment(-1)});
+      print("Delete Favorite $id successful");
+    }).catchError((error) => print('Failed to Delete news: $error'));
   }
 
 // END FAVORITE

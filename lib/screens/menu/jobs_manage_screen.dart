@@ -18,6 +18,7 @@ class JobsManageScreen extends StatefulWidget {
 
 class _JobsManageScreenState extends State<JobsManageScreen> {
   bool descending = true;
+  String search = "";
   String TITLE_JOBS = "Quản lý nghề nghiệp";
 
   @override
@@ -86,7 +87,37 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
         ],
       ),
       // extendBodyBehindAppBar: true,
-      body: JobsManageBody(descending: descending),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Material(
+              elevation: 5,
+              child: TextField(
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 15),
+                  hintText: 'Tìm kiếm ...',
+                  border: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onChanged: (value) => {
+                  setState(() => {search = value})
+                },
+              ),
+            ),
+          ),
+          Expanded(
+              child: JobsManageBody(
+            descending: descending,
+            search: search,
+          )),
+        ],
+      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: FloatingActionButton(

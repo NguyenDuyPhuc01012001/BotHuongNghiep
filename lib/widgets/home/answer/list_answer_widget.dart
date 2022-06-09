@@ -46,19 +46,19 @@ class _ListAnswerWidgetState extends State<ListAnswerWidget> {
             postDocs.add(post);
           }).toList();
 
-          return Card(
-            elevation: 20,
-            color: Colors.grey[300],
-            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(children: [
-              for (var i = 0; i < postDocs.length; i++) ...[
-                PostWidget(post: postDocs[i])
-              ]
-            ]),
-          );
+          return Column(children: [
+            for (var i = 0; i < postDocs.length; i++) ...[
+              Card(
+                  elevation: 20,
+                  color: Colors.white,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: PostWidget(post: postDocs[i]))
+            ]
+          ]);
         });
   }
 }

@@ -29,7 +29,7 @@ const TextStyle kBottomNavigationItemStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
 TextStyle kItemText = TextStyle(
-    fontSize: h5, fontWeight: FontWeight.w600, color: Colors.grey[700]);
+    fontSize: h4, fontWeight: FontWeight.w600, color: Colors.grey[700]);
 
 TextStyle kContentText = TextStyle(
     fontSize: h4, fontWeight: FontWeight.w600, color: Colors.grey[700]);

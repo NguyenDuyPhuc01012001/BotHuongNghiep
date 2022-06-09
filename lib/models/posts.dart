@@ -6,23 +6,25 @@ import '../resources/support_function.dart';
 class Post {
   late String? id;
   late String? uid;
-  late String? email;
+  late String? name;
   late String? userImage;
   late String? image;
   late String? question;
   late String? time;
   late int? numAnswer;
+  late int? numFavorite;
   late List<Answer>? answerList;
 
   Post(
       {this.id,
       this.uid,
-      this.email,
+      this.name,
       this.userImage,
       this.image,
       this.question,
       this.time,
       this.numAnswer,
+      this.numFavorite,
       this.answerList});
 
   static List<Post> dataListFromSnapshot(QuerySnapshot querySnapshot) {
@@ -34,11 +36,12 @@ class Post {
         id: snapshot.id,
         uid: dataMap['uid'],
         image: dataMap['image'],
-        email: dataMap['email'],
+        name: dataMap['name'],
         userImage: dataMap['userImage'],
         time: readTimestamp(dataMap['time']),
         question: dataMap['question'],
         numAnswer: dataMap['numAnswer'],
+        numFavorite: dataMap['numFavorite'],
       );
     }).toList();
   }
@@ -50,11 +53,12 @@ class Post {
       id: snap.id,
       uid: snapshot['uid'],
       image: snapshot['image'],
-      email: snapshot['email'],
+      name: snapshot['name'],
       userImage: snapshot['userImage'],
       time: readTimestamp(snapshot['time']),
       question: snapshot['question'],
       numAnswer: snapshot['numAnswer'],
+      numFavorite: snapshot['numFavorite'],
     );
   }
 }

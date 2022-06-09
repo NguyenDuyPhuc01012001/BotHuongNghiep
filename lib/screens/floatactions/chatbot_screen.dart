@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, must_be_immutable
 
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ class ChatbotScreen extends StatefulWidget {
 }
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
+  String text = "";
   late DialogFlowtter dialogFlowtter;
   final TextEditingController messageController = TextEditingController();
 
@@ -28,7 +29,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(text);
+    if (!text.contains("")) {
+      messageController.text = text;
+    }
     var themeValue = MediaQuery.of(context).platformBrightness;
+
     return Scaffold(
       backgroundColor:
           themeValue == Brightness.dark ? Color(0xff262626) : Color(0xffFFFFFF),
@@ -64,7 +70,12 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(child: Body(messages: messages)),
+            Expanded(
+                child: Body(
+              messages: messages,
+              sendMessage: sendMessage,
+            )),
+            listSuggestion(),
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 10,
@@ -145,8 +156,13 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     if (response.message == null) return;
     setState(() {
-      addMessage(response.message!);
-      // print(response);
+      for (Message message in response.queryResult!.fulfillmentMessages!) {
+        addMessage(message);
+      }
+      // addMessage(response.queryResult!.fulfillmentMessages![0]);
+      // addMessage(response.queryResult!.fulfillmentMessages![1]);
+      // addMessage(response.message!);
+      print(response);
     });
   }
 
@@ -162,14 +178,53 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     dialogFlowtter.dispose();
     super.dispose();
   }
+
+  List<String> listSuggestionString = [
+    "Hiểu về bản thân",
+    "Hiểu về trường",
+    "Hiểu về nghề",
+    "Hiểu về ngành"
+  ];
+  Widget listSuggestion() {
+    return SizedBox(
+      height: 60,
+      child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: listSuggestionString.length,
+          itemBuilder: ((context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: InkWell(
+                onTap: () => {sendMessage(listSuggestionString[index])},
+                child: Chip(
+                  elevation: 20,
+                  padding: EdgeInsets.all(8),
+                  backgroundColor: Colors.blue,
+                  shadowColor: Colors.black,
+                  avatar: CircleAvatar(
+                    child: Text("${index + 1}"), //NetwordImage
+                  ),
+                  label: Text(
+                    listSuggestionString[index],
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ),
+            );
+          })),
+    );
+  }
 }
 
 class Body extends StatelessWidget {
   final List<Map<String, dynamic>> messages;
+  late Function(String) sendMessage;
 
-  const Body({
+  Body({
     Key? key,
     this.messages = const [],
+    required this.sendMessage,
   }) : super(key: key);
 
   @override
@@ -184,10 +239,14 @@ class Body extends StatelessWidget {
               isUserMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _MessageContainer(
-              message: message,
-              isUserMessage: isUserMessage,
-            ),
+            if (message.text!.text![0].contains(RegExp('[0-9]'), 0) &&
+                !isUserMessage)
+              MessageButton(message: message, sendMessage: sendMessage)
+            else
+              MessageContainer(
+                message: message,
+                isUserMessage: isUserMessage,
+              ),
           ],
         );
       },
@@ -202,11 +261,11 @@ class Body extends StatelessWidget {
   }
 }
 
-class _MessageContainer extends StatelessWidget {
+class MessageContainer extends StatelessWidget {
   final Message message;
   final bool isUserMessage;
 
-  const _MessageContainer({
+  const MessageContainer({
     Key? key,
     required this.message,
     this.isUserMessage = false,
@@ -220,7 +279,7 @@ class _MessageContainer extends StatelessWidget {
         builder: (context, constrains) {
           return Container(
             decoration: BoxDecoration(
-              color: isUserMessage ? Colors.blue : Colors.grey[800],
+              color: isUserMessage ? Colors.blue : Color(0xffBFBFBF),
               borderRadius: BorderRadius.circular(20),
             ),
             padding: const EdgeInsets.all(10),
@@ -228,6 +287,52 @@ class _MessageContainer extends StatelessWidget {
               message.text?.text?[0] ?? '',
               style: const TextStyle(
                 color: Colors.white,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class MessageButton extends StatefulWidget {
+  final Message message;
+  late Function(String) sendMessage;
+  MessageButton({
+    Key? key,
+    required this.message,
+    required this.sendMessage,
+  }) : super(key: key);
+
+  @override
+  State<MessageButton> createState() => _MessageButtonState();
+}
+
+class _MessageButtonState extends State<MessageButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(maxWidth: 250),
+      child: LayoutBuilder(
+        builder: (context, constrains) {
+          return InkWell(
+            onTap: () {
+              setState(() {
+                widget.sendMessage(widget.message.text!.text![0]);
+              });
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 132, 132, 132),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                "${widget.message.text?.text?[0]}",
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           );
