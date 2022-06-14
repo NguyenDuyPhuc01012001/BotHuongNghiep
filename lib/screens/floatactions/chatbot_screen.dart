@@ -3,6 +3,7 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/utils/constants.dart';
 
 import '../../utils/styles.dart';
 
@@ -19,12 +20,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController messageController = TextEditingController();
 
   List<Map<String, dynamic>> messages = [];
+  String helloText = "Xin chào";
 
   @override
   void initState() {
     super.initState();
     DialogFlowtter.fromFile(path: "assets/dialog_flow_auth.json")
-        .then((instance) => dialogFlowtter = instance);
+        .then((instance) => dialogFlowtter = instance)
+        .then((value) => greetingMessage());
   }
 
   @override
@@ -141,6 +144,24 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     );
   }
 
+  Future<void> greetingMessage() async {
+    DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput:
+          QueryInput(text: TextInput(text: helloText, languageCode: "vi")),
+    );
+
+    if (response.message == null) return;
+    setState(() {
+      for (Message message in response.queryResult!.fulfillmentMessages!) {
+        addMessage(message);
+      }
+      // addMessage(response.queryResult!.fulfillmentMessages![0]);
+      // addMessage(response.queryResult!.fulfillmentMessages![1]);
+      // addMessage(response.message!);
+      print(response.message!.payload.toString());
+    });
+  }
+
   void sendMessage(String text) async {
     if (text.isEmpty) return;
     setState(() {
@@ -162,7 +183,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       // addMessage(response.queryResult!.fulfillmentMessages![0]);
       // addMessage(response.queryResult!.fulfillmentMessages![1]);
       // addMessage(response.message!);
-      print(response);
+      print(response.message!.payload.toString());
     });
   }
 
@@ -239,7 +260,7 @@ class Body extends StatelessWidget {
               isUserMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (message.text!.text![0].contains(RegExp('[0-9]'), 0) &&
+            if (message.text!.text![0].contains(RegExp('^[0-9]'), 0) &&
                 !isUserMessage)
               MessageButton(message: message, sendMessage: sendMessage)
             else
@@ -274,22 +295,63 @@ class MessageContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 250),
+      constraints: BoxConstraints(maxWidth: 300),
       child: LayoutBuilder(
         builder: (context, constrains) {
-          return Container(
-            decoration: BoxDecoration(
-              color: isUserMessage ? Colors.blue : Color(0xffBFBFBF),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              message.text?.text?[0] ?? '',
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          );
+          return isUserMessage
+              ? Container(
+                  decoration: BoxDecoration(
+                    color: isUserMessage ? Colors.blue : Color(0xffBFBFBF),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    message.text?.text?[0] ?? '',
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/chatbot.jpg'),
+                            radius: 50,
+                          ),
+                        ),
+                        horizontalSpaceTiny,
+                        Text(
+                          "Job Bot",
+                          style: ktsMediumLabelInputText.copyWith(
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    verticalSpaceTiny,
+                    Container(
+                      constraints: BoxConstraints(maxWidth: 250),
+                      decoration: BoxDecoration(
+                        color: Color(0xffBFBFBF),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        message.text?.text?[0] ?? '',
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
         },
       ),
     );
