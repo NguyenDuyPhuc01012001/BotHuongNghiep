@@ -885,4 +885,31 @@ class FirebaseHandler {
   }
 
 // END FAVORITE
+
+// START MESSAGES
+// Get List Messages from FireStore
+  static Stream<QuerySnapshot<Object?>> getListMessage() async* {
+    UserData user = await getCurrentUser();
+    CollectionReference messageFR = userFR.doc(user.uid).collection('messages');
+    yield* messageFR.orderBy('timeStamp', descending: false).snapshots();
+  }
+
+  // Add Message to FireStore
+  static addMessage(String message, bool isUserMessage) async {
+    UserData user = await getCurrentUser();
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+    return await userFR
+        .doc(user.uid)
+        .collection('messages')
+        .add({
+          'message': message,
+          'isUserMessage': isUserMessage,
+          'timeStamp': myTimeStamp
+        })
+        .then((value) => print("Add message successfully"))
+        .catchError((error) => print("Failed to update message: $error"));
+  }
+
+// END MESSAGES
 }

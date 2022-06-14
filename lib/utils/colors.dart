@@ -48,3 +48,12 @@ const kgNotDone = LinearGradient(
     Color(0xfff89b29),
   ],
 );
+
+const kgOptionChat = LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+    Color(0xff8e9eab),
+    Color(0xffeef2f3),
+  ],
+);

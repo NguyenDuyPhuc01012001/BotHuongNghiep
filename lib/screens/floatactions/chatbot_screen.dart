@@ -1,10 +1,17 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, must_be_immutable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:huong_nghiep/models/message.dart';
+import 'package:huong_nghiep/resources/firebase_handle.dart';
+import 'package:huong_nghiep/screens/other/error_screen.dart';
+import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
-
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import '../../utils/styles.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -19,7 +26,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController messageController = TextEditingController();
 
-  List<Map<String, dynamic>> messages = [];
   String helloText = "Xin chào";
 
   @override
@@ -32,7 +38,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(text);
+    // print(text);
     if (!text.contains("")) {
       messageController.text = text;
     }
@@ -75,7 +81,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           children: [
             Expanded(
                 child: Body(
-              messages: messages,
               sendMessage: sendMessage,
             )),
             listSuggestion(),
@@ -120,7 +125,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                             fontSize: 15,
                             fontStyle: FontStyle.italic,
                           ),
-                          hintText: 'Send a message',
+                          hintText: 'Aa',
                         ),
                       ),
                     ),
@@ -151,47 +156,52 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     );
 
     if (response.message == null) return;
-    setState(() {
-      for (Message message in response.queryResult!.fulfillmentMessages!) {
-        addMessage(message);
-      }
-      // addMessage(response.queryResult!.fulfillmentMessages![0]);
-      // addMessage(response.queryResult!.fulfillmentMessages![1]);
-      // addMessage(response.message!);
-      print(response.message!.payload.toString());
-    });
+    // setState(() {
+    //   for (Message message in response.queryResult!.fulfillmentMessages!) {
+    //     addMessage(message);
+    //   }
+    //   print(response.message!.payload.toString());
+    // });
+    for (Message message in response.queryResult!.fulfillmentMessages!) {
+      addMessage(message);
+    }
   }
 
   void sendMessage(String text) async {
     if (text.isEmpty) return;
-    setState(() {
-      addMessage(
-        Message(text: DialogText(text: [text])),
-        true,
-      );
-    });
+    // setState(() {
+    //   addMessage(
+    //     Message(text: DialogText(text: [text])),
+    //     true,
+    //   );
+    // });
+    addMessage(
+      Message(text: DialogText(text: [text])),
+      true,
+    );
 
     DetectIntentResponse response = await dialogFlowtter.detectIntent(
       queryInput: QueryInput(text: TextInput(text: text, languageCode: "vi")),
     );
 
     if (response.message == null) return;
-    setState(() {
-      for (Message message in response.queryResult!.fulfillmentMessages!) {
-        addMessage(message);
-      }
-      // addMessage(response.queryResult!.fulfillmentMessages![0]);
-      // addMessage(response.queryResult!.fulfillmentMessages![1]);
-      // addMessage(response.message!);
-      print(response.message!.payload.toString());
-    });
+    // setState(() {
+    //   for (Message message in response.queryResult!.fulfillmentMessages!) {
+    //     // initializeDateFormatting('vi_VN', null)
+    //     //     .then((value) => addMessage(message));
+    //     addMessage(message);
+    //   }
+    //   print(response.message!.payload.toString());
+    // });
+    for (Message message in response.queryResult!.fulfillmentMessages!) {
+      // initializeDateFormatting('vi_VN', null)
+      //     .then((value) => addMessage(message));
+      addMessage(message);
+    }
   }
 
   void addMessage(Message message, [bool isUserMessage = false]) {
-    messages.add({
-      'message': message,
-      'isUserMessage': isUserMessage,
-    });
+    FirebaseHandler.addMessage(message.text!.text![0], isUserMessage);
   }
 
   @override
@@ -239,58 +249,86 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 }
 
 class Body extends StatelessWidget {
-  final List<Map<String, dynamic>> messages;
   late Function(String) sendMessage;
 
   Body({
     Key? key,
-    this.messages = const [],
     required this.sendMessage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemBuilder: (context, i) {
-        var obj = messages[messages.length - 1 - i];
-        Message message = obj['message'];
-        bool isUserMessage = obj['isUserMessage'] ?? false;
-        return Row(
-          mainAxisAlignment:
-              isUserMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (message.text!.text![0].contains(RegExp('^[0-9]'), 0) &&
-                !isUserMessage)
-              MessageButton(message: message, sendMessage: sendMessage)
-            else
-              MessageContainer(
-                message: message,
-                isUserMessage: isUserMessage,
-              ),
-          ],
-        );
-      },
-      separatorBuilder: (_, i) => Container(height: 10),
-      itemCount: messages.length,
-      reverse: true,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 20,
-      ),
-    );
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseHandler.getListMessage(),
+        builder: (_, snapshot) {
+          if (snapshot.hasError) {
+            print('Something Went Wrong');
+            return ErrorScreen();
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: SpinKitChasingDots(color: Colors.brown, size: 32),
+            );
+          }
+          List<MessageChat> messages = [];
+          snapshot.data!.docs.map((DocumentSnapshot document) {
+            MessageChat answer = MessageChat.fromSnap(document);
+            messages.add(answer);
+          }).toList();
+          // Post post = Post.fromSnap(snapshot.data!);
+          return ListView.separated(
+            itemBuilder: (context, i) {
+              var obj = messages[messages.length - 1 - i];
+              String message = obj.message ?? "";
+              bool isUserMessage = obj.isUserMessage ?? false;
+              var time = obj.timeStamp ?? "";
+              var date = obj.timeStamp ?? "";
+              DateTime now = DateTime.now();
+              String today = DateFormat.yMMMMEEEEd().format(now);
+              return Container(
+                  child:
+                      (message.contains(RegExp('^[0-9]'), 0) && !isUserMessage)
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                  MessageButton(
+                                      message: message,
+                                      sendMessage: sendMessage)
+                                ])
+                          : Column(children: [
+                              Center(child: Text(today == date ? time : date)),
+                              // Center(child: Text(date)),
+                              Row(
+                                  mainAxisAlignment: isUserMessage
+                                      ? MainAxisAlignment.end
+                                      : MainAxisAlignment.start,
+                                  children: [
+                                    MessageContainer(
+                                        message: message,
+                                        isUserMessage: isUserMessage),
+                                  ]),
+                            ]));
+            },
+            separatorBuilder: (_, i) => Container(height: 10),
+            itemCount: messages.length,
+            reverse: true,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 20,
+            ),
+          );
+          ;
+        });
   }
 }
 
 class MessageContainer extends StatelessWidget {
-  final Message message;
+  final String message;
   final bool isUserMessage;
 
-  const MessageContainer({
-    Key? key,
-    required this.message,
-    this.isUserMessage = false,
-  }) : super(key: key);
+  const MessageContainer(
+      {Key? key, required this.message, this.isUserMessage = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -301,12 +339,12 @@ class MessageContainer extends StatelessWidget {
           return isUserMessage
               ? Container(
                   decoration: BoxDecoration(
-                    color: isUserMessage ? Colors.blue : Color(0xffBFBFBF),
+                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    message.text?.text?[0] ?? '',
+                    message,
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -344,9 +382,9 @@ class MessageContainer extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.all(10),
                       child: Text(
-                        message.text?.text?[0] ?? '',
+                        message,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -359,7 +397,7 @@ class MessageContainer extends StatelessWidget {
 }
 
 class MessageButton extends StatefulWidget {
-  final Message message;
+  final String message;
   late Function(String) sendMessage;
   MessageButton({
     Key? key,
@@ -380,20 +418,22 @@ class _MessageButtonState extends State<MessageButton> {
         builder: (context, constrains) {
           return InkWell(
             onTap: () {
-              setState(() {
-                widget.sendMessage(widget.message.text!.text![0]);
-              });
+              // setState(() {
+              //   widget.sendMessage(widget.message);
+              // });
+              widget.sendMessage(widget.message);
             },
             child: Container(
               decoration: BoxDecoration(
+                gradient: kgOptionChat,
                 color: Color.fromARGB(255, 132, 132, 132),
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: const EdgeInsets.all(10),
               child: Text(
-                "${widget.message.text?.text?[0]}",
+                "${widget.message}",
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
