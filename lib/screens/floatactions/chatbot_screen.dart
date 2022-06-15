@@ -13,6 +13,7 @@ import 'package:huong_nghiep/utils/constants.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../../utils/styles.dart';
+import 'dart:io';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -156,12 +157,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     );
 
     if (response.message == null) return;
-    // setState(() {
-    //   for (Message message in response.queryResult!.fulfillmentMessages!) {
-    //     addMessage(message);
-    //   }
-    //   print(response.message!.payload.toString());
-    // });
     for (Message message in response.queryResult!.fulfillmentMessages!) {
       addMessage(message);
     }
@@ -169,12 +164,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   void sendMessage(String text) async {
     if (text.isEmpty) return;
-    // setState(() {
-    //   addMessage(
-    //     Message(text: DialogText(text: [text])),
-    //     true,
-    //   );
-    // });
     addMessage(
       Message(text: DialogText(text: [text])),
       true,
@@ -185,19 +174,15 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     );
 
     if (response.message == null) return;
-    // setState(() {
-    //   for (Message message in response.queryResult!.fulfillmentMessages!) {
-    //     // initializeDateFormatting('vi_VN', null)
-    //     //     .then((value) => addMessage(message));
-    //     addMessage(message);
-    //   }
-    //   print(response.message!.payload.toString());
-    // });
+    addMessage(response.message!);
+    await Future.delayed(Duration(seconds: 1));
     for (Message message in response.queryResult!.fulfillmentMessages!) {
-      // initializeDateFormatting('vi_VN', null)
-      //     .then((value) => addMessage(message));
-      addMessage(message);
+      if (message != response.message) addMessage(message);
     }
+
+    // for (Message message in response.queryResult!.fulfillmentMessages!) {
+    //    addMessage(message);
+    // }
   }
 
   void addMessage(Message message, [bool isUserMessage = false]) {
@@ -286,28 +271,26 @@ class Body extends StatelessWidget {
               DateTime now = DateTime.now();
               String today = DateFormat.yMMMMEEEEd().format(now);
               return Container(
-                  child:
-                      (message.contains(RegExp('^[0-9]'), 0) && !isUserMessage)
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                  child: (message.contains(RegExp('^[-]'), 0) && !isUserMessage)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                              MessageButton(
+                                  message: message, sendMessage: sendMessage)
+                            ])
+                      : Column(children: [
+                          Center(child: Text(today == date ? time : date)),
+                          // Center(child: Text(date)),
+                          Row(
+                              mainAxisAlignment: isUserMessage
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
                               children: [
-                                  MessageButton(
-                                      message: message,
-                                      sendMessage: sendMessage)
-                                ])
-                          : Column(children: [
-                              Center(child: Text(today == date ? time : date)),
-                              // Center(child: Text(date)),
-                              Row(
-                                  mainAxisAlignment: isUserMessage
-                                      ? MainAxisAlignment.end
-                                      : MainAxisAlignment.start,
-                                  children: [
-                                    MessageContainer(
-                                        message: message,
-                                        isUserMessage: isUserMessage),
-                                  ]),
-                            ]));
+                                MessageContainer(
+                                    message: message,
+                                    isUserMessage: isUserMessage),
+                              ]),
+                        ]));
             },
             separatorBuilder: (_, i) => Container(height: 10),
             itemCount: messages.length,
