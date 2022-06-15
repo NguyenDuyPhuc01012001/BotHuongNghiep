@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +18,7 @@ class ListJobScreen extends StatefulWidget {
 
 class _ListJobScreenState extends State<ListJobScreen> {
   bool descending = true;
+  final String TITLE_JOBS = "Danh sách nghề ";
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +42,14 @@ class _ListJobScreenState extends State<ListJobScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text("Danh sách nghề nghiệp".capitalize!,
+          padding: EdgeInsets.only(top: 4.0),
+          child: Text(TITLE_JOBS.capitalize!,
               style: kDefaultTextStyle.copyWith(
-                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-              textAlign: TextAlign.center),
+                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142))),
         ),
-        titleSpacing: 0,
         centerTitle: true,
+        titleSpacing: 0,
         actions: <Widget>[
-          horizontalSpaceTiny,
           GestureDetector(
             onTap: () {
               showSearch(

@@ -44,11 +44,10 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
         elevation: 0,
         title: Padding(
           padding: EdgeInsets.only(
-              top: 4.0, left: TITLE_JOBS.length.toDouble() * 1.5),
+              top: 4.0, left: TITLE_JOBS.length.toDouble() * 0.4),
           child: Text(TITLE_JOBS.capitalize!,
               style: kDefaultTextStyle.copyWith(
-                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142)),
-              textAlign: TextAlign.center),
+                  fontSize: 24, color: Color.fromARGB(255, 142, 142, 142))),
         ),
         titleSpacing: 0,
         actions: <Widget>[
@@ -66,7 +65,7 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
               child: Icon(MdiIcons.refresh),
             ),
           ),
-          horizontalSpaceSmall,
+          horizontalSpaceTiny,
           GestureDetector(
             onTap: () {
               setState(() {

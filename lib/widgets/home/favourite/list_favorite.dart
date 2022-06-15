@@ -78,8 +78,8 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
                               child: CachedNetworkImage(
                                   imageUrl: favoriteDocs[i].image!,
                                   width: 100,
-                                  height: 80,
-                                  fit: BoxFit.cover,
+                                  height: 100,
+                                  fit: BoxFit.fitHeight,
                                   placeholder: (context, _) =>
                                       SpinKitChasingDots(
                                           color: Colors.brown, size: 32),
@@ -102,13 +102,15 @@ class _ListFavouriteWidgetState extends State<ListFavouriteWidget> {
                                         getTruncatedTitle(
                                             favoriteDocs[i].title!, 60),
                                         style: kItemText.copyWith(
-                                            fontWeight: FontWeight.normal)),
+                                            fontWeight: FontWeight.bold)),
                                   ),
-                                  SizedBox(height: 16),
+                                  SizedBox(height: 10),
                                   Text(
                                     "Đã yêu thích vào\n" +
                                         favoriteDocs[i].time!,
-                                    style: kItemText,
+                                    style: kItemText.copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal),
                                   )
                                 ],
                               ),
