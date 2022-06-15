@@ -271,28 +271,26 @@ class Body extends StatelessWidget {
               DateTime now = DateTime.now();
               String today = DateFormat.yMMMMEEEEd().format(now);
               return Container(
-                  child:
-                      (message.contains(RegExp('^[-]'), 0) && !isUserMessage)
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                  child: (message.contains(RegExp('^[-]'), 0) && !isUserMessage)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                              MessageButton(
+                                  message: message, sendMessage: sendMessage)
+                            ])
+                      : Column(children: [
+                          Center(child: Text(today == date ? time : date)),
+                          // Center(child: Text(date)),
+                          Row(
+                              mainAxisAlignment: isUserMessage
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.start,
                               children: [
-                                  MessageButton(
-                                      message: message,
-                                      sendMessage: sendMessage)
-                                ])
-                          : Column(children: [
-                              Center(child: Text(today == date ? time : date)),
-                              // Center(child: Text(date)),
-                              Row(
-                                  mainAxisAlignment: isUserMessage
-                                      ? MainAxisAlignment.end
-                                      : MainAxisAlignment.start,
-                                  children: [
-                                    MessageContainer(
-                                        message: message,
-                                        isUserMessage: isUserMessage),
-                                  ]),
-                            ]));
+                                MessageContainer(
+                                    message: message,
+                                    isUserMessage: isUserMessage),
+                              ]),
+                        ]));
             },
             separatorBuilder: (_, i) => Container(height: 10),
             itemCount: messages.length,

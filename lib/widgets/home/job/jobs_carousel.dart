@@ -65,7 +65,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
               autoPlay: false,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 1.5,
+              aspectRatio: 1.44,
               initialPage: 1,
             ),
             items: jobsdocs.map((jobs) {

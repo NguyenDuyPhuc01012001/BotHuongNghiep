@@ -65,7 +65,7 @@ class _NewsCarouselState extends State<NewsCarousel> {
               autoPlay: false,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 1.5,
+              aspectRatio: 1.44,
               initialPage: 1,
             ),
             items: newsdocs.map((news) {

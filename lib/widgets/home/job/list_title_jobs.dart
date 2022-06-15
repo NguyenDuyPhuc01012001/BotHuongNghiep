@@ -73,8 +73,8 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
                             child: CachedNetworkImage(
                               imageUrl: jobsdocs[i].image!,
                               width: 100,
-                              height: 80,
-                              fit: BoxFit.cover,
+                              height: 100,
+                              fit: BoxFit.fitHeight,
                               placeholder: (context, _) => SpinKitChasingDots(
                                   color: Colors.brown, size: 32),
                               errorWidget: (context, _, error) =>
@@ -91,22 +91,23 @@ class _ListTitleJobsState extends State<ListTitleJobs> {
                               children: [
                                 SizedBox(height: 10),
                                 Text(getTruncatedTitle(jobsdocs[i].title!, 60),
-                                    style: kDefaultTextStyle),
-                                SizedBox(height: 16),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${jobsdocs[i].timeRead!} đọc",
-                                      style: kItemText,
-                                    ),
-                                    Text(
-                                      jobsdocs[i].time!,
-                                      style: kItemText,
-                                    ),
-                                  ],
-                                )
+                                    style: kItemText.copyWith(
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(height: 10),
+                                Text(
+                                  "${jobsdocs[i].timeRead!} đọc",
+                                  style: kItemText.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  jobsdocs[i].time!,
+                                  style: kItemText.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                SizedBox(height: 8),
                               ],
                             ),
                           ),

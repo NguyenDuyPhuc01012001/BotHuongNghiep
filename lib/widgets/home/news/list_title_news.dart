@@ -73,8 +73,8 @@ class _ListTitleNewsState extends State<ListTitleNews> {
                             child: CachedNetworkImage(
                               imageUrl: newsdocs[i].image!,
                               width: 100,
-                              height: 80,
-                              fit: BoxFit.cover,
+                              height: 100,
+                              fit: BoxFit.fitHeight,
                               placeholder: (context, _) => SpinKitChasingDots(
                                   color: Colors.brown, size: 32),
                               errorWidget: (context, _, error) =>
@@ -87,26 +87,28 @@ class _ListTitleNewsState extends State<ListTitleNews> {
                           ),
                           Expanded(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 10),
                                 Text(getTruncatedTitle(newsdocs[i].title!, 60),
                                     style: kItemText.copyWith(
-                                        fontWeight: FontWeight.normal)),
-                                SizedBox(height: 16),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${newsdocs[i].timeRead!} đọc",
-                                      style: kItemText,
-                                    ),
-                                    Text(
-                                      newsdocs[i].time!,
-                                      style: kItemText,
-                                    ),
-                                  ],
-                                )
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(height: 8),
+                                Text(
+                                  "${newsdocs[i].timeRead!} đọc",
+                                  style: kItemText.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  newsdocs[i].time!,
+                                  style: kItemText.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                SizedBox(height: 8),
                               ],
                             ),
                           ),
