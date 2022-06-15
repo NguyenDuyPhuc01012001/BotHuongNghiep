@@ -272,7 +272,7 @@ class Body extends StatelessWidget {
               String today = DateFormat.yMMMMEEEEd().format(now);
               return Container(
                   child:
-                      (message.contains(RegExp('^[0-9]'), 0) && !isUserMessage)
+                      (message.contains(RegExp('^[-]'), 0) && !isUserMessage)
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
