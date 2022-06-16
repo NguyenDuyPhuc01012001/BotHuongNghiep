@@ -7,6 +7,7 @@ import 'package:huong_nghiep/widgets/home/job/jobs_widget.dart';
 import 'package:huong_nghiep/widgets/home/menu/nav_bar_drawer.dart';
 import 'package:huong_nghiep/widgets/home/news/news_widget.dart';
 import 'package:huong_nghiep/widgets/home/quiz/quiz_widget.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 // import 'package:huong_nghiep/utils/constants.dart';
 // import 'package:huong_nghiep/widgets/home/job/custom_search_jobs_delegate.dart';
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static final List<String> _listTitle = [
     "Trắc nghiệm",
-    "Thông tin nghề nghiệp",
+    "Thông tin trường nghề",
     "Tin tức",
     "Giải đáp"
   ];
@@ -128,14 +129,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: NavBarDrawer(),
       body: _widgetOptions.elementAt(_currentIndex),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () => Get.to(ChatbotScreen()),
-        icon: Icon(Icons.chat_bubble_outline),
-        backgroundColor: Color(0xffBFBFBF),
-        label: Text(
-          'Trò chuyện ChatBot',
-          style: kContentText.copyWith(color: Colors.white),
+        child: Icon(
+          MdiIcons.robot,
+          size: 40,
         ),
+        backgroundColor: Color(0xffBFBFBF),
       ),
       bottomNavigationBar: CurvedNavigationBar(
           height: screenSize.height * 0.08,

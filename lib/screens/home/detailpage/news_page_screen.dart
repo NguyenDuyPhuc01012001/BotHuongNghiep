@@ -64,7 +64,7 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                         blendMode: BlendMode.darken,
                         child: ClipRRect(
                             child: Image(
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fitWidth,
                                 image: NetworkImage(newsPost.image!),
                                 height: size.height * 0.4,
                                 width: size.width)),
@@ -148,45 +148,42 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                                 ),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(right: 30),
-                              child: StreamBuilder(
-                                stream: userFR
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .collection("favorite")
-                                    .where("favoriteID", isEqualTo: newsPost.id)
-                                    .snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.data == null) {
-                                    return Text("");
-                                  }
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.red,
-                                      child: IconButton(
-                                        onPressed: () =>
-                                            snapshot.data.docs.length == 0
-                                                ? addToFavorite(
-                                                    newsPost.id!,
-                                                    newsPost.title!,
-                                                    newsPost.image!)
-                                                : deleteFavorite(newsPost.id!),
-                                        icon: snapshot.data.docs.length == 0
-                                            ? Icon(
-                                                Icons.favorite_outline,
-                                                color: Colors.white,
-                                              )
-                                            : Icon(
-                                                Icons.favorite,
-                                                color: Colors.white,
-                                              ),
-                                      ),
+                            StreamBuilder(
+                              stream: userFR
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .collection("favorite")
+                                  .where("favoriteID", isEqualTo: newsPost.id)
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.data == null) {
+                                  return Text("");
+                                }
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.red,
+                                    child: IconButton(
+                                      onPressed: () =>
+                                          snapshot.data.docs.length == 0
+                                              ? addToFavorite(
+                                                  newsPost.id!,
+                                                  newsPost.title!,
+                                                  newsPost.image!)
+                                              : deleteFavorite(newsPost.id!),
+                                      icon: snapshot.data.docs.length == 0
+                                          ? Icon(
+                                              Icons.favorite_outline,
+                                              color: Colors.white,
+                                            )
+                                          : Icon(
+                                              Icons.favorite,
+                                              color: Colors.white,
+                                            ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             )
                           ],
                         ),
@@ -213,14 +210,19 @@ class _NewsPageScreenState extends State<NewsPageScreen> {
                                             top: 8.0, bottom: 4.0),
                                         child: Row(
                                           children: <Widget>[
-                                            Flexible(
-                                              child: Text(
-                                                "Mục thứ ${index + 1}. ${newsPost.listTitle![index].title}",
-                                                style: kDescription.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
+                                            newsPost.listTitle![index].title!
+                                                    .isNotEmpty
+                                                ? Flexible(
+                                                    child: Text(
+                                                      "${newsPost.listTitle![index].title}",
+                                                      style:
+                                                          kDescription.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
+                                                  )
+                                                : SizedBox(),
                                           ],
                                         ),
                                       ),

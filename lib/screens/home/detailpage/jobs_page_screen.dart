@@ -64,7 +64,7 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
                         blendMode: BlendMode.darken,
                         child: ClipRRect(
                             child: Image(
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fitWidth,
                                 image: NetworkImage(jobsPost.image!),
                                 height: size.height * 0.4,
                                 width: size.width)),
@@ -148,45 +148,42 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
                                 ),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(right: 30),
-                              child: StreamBuilder(
-                                stream: userFR
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .collection("favorite")
-                                    .where("favoriteID", isEqualTo: jobsPost.id)
-                                    .snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.data == null) {
-                                    return Text("");
-                                  }
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.red,
-                                      child: IconButton(
-                                        onPressed: () =>
-                                            snapshot.data.docs.length == 0
-                                                ? addToFavorite(
-                                                    jobsPost.id!,
-                                                    jobsPost.title!,
-                                                    jobsPost.image!)
-                                                : deleteFavorite(jobsPost.id!),
-                                        icon: snapshot.data.docs.length == 0
-                                            ? Icon(
-                                                Icons.favorite_outline,
-                                                color: Colors.white,
-                                              )
-                                            : Icon(
-                                                Icons.favorite,
-                                                color: Colors.white,
-                                              ),
-                                      ),
+                            StreamBuilder(
+                              stream: userFR
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .collection("favorite")
+                                  .where("favoriteID", isEqualTo: jobsPost.id)
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.data == null) {
+                                  return Text("");
+                                }
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.red,
+                                    child: IconButton(
+                                      onPressed: () =>
+                                          snapshot.data.docs.length == 0
+                                              ? addToFavorite(
+                                                  jobsPost.id!,
+                                                  jobsPost.title!,
+                                                  jobsPost.image!)
+                                              : deleteFavorite(jobsPost.id!),
+                                      icon: snapshot.data.docs.length == 0
+                                          ? Icon(
+                                              Icons.favorite_outline,
+                                              color: Colors.white,
+                                            )
+                                          : Icon(
+                                              Icons.favorite,
+                                              color: Colors.white,
+                                            ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             )
                           ],
                         ),
@@ -213,14 +210,19 @@ class _JobsPageScreenState extends State<JobsPageScreen> {
                                             top: 8.0, bottom: 4.0),
                                         child: Row(
                                           children: <Widget>[
-                                            Flexible(
-                                              child: Text(
-                                                "Mục thứ ${index + 1}. ${jobsPost.listTitle![index].title}",
-                                                style: kDescription.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
+                                            jobsPost.listTitle![index].title!
+                                                    .isNotEmpty
+                                                ? Flexible(
+                                                    child: Text(
+                                                      "${jobsPost.listTitle![index].title}",
+                                                      style:
+                                                          kDescription.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
+                                                  )
+                                                : SizedBox(),
                                           ],
                                         ),
                                       ),

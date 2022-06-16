@@ -24,7 +24,7 @@ class AddJobsScreen extends StatefulWidget {
 class _AddJobsScreenState extends State<AddJobsScreen> {
   List<ContentManageWidget> dynamicList = [];
   TitleManageWidget titleJobsWidget = TitleManageWidget();
-  String TITLE_JOBS = "Thêm nghề nghiệp";
+  String TITLE_JOBS = "Thêm trường nghề";
 
   List<String> contents = [];
   List<String> filePaths = [];
@@ -212,13 +212,13 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                        child: Text("Tiêu đề nghề nghiệp",
+                        child: Text("Tiêu đề trường nghề",
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     titleJobsWidget,
                     Padding(
                         padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                        child: Text("Nội dungnghề nghiệp",
+                        child: Text("Nội dung trường nghề",
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     dynamicTextField,

@@ -26,7 +26,7 @@ class UpdateJobsScreen extends StatefulWidget {
 class _UpdateJobsScreenState extends State<UpdateJobsScreen> {
   List<ContentManageWidget> dynamicList = [];
   TitleManageWidget titleJobsWidget = TitleManageWidget();
-  String TITLE_JOBS = "Cập nhật nghề nghiệp";
+  String TITLE_JOBS = "Cập nhật trường nghề";
 
   List<Titles> listTitle = [];
   bool loading = false;
@@ -237,7 +237,7 @@ class _UpdateJobsScreenState extends State<UpdateJobsScreen> {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                        child: Text("Tiêu đề nghề nghiệp",
+                        child: Text("Tiêu đề trường nghề",
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     titleJobsWidget,
@@ -251,7 +251,7 @@ class _UpdateJobsScreenState extends State<UpdateJobsScreen> {
                     verticalSpaceTiny,
                     Padding(
                         padding: EdgeInsets.fromLTRB(15, 12, 5, 5),
-                        child: Text("Nội dung nghề nghiệp",
+                        child: Text("Nội dung trường nghề",
                             style: ktsMediumTitleText.copyWith(
                                 color: Colors.black))),
                     ListView.builder(
