@@ -11,7 +11,9 @@ import 'package:huong_nghiep/screens/other/error_screen.dart';
 import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 import 'package:intl/intl.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../utils/styles.dart';
+import '../../widgets/alert.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -73,6 +75,21 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         ),
         titleSpacing: 0,
         centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: deleteMessage,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.1,
+              decoration: BoxDecoration(
+                  color: Color(0xffBFBFBF),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.all(5),
+              margin: EdgeInsets.only(top: 10, bottom: 5),
+              child: Icon(MdiIcons.delete),
+            ),
+          ),
+          horizontalSpaceSmall
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(
@@ -228,6 +245,16 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             );
           })),
     );
+  }
+
+  deleteMessage() async {
+    setState(() {
+      Alerts().confirm(
+          "Bạn có muốn xoá lịch sử nhắn tin không?", 'Đồng ý', 'Hủy', () async {
+        await FirebaseHandler.deleteMessage()
+            .whenComplete(() => {Get.back(), setState(() {})});
+      }, () => Get.back(), context);
+    });
   }
 }
 

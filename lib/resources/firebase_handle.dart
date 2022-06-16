@@ -907,5 +907,19 @@ class FirebaseHandler {
         .catchError((error) => print("Failed to update message: $error"));
   }
 
+  // Delete Message
+  static deleteMessage() async {
+    UserData user = await getCurrentUser();
+    final collection = await userFR.doc(user.uid).collection('messages').get();
+
+    final batch = FirebaseFirestore.instance.batch();
+
+    for (final doc in collection.docs) {
+      batch.delete(doc.reference);
+    }
+
+    return batch.commit();
+  }
+
 // END MESSAGES
 }
