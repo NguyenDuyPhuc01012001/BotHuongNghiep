@@ -23,7 +23,7 @@ Bạn có thể cài đặt Firebase tại [đây](https://firebase.flutter.dev/
 
 ```
 $ git clone https://github.com/NguyenDuyPhuc01012001/BotHuongNghiep.git
-$ cd BotHubNghiep
+$ cd BotHuongNghiep
 $ flutter pub get
 $ flutter run lib/main.dart
 ```
@@ -81,7 +81,7 @@ Quản lý vai trò|Quản lý bài đăng|Quản lý tin tức|Quản lý thắ
 <a name="lienhe"></a>
 ## Liên hệ
 
-|STT|Họ và tên|MSSV|Contact|
+|STT|Họ và tên|MSSV|Liên hệ|
 |---|-------------------------|------------|-------|
 |1|Nguyễn Duy Phúc|19522038|[duyphuc](https://github.com/NguyenDuyPhuc01012001)|
 |2|Cao Nguyễn Minh Quân|19522074|[minhquan](https://github.com/minhquancn18)|
