@@ -11,6 +11,7 @@ import '../../../resources/firebase_handle.dart';
 import '../../../resources/support_function.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/alert.dart';
 import '../../../widgets/home/manage/content_manage_widget.dart';
 import '../../../widgets/home/manage/title_manage_widget.dart';
 
@@ -67,17 +68,23 @@ class _AddJobsScreenState extends State<AddJobsScreen> {
   }
 
   clearScreen() {
-    dynamicList.forEach((element) => {
-          element.index = dynamicList.indexOf(element),
-          element.contentController.text = "",
-          element.titleController.text = "",
-          element.filePath = ""
-        });
+    setState(() {
+      Alerts().confirm(
+          "Bạn có muốn xoá những gì vừa nhập không?", 'Đồng ý', 'Hủy', () {
+        dynamicList.forEach((element) => {
+              element.index = dynamicList.indexOf(element),
+              element.contentController.text = "",
+              element.titleController.text = "",
+              element.filePath = ""
+            });
 
-    titles.forEach((element) => {element = ""});
-    contents.forEach((element) => {element = ""});
-    titleJobsWidget.titleController.text = "";
-    setState(() {});
+        titles.forEach((element) => {element = ""});
+        contents.forEach((element) => {element = ""});
+        titleJobsWidget.titleController.text = "";
+        setState(() {});
+        Get.back();
+      }, () => Get.back(), context);
+    });
   }
 
   checkValidate() {

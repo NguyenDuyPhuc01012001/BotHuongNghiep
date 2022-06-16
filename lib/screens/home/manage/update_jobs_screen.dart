@@ -10,6 +10,7 @@ import '../../../resources/firebase_handle.dart';
 import '../../../resources/support_function.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/alert.dart';
 import '../../../widgets/home/manage/content_manage_widget.dart';
 import '../../../widgets/home/manage/title_manage_widget.dart';
 import '../../other/loading_screen.dart';
@@ -92,8 +93,14 @@ class _UpdateJobsScreenState extends State<UpdateJobsScreen> {
   }
 
   clearScreen() {
-    setJobsTitleWidget(widget.jobsPost);
-    setState(() {});
+    setState(() {
+      Alerts().confirm(
+          "Bạn có muốn xoá những gì vừa nhập không?", 'Đồng ý', 'Hủy', () {
+        setJobsTitleWidget(widget.jobsPost);
+        setState(() {});
+        Get.back();
+      }, () => Get.back(), context);
+    });
   }
 
   checkValidate() {

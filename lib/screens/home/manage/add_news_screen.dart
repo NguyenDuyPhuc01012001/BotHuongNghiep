@@ -12,6 +12,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../../../models/news.dart';
 import '../../../models/titles.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/alert.dart';
 import '../../../widgets/home/manage/content_manage_widget.dart';
 
 class AddNewsScreen extends StatefulWidget {
@@ -66,17 +67,24 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
   }
 
   clearScreen() {
-    dynamicList.forEach((element) => {
-          element.index = dynamicList.indexOf(element),
-          element.contentController.text = "",
-          element.titleController.text = "",
-          element.filePath = ""
-        });
+    setState(() {
+      Alerts().confirm(
+          "Bạn có muốn xoá những gì vừa nhập không?", 'Đồng ý', 'Hủy', () {
+        dynamicList.forEach((element) => {
+              element.index = dynamicList.indexOf(element),
+              element.contentController.text = "",
+              element.titleController.text = "",
+              element.filePath = ""
+            });
 
-    titles.forEach((element) => {element = ""});
-    contents.forEach((element) => {element = ""});
-    titleNewsWidget.titleController.text = "";
-    setState(() {});
+        titles.forEach((element) => {element = ""});
+        contents.forEach((element) => {element = ""});
+        titleNewsWidget.titleController.text = "";
+        setState(() {});
+        setState(() {});
+        Get.back();
+      }, () => Get.back(), context);
+    });
   }
 
   checkValidate() {

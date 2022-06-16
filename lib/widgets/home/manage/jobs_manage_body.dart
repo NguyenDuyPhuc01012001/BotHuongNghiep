@@ -76,7 +76,7 @@ class _JobsManageBodyState extends State<JobsManageBody> {
                           onDismissed: (_) {
                             setState(() {
                               Alerts().confirm(
-                                  "Bạn có muốn xoá tin tức này không?",
+                                  "Bạn có muốn xoá bài đăng này không?",
                                   'Đồng ý',
                                   'Hủy', () async {
                                 await FirebaseHandler.deleteJobs(

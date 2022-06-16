@@ -67,8 +67,8 @@ class _AdminManageBodyState extends State<AdminManageBody> {
                           setState(() {
                             Alerts().confirm(
                                 userdocs[index]['isAdmin']
-                                    ? "Hiện tại vai trò của người này là Quản trị viên. Bạn có muốn thay đổi vai trò của người dùng?"
-                                    : "Hiện tại vai trò của người này là Người dùng. Bạn có muốn thay đổi vai trò của người dùng?",
+                                    ? "Hiện tại vai trò của người này là Quản trị viên. Bạn có muốn thay đổi vai trò của ${userdocs[index]['email']}?"
+                                    : "Hiện tại vai trò của người này là Người dùng. Bạn có muốn thay đổi vai trò của ${userdocs[index]['email']}?",
                                 'Đồng ý',
                                 'Hủy', () async {
                               await FirebaseHandler.updateRoleFirestore(

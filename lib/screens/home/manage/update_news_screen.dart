@@ -11,6 +11,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../../../models/news.dart';
 import '../../../models/titles.dart';
 import '../../../utils/styles.dart';
+import '../../../widgets/alert.dart';
 import '../../../widgets/home/manage/content_manage_widget.dart';
 import '../../../widgets/home/manage/title_manage_widget.dart';
 
@@ -91,8 +92,14 @@ class _UpdateNewsScreenState extends State<UpdateNewsScreen> {
   }
 
   clearScreen() {
-    setNewsTitleWidget(widget.newsPost);
-    setState(() {});
+    setState(() {
+      Alerts().confirm(
+          "Bạn có muốn xoá những gì vừa nhập không?", 'Đồng ý', 'Hủy', () {
+        setNewsTitleWidget(widget.newsPost);
+        setState(() {});
+        Get.back();
+      }, () => Get.back(), context);
+    });
   }
 
   checkValidate() {
