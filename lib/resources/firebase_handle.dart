@@ -261,8 +261,11 @@ class FirebaseHandler {
   // Get List Titles News from colection(tiltes) from FireStore
   static Future<List<Titles>> getListNewsTitle(String newsId) async {
     List<Titles> titleList = [];
-    QuerySnapshot titleQuerySnapshot =
-        await newsFR.doc(newsId).collection("titles").get();
+    QuerySnapshot titleQuerySnapshot = await newsFR
+        .doc(newsId)
+        .collection("titles")
+        .orderBy("title", descending: false)
+        .get();
 
     if (titleQuerySnapshot.size > 0) {
       titleList = Titles.dataListFromSnapshot(titleQuerySnapshot);
@@ -287,6 +290,8 @@ class FirebaseHandler {
 
   // Update News to FireStore
   static Future<void> updateNew(News news) async {
+    await deleteNewsTitles(news.id!);
+
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
@@ -304,41 +309,23 @@ class FirebaseHandler {
         await uploadNewsImage(news.image!, news.id!);
       }
       for (Titles element in news.listTitle!) {
-        element.id!.isEmpty
-            ? await newsFR
-                .doc(news.id!)
-                .collection("titles")
-                .add({'title': element.title, 'content': element.content}).then(
-                    (fTitle) async {
-                if (element.image!.isNotEmpty) {
-                  await uploadNewsTitleImage(
-                      element.image!, news.id!, fTitle.id);
-                }
-              }).catchError((error) =>
-                    print("Failed to update news title without Image: $error"))
-            : await newsFR
-                .doc(news.id!)
-                .collection("titles")
-                .doc(element.id)
-                .update({
-                'title': element.title,
-                'content': element.content,
-                'image': element.image!.contains("http") ? element.image : ""
-              }).then((result) async {
-                if (!element.image!.contains("http") &&
-                    element.image!.isNotEmpty) {
-                  await uploadNewsTitleImage(
-                      element.image!, news.id!, element.id!);
-                }
-              }).catchError((error) =>
-                    print("Failed to update news title add Image: $error"));
+        await newsFR.doc(news.id!).collection("titles").add({
+          'title': element.title,
+          'content': element.content,
+          'image': element.image!.contains("http") ? element.image : ""
+        }).then((fTitle) async {
+          if (!element.image!.contains("http") && element.image!.isNotEmpty) {
+            await uploadNewsTitleImage(element.image!, news.id!, fTitle.id);
+          }
+        }).catchError((error) =>
+            print("Failed to update news title without Image: $error"));
       }
     }).catchError((error) => print("Failed to update news: $error"));
   }
 
   // Delete News from FireStore include colection(tiltes)
   static Future<void> deleteNews(id) {
-    CollectionReference tiltesRef = newsFR.doc(id).collection("tiltes");
+    CollectionReference tiltesRef = newsFR.doc(id).collection("titles");
     Future<QuerySnapshot> tiltes = tiltesRef.get();
     return tiltes
         .then((value) => value.docs.forEach((element) {
@@ -351,6 +338,16 @@ class FirebaseHandler {
                 }
               });
             }).catchError((error) => print('Failed to Delete news: $error')));
+  }
+
+  // Delete News from FireStore include colection(tiltes)
+  static Future<void> deleteNewsTitles(id) {
+    CollectionReference tiltesRef = newsFR.doc(id).collection("titles");
+    Future<QuerySnapshot> tiltes = tiltesRef.get();
+    return tiltes.then((value) => value.docs.forEach((element) {
+          tiltesRef.doc(element.id).delete();
+        }))
+      ..catchError((error) => print('Failed to Delete news titles: $error'));
   }
 
   // END NEWS
@@ -473,6 +470,8 @@ class FirebaseHandler {
 
   // Update Jobs to FireStore
   static Future<void> updateJobs(Jobs jobs) async {
+    await deleteJobsTitle(jobs.id);
+
     UserData user = await getCurrentUser();
     DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
@@ -490,41 +489,23 @@ class FirebaseHandler {
         await uploadJobsImage(jobs.image!, jobs.id!);
       }
       for (Titles element in jobs.listTitle!) {
-        element.id!.isEmpty
-            ? await jobsFR
-                .doc(jobs.id!)
-                .collection("titles")
-                .add({'title': element.title, 'content': element.content}).then(
-                    (fTitle) async {
-                if (element.image!.isNotEmpty) {
-                  await uploadJobsTitleImage(
-                      element.image!, jobs.id!, fTitle.id);
-                }
-              }).catchError((error) =>
-                    print("Failed to update jobs title without Image: $error"))
-            : await jobsFR
-                .doc(jobs.id!)
-                .collection("titles")
-                .doc(element.id)
-                .update({
-                'title': element.title,
-                'content': element.content,
-                'image': element.image!.contains("http") ? element.image : ""
-              }).then((result) async {
-                if (!element.image!.contains("http") &&
-                    element.image!.isNotEmpty) {
-                  await uploadJobsTitleImage(
-                      element.image!, jobs.id!, element.id!);
-                }
-              }).catchError((error) =>
-                    print("Failed to update jobs title add Image: $error"));
+        await jobsFR.doc(jobs.id!).collection("titles").add({
+          'title': element.title,
+          'content': element.content,
+          'image': element.image!.contains("http") ? element.image : ""
+        }).then((result) async {
+          if (!element.image!.contains("http") && element.image!.isNotEmpty) {
+            await uploadJobsTitleImage(element.image!, jobs.id!, element.id!);
+          }
+        }).catchError(
+            (error) => print("Failed to update jobs title add Image: $error"));
       }
     }).catchError((error) => print("Failed to update jobs: $error"));
   }
 
   // Delete Jobs from FireStore include colection(tiltes)
   static Future<void> deleteJobs(id) {
-    CollectionReference tiltesRef = jobsFR.doc(id).collection("tiltes");
+    CollectionReference tiltesRef = jobsFR.doc(id).collection("titles");
     Future<QuerySnapshot> tiltes = tiltesRef.get();
     return tiltes
         .then((value) => value.docs.forEach((element) {
@@ -537,6 +518,17 @@ class FirebaseHandler {
                 }
               });
             }).catchError((error) => print('Failed to Delete jobs: $error')));
+  }
+
+  // Delete Jobs from FireStore include colection(tiltes)
+  static Future<void> deleteJobsTitle(id) {
+    CollectionReference tiltesRef = jobsFR.doc(id).collection("titles");
+    Future<QuerySnapshot> tiltes = tiltesRef.get();
+    return tiltes
+        .then((value) => value.docs.forEach((element) {
+              tiltesRef.doc(element.id).delete();
+            }))
+        .catchError((error) => print('Failed to Delete Titles jobs: $error'));
   }
 
   // Get Jobs by ID from FireStore
@@ -555,8 +547,11 @@ class FirebaseHandler {
   // Get List Titles Jobs from colection(tiltes) from FireStore
   static Future<List<Titles>> getListJobsTitle(String jobsId) async {
     List<Titles> titleList = [];
-    QuerySnapshot titleQuerySnapshot =
-        await jobsFR.doc(jobsId).collection("titles").get();
+    QuerySnapshot titleQuerySnapshot = await jobsFR
+        .doc(jobsId)
+        .collection("titles")
+        .orderBy("title", descending: false)
+        .get();
 
     if (titleQuerySnapshot.size > 0) {
       titleList = Titles.dataListFromSnapshot(titleQuerySnapshot);
@@ -652,6 +647,7 @@ class FirebaseHandler {
       'question': question,
       'image': "",
       'numAnswer': 0,
+      'numFavorite': 0,
       'time': myTimeStamp
     }).then((value) async {
       if (filePath != "") {

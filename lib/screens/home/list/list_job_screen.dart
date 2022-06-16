@@ -18,7 +18,7 @@ class ListJobScreen extends StatefulWidget {
 
 class _ListJobScreenState extends State<ListJobScreen> {
   bool descending = true;
-  final String TITLE_JOBS = "Danh sách nghề ";
+  final String TITLE_JOBS = "Danh sách bài đăng";
 
   @override
   Widget build(BuildContext context) {

@@ -19,7 +19,7 @@ class JobsManageScreen extends StatefulWidget {
 class _JobsManageScreenState extends State<JobsManageScreen> {
   bool descending = true;
   String search = "";
-  String TITLE_JOBS = "Quản lý nghề nghiệp";
+  String TITLE_JOBS = "Quản lý bài đăng";
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _JobsManageScreenState extends State<JobsManageScreen> {
         elevation: 0,
         title: Padding(
           padding: EdgeInsets.only(
-              top: 4.0, left: TITLE_JOBS.length.toDouble() * 0.4),
+              top: 4.0, left: TITLE_JOBS.length.toDouble() * 1.5),
           child: Text(TITLE_JOBS.capitalize!,
               style: kDefaultTextStyle.copyWith(
                   fontSize: 24, color: Color.fromARGB(255, 142, 142, 142))),

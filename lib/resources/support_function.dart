@@ -19,9 +19,9 @@ String readTimestamp(Timestamp timestamp) {
 
 String readTimestampForChat(Timestamp timestamp) {
   initializeDateFormatting();
-  DateFormat dateFormat = new DateFormat.MMMEd('vi');
-  DateFormat weekDayFormat = new DateFormat.E('vi');
-  DateFormat timeFormat = new DateFormat.Hm('vi');
+  DateFormat dateFormat = DateFormat.MMMEd('vi');
+  DateFormat weekDayFormat = DateFormat.E('vi');
+  DateFormat timeFormat = DateFormat.Hm('vi');
 
   DateTime myDateTime = DateTime.parse(timestamp.toDate().toString());
   DateTime now = DateTime.now();
@@ -29,7 +29,6 @@ String readTimestampForChat(Timestamp timestamp) {
   int dayDiff = daysBetween(myDateTime, now);
 
   String formattedTime = timeFormat.format(myDateTime);
-  String today = dateFormat.format(now);
   String formattedDate = dayDiff > 6
       ? dateFormat.format(myDateTime)
       : weekDayFormat.format(myDateTime);

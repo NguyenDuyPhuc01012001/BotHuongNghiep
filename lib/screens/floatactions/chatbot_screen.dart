@@ -11,9 +11,7 @@ import 'package:huong_nghiep/screens/other/error_screen.dart';
 import 'package:huong_nghiep/utils/colors.dart';
 import 'package:huong_nghiep/utils/constants.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import '../../utils/styles.dart';
-import 'dart:io';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({Key? key}) : super(key: key);
@@ -300,7 +298,6 @@ class Body extends StatelessWidget {
               vertical: 20,
             ),
           );
-          ;
         });
   }
 }
@@ -414,7 +411,7 @@ class _MessageButtonState extends State<MessageButton> {
               ),
               padding: const EdgeInsets.all(10),
               child: Text(
-                "${widget.message}",
+                widget.message,
                 style: const TextStyle(
                   color: Colors.black,
                 ),

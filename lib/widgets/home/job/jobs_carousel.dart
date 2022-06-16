@@ -92,7 +92,7 @@ class _JobsCarouselState extends State<JobsCarousel> {
                                     height: 200,
                                     width: MediaQuery.of(context).size.width,
                                     imageUrl: jobs.image!,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fitWidth,
                                     placeholder: (context, _) =>
                                         SpinKitChasingDots(
                                             color: Colors.brown, size: 32),
